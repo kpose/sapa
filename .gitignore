@@ -62,5 +62,3 @@ buck-out/
 #ios
 /ios
 /android
-
-/src/App.tsx
