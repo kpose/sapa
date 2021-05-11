@@ -5,4 +5,4 @@ import {
 } from './responsive';
 import * as colors from './colors';
 
-export default {sizes, wp, hp, colors};
+export {sizes, wp, hp, colors};

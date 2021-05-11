@@ -20,7 +20,8 @@
     "react-native-paper": "^4.8.1",
     "react-native-responsive-fontsize": "^0.5.0",
     "react-native-status-bar-height": "^2.6.0",
-    "react-native-vector-icons": "^8.1.0"
+    "react-native-vector-icons": "^8.1.0",
+    "react-native-video": "^5.1.1"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",

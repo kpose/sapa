@@ -7,6 +7,8 @@ import {
 } from 'react-native-paper';
 import {Text} from 'react-native-paper';
 
+import {Welcome} from './screens';
+
 const theme = {
   ...DefaultTheme,
   roundness: 2,
@@ -19,9 +21,9 @@ const theme = {
 
 const App = () => {
   return (
-    <PaperProvider theme={theme}>
+    <PaperProvider theme={DarkTheme}>
       <View style={styles.container}>
-        <Text>home?</Text>
+        <Welcome />
       </View>
     </PaperProvider>
   );
@@ -32,7 +34,5 @@ export default App;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
   },
 });
