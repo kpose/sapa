@@ -1,18 +1,27 @@
 import React, {useState} from 'react';
-import {View, StatusBar, TouchableOpacity} from 'react-native';
-import {Text, Button} from 'react-native-paper';
+import {View, StatusBar, TouchableOpacity, Text} from 'react-native';
 import styles from './styles';
 import Video from 'react-native-video';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
 //utils and files
-import {fonts} from '../../utils/fonts';
-import {LargeButton} from '../../components';
+import {Started, StartedCurrency} from '../../components';
 import {colors, sizes} from '../../utils';
 
 const welcome = () => {
   const [blur, setBlur] = useState(true);
+  const [startCurrency, setStartCurrency] = useState(false);
+  const [started, setStarted] = useState(true);
+
+  const openCurrency = () => {
+    setStarted(false);
+    setStartCurrency(true);
+  };
+  const closeCurrency = () => {
+    setStartCurrency(false);
+    setStarted(true);
+  };
+
   return (
     <>
       <StatusBar hidden={true} />
@@ -23,37 +32,20 @@ const welcome = () => {
           muted={true}
           repeat={true}
           resizeMode={'cover'}
+          //paused={true}
           rate={1.0}
           ignoreSilentSwitch={'obey'}
         />
-        {blur && (
-          <View style={styles.captionContainer}>
-            <Text style={[styles.caption, fonts.bodyText]}>
-              Keep track of your expenses for FREE.
-            </Text>
-            <FontAwesome
-              name="hand-peace-o"
-              size={sizes.navigationIconSize}
-              style={styles.wave}
-            />
-          </View>
+
+        {blur && started && (
+          <Started onStartedPress={openCurrency} onLoginPress={() => {}} />
         )}
 
-        {blur && (
-          <View style={styles.buttonContainer}>
-            <LargeButton />
-          </View>
-        )}
-
-        {blur && (
-          <View style={styles.loginContainer}>
-            <Text style={[sizes.fonts.caption, styles.idtext]}>
-              Have a user ID?
-            </Text>
-            <TouchableOpacity>
-              <Text style={[sizes.fonts.caption]}>Log In</Text>
-            </TouchableOpacity>
-          </View>
+        {blur && startCurrency && (
+          <StartedCurrency
+            onBackPress={closeCurrency}
+            onButtonPress={() => console.log('L')}
+          />
         )}
 
         {blur ? (

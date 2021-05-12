@@ -16,26 +16,6 @@ const styles = StyleSheet.create({
     bottom: 0,
     right: 0,
   },
-  captionContainer: {
-    marginTop: heightPercentageToDP(40),
-    alignItems: 'center',
-  },
-  caption: {
-    alignSelf: 'center',
-    fontWeight: 'bold',
-  },
-  buttonContainer: {
-    marginTop: heightPercentageToDP(34),
-  },
-  loginContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginTop: hp(1.5),
-  },
-  idtext: {
-    marginRight: wp(2),
-  },
 
   iconContainer: {
     position: 'absolute',
@@ -45,8 +25,12 @@ const styles = StyleSheet.create({
   icon: {
     color: 'white',
   },
-  wave: {
-    color: colors.PRIMARY,
+
+  text: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: hp(50),
+    backgroundColor: 'red',
   },
 });
 

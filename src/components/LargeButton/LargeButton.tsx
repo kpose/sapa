@@ -4,14 +4,20 @@ import styles from './styles';
 import {Text, Button} from 'react-native-paper';
 import {sizes} from '../../utils';
 
-const LargeButton = () => {
+type ButtonProps = {
+  title: string;
+  onPress: any;
+};
+
+const LargeButton = (props: ButtonProps) => {
   return (
     <Button
+      onPress={props.onPress}
       mode="contained"
       style={styles.button}
       dark={true}
       labelStyle={[sizes.fonts.buttonText]}>
-      Get Started
+      {props.title}
     </Button>
   );
 };

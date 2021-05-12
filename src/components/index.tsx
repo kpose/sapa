@@ -1,3 +1,5 @@
 import LargeButton from './LargeButton/LargeButton';
+import Started from './Started/Started';
+import StartedCurrency from './StartedCurrency/StartedCurrency';
 
-export {LargeButton};
+export {LargeButton, Started, StartedCurrency};
