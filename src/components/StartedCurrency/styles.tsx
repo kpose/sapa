@@ -14,12 +14,17 @@ const styles = StyleSheet.create({
   },
   caption: {
     fontWeight: 'bold',
+    alignItems: 'center',
   },
 
   currencyContainer: {
     flexDirection: 'row',
-    marginTop: hp(3),
     alignItems: 'center',
+  },
+  contain: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginTop: hp(1),
   },
   currency: {
     marginLeft: wp(2),
@@ -50,7 +55,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.WHITE,
   },
   rightIcon: {
-    marginLeft: wp(45),
+    marginRight: wp(6),
     color: colors.WHITE,
   },
 });

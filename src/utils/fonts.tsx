@@ -48,6 +48,10 @@ export const fonts = StyleSheet.create({
     fontSize: RFValue(18, height),
     letterSpacing: -0.08,
   },
+  smalerCaption: {
+    fontSize: RFValue(14, height),
+    letterSpacing: -0.08,
+  },
   buttonText: {
     fontSize: RFValue(17, height),
     fontWeight: 'bold',

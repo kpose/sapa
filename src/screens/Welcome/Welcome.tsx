@@ -32,7 +32,7 @@ const welcome = () => {
           muted={true}
           repeat={true}
           resizeMode={'cover'}
-          //paused={true}
+          paused={true}
           rate={1.0}
           ignoreSilentSwitch={'obey'}
         />

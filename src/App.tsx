@@ -9,19 +9,30 @@ import {Text} from 'react-native-paper';
 
 import {Welcome} from './screens';
 
-const theme = {
+const lighttheme = {
   ...DefaultTheme,
   roundness: 2,
   colors: {
     ...DefaultTheme.colors,
-    primary: '#3498db',
+    primary: '#2A9D8F',
+    accent: '#f1c40f',
+  },
+};
+
+const darktheme = {
+  ...DarkTheme,
+  roundness: 2,
+  colors: {
+    ...DarkTheme.colors,
+    surface: '#000',
+    primary: '#2A9D8F',
     accent: '#f1c40f',
   },
 };
 
 const App = () => {
   return (
-    <PaperProvider theme={DarkTheme}>
+    <PaperProvider theme={darktheme}>
       <View style={styles.container}>
         <Welcome />
       </View>

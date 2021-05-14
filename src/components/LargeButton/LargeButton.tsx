@@ -7,6 +7,7 @@ import {sizes} from '../../utils';
 type ButtonProps = {
   title: string;
   onPress: any;
+  disabled?: boolean;
 };
 
 const LargeButton = (props: ButtonProps) => {
@@ -14,6 +15,7 @@ const LargeButton = (props: ButtonProps) => {
     <Button
       onPress={props.onPress}
       mode="contained"
+      disabled={props.disabled}
       style={styles.button}
       dark={true}
       labelStyle={[sizes.fonts.buttonText]}>
