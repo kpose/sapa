@@ -7,8 +7,11 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 
 //UTILS AND FILES
 import LargeButton from '../LargeButton/LargeButton';
-import CurrencyPicker from '../CurrencyPicker/CurrencyPicker';
+import {CurrencyPicker} from '../../modals';
+//import CurrencyPicker from '../CurrencyPicker/CurrencyPicker';
 import {colors, sizes} from '../../utils';
+
+import {useDispatch, useSelector} from 'react-redux';
 
 type startedProps = {
   onButtonPress: any;
@@ -17,6 +20,7 @@ type startedProps = {
 
 const StartedCurrency = (props: startedProps) => {
   const [showPicker, setShowPicker] = useState(false);
+  const {currency} = useSelector(state => state.userData);
 
   return (
     <View>
@@ -35,7 +39,9 @@ const StartedCurrency = (props: startedProps) => {
                 size={sizes.regularIconSize}
                 style={{color: colors.WHITE}}
               />
-              <Text style={[sizes.fonts.caption, styles.currency]}>Naira</Text>
+              <Text style={[sizes.fonts.caption, styles.currency]}>
+                {currency}
+              </Text>
             </View>
 
             <AntDesign

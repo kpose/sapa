@@ -5,7 +5,8 @@ import {
   DarkTheme,
   DefaultTheme,
 } from 'react-native-paper';
-import {Text} from 'react-native-paper';
+import {Provider as ReduxProvider} from 'react-redux';
+import {store} from './redux/store';
 
 import {Welcome} from './screens';
 
@@ -33,9 +34,11 @@ const darktheme = {
 const App = () => {
   return (
     <PaperProvider theme={darktheme}>
-      <View style={styles.container}>
-        <Welcome />
-      </View>
+      <ReduxProvider store={store}>
+        <View style={styles.container}>
+          <Welcome />
+        </View>
+      </ReduxProvider>
     </PaperProvider>
   );
 };
