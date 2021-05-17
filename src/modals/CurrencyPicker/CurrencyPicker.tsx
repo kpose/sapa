@@ -38,6 +38,7 @@ const CurrencyPicker = (props: currencyProps) => {
         dispatch(setCurrency(info.name));
         props.onClose();
       };
+
       return (
         <>
           <TouchableOpacity onPress={handlePress}>

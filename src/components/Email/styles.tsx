@@ -1,5 +1,6 @@
 import {StyleSheet, Dimensions} from 'react-native';
 import {colors, hp, wp} from '../../utils';
+import {heightPercentageToDP} from '../../utils/responsive';
 const {height} = Dimensions.get('window');
 
 const styles = StyleSheet.create({
@@ -8,12 +9,8 @@ const styles = StyleSheet.create({
   },
 
   captionContainer: {
-    marginTop: hp(39),
+    marginTop: heightPercentageToDP(39),
     marginLeft: wp(10),
-  },
-  caption: {
-    fontWeight: 'bold',
-    alignItems: 'center',
   },
 
   name: {
@@ -23,8 +20,17 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
 
+  caption: {
+    fontWeight: 'bold',
+    alignItems: 'center',
+  },
+
+  idtext: {
+    marginRight: wp(2),
+  },
+
   buttonContainer: {
-    marginTop: hp(18),
+    marginTop: heightPercentageToDP(25),
     marginLeft: wp(-10),
   },
   loginContainer: {
@@ -32,9 +38,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     marginTop: hp(1.5),
-  },
-  idtext: {
-    marginRight: wp(2),
   },
 });
 

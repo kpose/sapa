@@ -12,6 +12,7 @@ import {CurrencyPicker} from '../../modals';
 import {colors, sizes} from '../../utils';
 
 import {useDispatch, useSelector} from 'react-redux';
+import {RootState} from '../../redux/store';
 
 type startedProps = {
   onButtonPress: any;
@@ -20,7 +21,7 @@ type startedProps = {
 
 const StartedCurrency = (props: startedProps) => {
   const [showPicker, setShowPicker] = useState(false);
-  const {currency} = useSelector(state => state.userData);
+  const {currency} = useSelector((state: RootState) => state.userData);
 
   return (
     <View>

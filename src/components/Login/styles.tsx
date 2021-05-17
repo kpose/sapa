@@ -20,7 +20,6 @@ const styles = StyleSheet.create({
     marginTop: hp(2),
     width: wp(85),
     backgroundColor: 'transparent',
-    fontWeight: 'bold',
   },
 
   buttonContainer: {
