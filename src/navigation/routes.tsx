@@ -10,7 +10,7 @@ const Stack = createStackNavigator<RouteStackParams>();
 function Routes() {
   return (
     <Stack.Navigator screenOptions={{headerShown: false}}>
-      <Stack.Screen name="Welcome" component={Welcome} />
+      {/* <Stack.Screen name="Welcome" component={Welcome} /> */}
       <Stack.Screen name="Home" component={Home} />
     </Stack.Navigator>
   );

@@ -5,7 +5,7 @@ import {Provider as ReduxProvider} from 'react-redux';
 
 import {NavigationContainer} from '@react-navigation/native';
 import {Provider as PaperProvider} from 'react-native-paper';
-import {CombinedDarkTheme} from './utils/Theme';
+import {CombinedDarkTheme, CombinedLightTheme} from './utils/Theme';
 
 const App = () => {
   return (

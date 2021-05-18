@@ -15,7 +15,7 @@ const CombinedLightTheme = {
     ...NavigationLightTheme.colors,
     ...PaperLightTheme.colors,
     primary: '#2A9D8F',
-    accent: '#f1c40f',
+    accent: '#E76F51',
   },
 };
 
@@ -23,12 +23,13 @@ const CombinedDarkTheme = {
   ...NavigationDarkTheme,
   ...PaperDarkTheme,
   roundness: 2,
+  //mode: 'adaptive',
   colors: {
     ...PaperDarkTheme.colors,
     ...NavigationDarkTheme.colors,
     surface: '#000',
     primary: '#2A9D8F',
-    accent: '#f1c40f',
+    accent: '#E76F51',
   },
 };
 

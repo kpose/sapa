@@ -4,12 +4,17 @@ import styles from './styles';
 import {Text} from 'react-native-paper';
 import {RouteStackProps} from '../../definitions/navigationTypes';
 
+/* utils and files */
+import {HomeHeader, HomeWallet} from '../../components';
+
 const Home = ({navigation}: RouteStackProps) => {
   return (
-    <View style={styles.container}>
-      <TouchableOpacity onPress={() => navigation.navigate('Welcome')}>
-        <Text>Home</Text>
-      </TouchableOpacity>
+    <View style={{flex: 1}}>
+      <View style={styles.container}>
+        <HomeHeader />
+      </View>
+
+      <HomeWallet />
     </View>
   );
 };

@@ -5,3 +5,4 @@ export const WHITE = 'rgb(255,255,255)';
 export const SEMI_TRANSPARENT = 'rgba(0,0,0,0.5)';
 
 export const PRIMARY = '#2A9D8F';
+export const SECONDARY = '#E76F51';

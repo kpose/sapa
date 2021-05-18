@@ -5,6 +5,9 @@ import CurrencyPicker from './CurrencyPicker/CurrencyPicker';
 import FirstName from './FirstName/FirstName';
 import Login from './Login/Login';
 import Email from './Email/Email';
+import HomeHeader from './HomeHeader/HomeHeader';
+import HomeWallet from './HomeWallet/HomeWallet';
+import WalletCard from './WalletCard/WalletCard';
 
 export {
   LargeButton,
@@ -14,4 +17,7 @@ export {
   FirstName,
   Login,
   Email,
+  HomeHeader,
+  HomeWallet,
+  WalletCard,
 };
