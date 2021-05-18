@@ -13,6 +13,7 @@ import {colors, sizes} from '../../utils';
 
 import {useDispatch, useSelector} from 'react-redux';
 import {RootState} from '../../redux/store';
+import {setEmail} from '../../redux/userReducer';
 
 type startedProps = {
   onButtonPress(): any;
@@ -27,6 +28,7 @@ const vaidation = yup.object().shape({
 });
 
 const StartedCurrency = (props: startedProps) => {
+  const dispatch = useDispatch();
   return (
     <View>
       <View style={[styles.captionContainer]}>
@@ -37,7 +39,10 @@ const StartedCurrency = (props: startedProps) => {
         <Formik
           validationSchema={vaidation}
           initialValues={{email: ''}}
-          onSubmit={props.onButtonPress}>
+          onSubmit={values => {
+            dispatch(setEmail(values.email));
+            props.onButtonPress();
+          }}>
           {({handleChange, handleBlur, handleSubmit, errors}) => (
             <>
               <TextInput

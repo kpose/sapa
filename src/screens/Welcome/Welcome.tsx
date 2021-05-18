@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {View, StatusBar, TouchableOpacity, Text} from 'react-native';
+import {View, StatusBar, TouchableOpacity} from 'react-native';
 import styles from './styles';
 import Video from 'react-native-video';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -12,9 +12,10 @@ import {
   Login,
   Email,
 } from '../../components';
-import {colors, sizes} from '../../utils';
+import {sizes} from '../../utils';
+import {RouteStackProps} from '../../definitions/navigationTypes';
 
-const welcome = () => {
+const welcome = ({navigation}: RouteStackProps) => {
   const [blur, setBlur] = useState(true);
   const [startCurrency, setStartCurrency] = useState(false);
   const [started, setStarted] = useState(true);
@@ -70,7 +71,6 @@ const welcome = () => {
           muted={true}
           repeat={true}
           resizeMode={'cover'}
-          paused={true}
           rate={1.0}
           ignoreSilentSwitch={'obey'}
         />
@@ -91,7 +91,10 @@ const welcome = () => {
         )}
         {blur && login && <Login onBackPress={closeLogin} />}
         {blur && email && (
-          <Email onBackPress={closeEmail} onButtonPress={() => {}} />
+          <Email
+            onBackPress={closeEmail}
+            onButtonPress={() => navigation.navigate('Home')}
+          />
         )}
 
         {blur ? (

@@ -1,52 +1,22 @@
 import React from 'react';
-import {View, StyleSheet} from 'react-native';
-import {
-  Provider as PaperProvider,
-  DarkTheme,
-  DefaultTheme,
-} from 'react-native-paper';
-import {Provider as ReduxProvider} from 'react-redux';
 import {store} from './redux/store';
+import Routes from './navigation/routes';
+import {Provider as ReduxProvider} from 'react-redux';
 
-import {Welcome} from './screens';
-
-const lighttheme = {
-  ...DefaultTheme,
-  roundness: 2,
-  colors: {
-    ...DefaultTheme.colors,
-    primary: '#2A9D8F',
-    accent: '#f1c40f',
-  },
-};
-
-const darktheme = {
-  ...DarkTheme,
-  roundness: 2,
-  colors: {
-    ...DarkTheme.colors,
-    surface: '#000',
-    primary: '#2A9D8F',
-    accent: '#f1c40f',
-  },
-};
+import {NavigationContainer} from '@react-navigation/native';
+import {Provider as PaperProvider} from 'react-native-paper';
+import {CombinedDarkTheme} from './utils/Theme';
 
 const App = () => {
   return (
-    <PaperProvider theme={darktheme}>
+    <PaperProvider theme={CombinedDarkTheme}>
       <ReduxProvider store={store}>
-        <View style={styles.container}>
-          <Welcome />
-        </View>
+        <NavigationContainer theme={CombinedDarkTheme}>
+          <Routes />
+        </NavigationContainer>
       </ReduxProvider>
     </PaperProvider>
   );
 };
 
 export default App;
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-});

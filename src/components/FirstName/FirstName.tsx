@@ -13,7 +13,7 @@ import {Formik} from 'formik';
 import LargeButton from '../LargeButton/LargeButton';
 import {sizes} from '../../utils';
 import {useDispatch} from 'react-redux';
-import {setFirstName} from '../../redux/userReducer';
+import {setFirstName, setLastName} from '../../redux/userReducer';
 import styles from './styles';
 
 type Props = {
@@ -28,13 +28,12 @@ const vaidation = yup.object().shape({
 });
 
 const FirstName = (props: Props) => {
-  const [first, setFirst] = useState<string>('');
   const dispatch = useDispatch();
 
-  const handlePress = () => {
+  /* const handlePress = () => {
     dispatch(setFirstName(first));
     props.onButtonPress();
-  };
+  }; */
 
   return (
     <KeyboardAvoidingView behavior="padding">
@@ -45,8 +44,12 @@ const FirstName = (props: Props) => {
 
         <Formik
           validationSchema={vaidation}
-          initialValues={{firstname: ''}}
-          onSubmit={handlePress}>
+          initialValues={{firstname: '', lastname: ''}}
+          onSubmit={values => {
+            dispatch(setFirstName(values.firstname));
+            dispatch(setLastName(values.lastname));
+            props.onButtonPress();
+          }}>
           {({handleChange, handleBlur, handleSubmit, values, errors}) => (
             <>
               <TextInput
@@ -56,7 +59,7 @@ const FirstName = (props: Props) => {
                 autoCompleteType="off"
                 autoCorrect={false}
                 clearButtonMode="while-editing"
-                onSubmitEditing={handlePress}
+                //onSubmitEditing={handlePress}
                 value={values.firstname}
               />
               {errors.firstname && (
@@ -68,7 +71,14 @@ const FirstName = (props: Props) => {
                 </HelperText>
               )}
 
-              <TextInput style={styles.name} label="Last Name (Optional)" />
+              <TextInput
+                style={styles.name}
+                label="Last Name (Optional)"
+                onChangeText={handleChange('lastname')}
+                autoCompleteType="off"
+                autoCorrect={false}
+                value={values.lastname}
+              />
 
               <View style={styles.buttonContainer}>
                 <LargeButton title="Next" onPress={handleSubmit} />
