@@ -8,6 +8,8 @@ import Email from './Email/Email';
 import HomeHeader from './HomeHeader/HomeHeader';
 import HomeWallet from './HomeWallet/HomeWallet';
 import WalletCard from './WalletCard/WalletCard';
+import WavyHeader from './WavyHeader/WavyHeader';
+import TabHeader from './TabHeader/TabHeader';
 
 export {
   LargeButton,
@@ -20,4 +22,6 @@ export {
   HomeHeader,
   HomeWallet,
   WalletCard,
+  WavyHeader,
+  TabHeader,
 };

@@ -8,7 +8,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     left: 0,
     right: 0,
-    top: hp(19),
+    //top: hp(4.3),
     marginLeft: wp(5),
     marginRight: wp(5),
   },

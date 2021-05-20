@@ -49,7 +49,7 @@ export const fonts = StyleSheet.create({
     letterSpacing: -0.08,
   },
   smallerCaption: {
-    fontSize: RFValue(14, height),
+    fontSize: RFValue(13, height),
     letterSpacing: -0.08,
   },
   buttonText: {

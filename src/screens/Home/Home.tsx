@@ -10,13 +10,15 @@ import {HomeHeader, HomeWallet} from '../../components';
 const Home = ({navigation}: RouteStackProps) => {
   return (
     <View style={{flex: 1}}>
-      <View style={styles.container}>
-        <HomeHeader />
-      </View>
-
       <HomeWallet />
     </View>
   );
 };
 
 export default Home;
+
+{
+  /* <View style={styles.container}>
+        <HomeHeader />
+      </View> */
+}
