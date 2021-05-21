@@ -32,7 +32,9 @@ const WalletCard = () => {
             </View>
           </View>
 
-          <TouchableOpacity style={styles.button}>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => navigation.navigate('AddToWallet')}>
             <Icon
               name="plus"
               size={sizes.navigationIconSize}

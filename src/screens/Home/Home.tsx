@@ -16,9 +16,3 @@ const Home = ({navigation}: RouteStackProps) => {
 };
 
 export default Home;
-
-{
-  /* <View style={styles.container}>
-        <HomeHeader />
-      </View> */
-}

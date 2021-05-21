@@ -12,6 +12,8 @@ import WavyHeader from './WavyHeader/WavyHeader';
 import TabHeader from './TabHeader/TabHeader';
 import Calender from './Calender/Calender';
 import WalletInfo from './WalletInfo/WalletInfo';
+import AddToWalletHeader from './AddToWalletHeader/AddToWalletHeader';
+import AddToWalletBody from './AddToWalletBody/AddToWalletBody';
 
 export {
   LargeButton,
@@ -28,4 +30,6 @@ export {
   TabHeader,
   Calender,
   WalletInfo,
+  AddToWalletHeader,
+  AddToWalletBody,
 };

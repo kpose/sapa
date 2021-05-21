@@ -8,10 +8,11 @@ import {Text, Surface} from 'react-native-paper';
 import {fonts} from '../../utils/fonts';
 
 type Props = {
-  onBackPress: any;
+  onBackPress: () => void;
+  onPlusPress: () => void;
 };
 
-const TabHeader = (props: Props) => {
+const TabHeader = ({onBackPress, onPlusPress}: Props) => {
   return (
     <View>
       <Wave
@@ -23,7 +24,7 @@ const TabHeader = (props: Props) => {
       />
       <View style={[styles.titleContainer]}>
         <View style={styles.navigate}>
-          <TouchableOpacity onPress={() => props.onBackPress()}>
+          <TouchableOpacity onPress={onBackPress}>
             <MaterialIcons
               name="arrow-back-ios"
               size={sizes.regularIconSize}
@@ -61,7 +62,7 @@ const TabHeader = (props: Props) => {
           </View>
         </View>
 
-        <TouchableOpacity style={styles.button}>
+        <TouchableOpacity style={styles.button} onPress={onPlusPress}>
           <Icon
             name="plus"
             size={sizes.navigationIconSize}

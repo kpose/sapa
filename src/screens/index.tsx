@@ -5,6 +5,7 @@ import WalletBudget from './WalletBudget/WalletBudget';
 import WalletDetails from './WalletDetails/WalletDetails';
 import WalletCalender from './WalletCalender/WalletCalender';
 import WalletChart from './WalletChart/WalletChart';
+import AddToWallet from './AddToWallet/AddToWallet';
 
 export {
   Welcome,
@@ -14,4 +15,5 @@ export {
   WalletDetails,
   WalletChart,
   WalletCalender,
+  AddToWallet,
 };

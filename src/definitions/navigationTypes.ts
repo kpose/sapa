@@ -5,7 +5,8 @@ import {RouteProp} from '@react-navigation/native'
 /* Define Params */
 export type RouteStackParams = {
     Home: undefined;
-    Welcome: undefined
+    BottomTabs: undefined;
+    AddToWallet: undefined
 };
 
 //bottom tab params
@@ -13,8 +14,8 @@ export type HomeTabParams = {
     WalletDetails: undefined;
     WalletBudget: undefined;
      WalletCalender: undefined;
-  WalletChart: undefined;
-  WalletSettings: undefined
+    WalletChart: undefined;
+     WalletSettings: undefined
 };
 
 

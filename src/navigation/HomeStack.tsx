@@ -1,11 +1,12 @@
 import * as React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
-import {Home} from '../screens';
+import {Home, AddToWallet} from '../screens';
 import BottomTabNavigator from './BottomTabNavigator';
 import {WavyHeader, TabHeader} from '../components';
 import {hp} from '../utils';
+import {RouteStackParams} from '../definitions/navigationTypes';
 
-const Stack = createStackNavigator();
+const Stack = createStackNavigator<RouteStackParams>();
 
 function HomeStack() {
   return (
@@ -17,13 +18,23 @@ function HomeStack() {
       />
       <Stack.Screen
         options={({navigation}) => ({
-          header: () => <TabHeader onBackPress={navigation.goBack} />,
+          header: () => (
+            <TabHeader
+              onBackPress={() => navigation.goBack()}
+              onPlusPress={() => navigation.navigate('AddToWallet')}
+            />
+          ),
           headerStyle: {
             height: hp(20),
           },
         })}
         name="BottomTabs"
         component={BottomTabNavigator}
+      />
+      <Stack.Screen
+        name="AddToWallet"
+        options={{headerShown: false}}
+        component={AddToWallet}
       />
     </Stack.Navigator>
   );
