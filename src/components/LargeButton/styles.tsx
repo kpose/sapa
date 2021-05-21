@@ -15,7 +15,6 @@ const styles = StyleSheet.create({
     height: hp(6),
     alignSelf: 'center',
     borderRadius: 40,
-    backgroundColor: colors.PRIMARY,
   },
 });
 

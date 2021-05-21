@@ -8,12 +8,15 @@ type ButtonProps = {
   title: string;
   onPress: any;
   disabled?: boolean;
+  color?: string;
 };
 
 const LargeButton = (props: ButtonProps) => {
   return (
     <Button
+      uppercase={false}
       onPress={props.onPress}
+      color={props.color}
       mode="contained"
       disabled={props.disabled}
       style={styles.button}

@@ -9,9 +9,9 @@ import {CombinedDarkTheme, CombinedLightTheme} from './utils/Theme';
 
 const App = () => {
   return (
-    <PaperProvider theme={CombinedDarkTheme}>
+    <PaperProvider theme={CombinedLightTheme}>
       <ReduxProvider store={store}>
-        <NavigationContainer theme={CombinedDarkTheme}>
+        <NavigationContainer theme={CombinedLightTheme}>
           <Routes />
         </NavigationContainer>
       </ReduxProvider>

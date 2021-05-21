@@ -19,7 +19,6 @@ function WalletTabs() {
     <Tab.Navigator labeled={false} activeColor={colors.SECONDARY}>
       <Tab.Screen
         options={{
-          tabBarLabel: 'Home',
           tabBarIcon: ({color}) => <Icon name="menu" color={color} size={26} />,
         }}
         name="WalletDetails"
@@ -27,7 +26,6 @@ function WalletTabs() {
       />
       <Tab.Screen
         options={{
-          tabBarLabel: 'Home',
           tabBarIcon: ({color}) => (
             <Icon name="calendar-today" color={color} size={26} />
           ),
@@ -37,7 +35,6 @@ function WalletTabs() {
       />
       <Tab.Screen
         options={{
-          tabBarLabel: 'Home',
           tabBarIcon: ({color}) => (
             <Icon name="chart-bar-stacked" color={color} size={26} />
           ),
@@ -45,23 +42,23 @@ function WalletTabs() {
         name="WalletChart"
         component={WalletChart}
       />
+
       <Tab.Screen
         options={{
-          tabBarLabel: 'Home',
           tabBarIcon: ({color}) => <Icon name="cash" color={color} size={26} />,
         }}
-        name="WalletSettings"
-        component={WalletSettings}
+        name="WalletBudget"
+        component={WalletBudget}
       />
+
       <Tab.Screen
         options={{
-          tabBarLabel: 'Home',
           tabBarIcon: ({color}) => (
             <Icon name="cog-outline" color={color} size={26} />
           ),
         }}
-        name="WalletBudget"
-        component={WalletBudget}
+        name="WalletSettings"
+        component={WalletSettings}
       />
     </Tab.Navigator>
   );

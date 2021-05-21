@@ -10,6 +10,8 @@ import HomeWallet from './HomeWallet/HomeWallet';
 import WalletCard from './WalletCard/WalletCard';
 import WavyHeader from './WavyHeader/WavyHeader';
 import TabHeader from './TabHeader/TabHeader';
+import Calender from './Calender/Calender';
+import WalletInfo from './WalletInfo/WalletInfo';
 
 export {
   LargeButton,
@@ -24,4 +26,6 @@ export {
   WalletCard,
   WavyHeader,
   TabHeader,
+  Calender,
+  WalletInfo,
 };
