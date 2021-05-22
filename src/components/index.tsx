@@ -14,6 +14,8 @@ import Calender from './Calender/Calender';
 import WalletInfo from './WalletInfo/WalletInfo';
 import AddToWalletHeader from './AddToWalletHeader/AddToWalletHeader';
 import AddToWalletBody from './AddToWalletBody/AddToWalletBody';
+import SettingsItem from './SettingsItem/SettingsItem';
+import SettingsBottom from './SettingsBottom/SettingsBottom';
 
 export {
   LargeButton,
@@ -32,4 +34,6 @@ export {
   WalletInfo,
   AddToWalletHeader,
   AddToWalletBody,
+  SettingsItem,
+  SettingsBottom,
 };

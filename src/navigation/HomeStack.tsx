@@ -1,9 +1,10 @@
 import * as React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
-import {Home, AddToWallet} from '../screens';
+import {Home, AddToWallet, Settings} from '../screens';
 import BottomTabNavigator from './BottomTabNavigator';
 import {WavyHeader, TabHeader} from '../components';
-import {hp} from '../utils';
+import SettingsStack from './SettingsStack';
+import {colors, hp} from '../utils';
 import {RouteStackParams} from '../definitions/navigationTypes';
 
 const Stack = createStackNavigator<RouteStackParams>();
@@ -12,10 +13,17 @@ function HomeStack() {
   return (
     <Stack.Navigator headerMode="screen">
       <Stack.Screen
-        options={{header: () => <WavyHeader />}}
+        options={({navigation}) => ({
+          header: () => (
+            <WavyHeader
+              onSettingsPress={() => navigation.navigate('SettingsStack')}
+            />
+          ),
+        })}
         name="Home"
         component={Home}
       />
+
       <Stack.Screen
         options={({navigation}) => ({
           header: () => (
@@ -36,8 +44,21 @@ function HomeStack() {
         options={{headerShown: false}}
         component={AddToWallet}
       />
+      <Stack.Screen
+        name="SettingsStack"
+        options={{
+          headerShown: false,
+        }}
+        component={SettingsStack}
+      />
     </Stack.Navigator>
   );
 }
 
 export default HomeStack;
+
+/* headerStyle: {
+            backgroundColor: colors.SECONDARY,
+          },
+          headerBackTitleVisible: false,
+          headerTintColor: colors.WHITE, */

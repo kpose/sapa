@@ -44,7 +44,7 @@ const CurrencyPicker = (props: currencyProps) => {
           <TouchableOpacity onPress={handlePress}>
             <View key={info.symbol.grapheme} style={styles.picker}>
               <Text style={[sizes.fonts.caption]}>{currency}</Text>
-              <Text style={[sizes.fonts.smalerCaption, styles.name]}>
+              <Text style={[sizes.fonts.smallerCaption, styles.name]}>
                 {info.name}
               </Text>
             </View>
