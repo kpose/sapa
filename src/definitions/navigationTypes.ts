@@ -6,6 +6,7 @@ import {RouteProp} from '@react-navigation/native'
 
 //home stack params
 export type RouteStackParams = {
+    Welcome: undefined;
     Home: undefined;
     BottomTabs: undefined;
     AddToWallet: undefined;

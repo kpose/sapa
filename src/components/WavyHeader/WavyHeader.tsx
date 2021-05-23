@@ -5,12 +5,15 @@ import {colors, hp, sizes, wp} from '../../utils';
 import Wave from './Wave';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {Text, Surface, Divider} from 'react-native-paper';
+import {useSelector} from 'react-redux';
+import {RootState} from '../../redux/store';
 
 interface Props {
   onSettingsPress: () => void;
 }
 
 const WavyHeader = ({onSettingsPress}: Props) => {
+  const {symbol} = useSelector((state: RootState) => state.userData);
   return (
     <View style={styles.container}>
       <Wave
@@ -34,17 +37,23 @@ const WavyHeader = ({onSettingsPress}: Props) => {
       <Surface style={styles.surface}>
         <View style={styles.title}>
           <Text style={[sizes.fonts.smallerCaption]}>Total</Text>
-          <Text style={[sizes.fonts.smallerCaption, styles.price]}>n0</Text>
+          <Text style={[sizes.fonts.smallerCaption, styles.price]}>
+            {symbol} 0
+          </Text>
         </View>
         <Divider style={{height: hp(5), width: wp(1)}} />
         <View style={styles.title}>
           <Text style={[sizes.fonts.smallerCaption]}>Last 30 days</Text>
-          <Text style={[sizes.fonts.smallerCaption, styles.price]}>n0</Text>
+          <Text style={[sizes.fonts.smallerCaption, styles.price]}>
+            {symbol} 0
+          </Text>
         </View>
         <Divider style={{height: hp(5), width: wp(1)}} />
         <View style={styles.title}>
           <Text style={[sizes.fonts.smallerCaption]}>Last 7 days</Text>
-          <Text style={[sizes.fonts.smallerCaption, styles.price]}>n0</Text>
+          <Text style={[sizes.fonts.smallerCaption, styles.price]}>
+            {symbol} 0
+          </Text>
         </View>
       </Surface>
     </View>

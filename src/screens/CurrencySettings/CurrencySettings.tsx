@@ -1,28 +1,75 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useCallback} from 'react';
 import {View, TouchableOpacity, FlatList} from 'react-native';
 
 /* utils and files */
 import styles from './styles';
-import {Text} from 'react-native-paper';
-import {colors, sizes} from '../../utils';
+import {Text, Divider} from 'react-native-paper';
 import {useDispatch} from 'react-redux';
-import {setCurrency} from '../../redux/userReducer';
-const currencyJson = require('../../assets/currencies.json');
+import {setCurrency, setSymbol} from '../../redux/userReducer';
+import {fonts} from '../../utils/fonts';
+import {hp} from '../../utils';
+import {SettingsStackProps} from '../../definitions/navigationTypes';
 
-interface currencyProps {
-  onClose: any;
-  currency?: string;
-}
-
-const CurrencySettings = (props: currencyProps) => {
+const CurrencySettings = ({navigation}: SettingsStackProps) => {
   const dispatch = useDispatch();
-  const [currencies, setCurrencies] = useState(currencyJson);
-  const juju = [];
+  const [currencies, setCurrencies] = useState<[] | any>([]);
 
-  juju.push(currencyJson);
-  console.log(juju);
+  useEffect(() => {
+    const json = require('../../assets/currencies.json');
+    const list = [];
+    for (const k in json) {
+      list.push({
+        id: k,
+        ...json[k],
+      });
+    }
+    setCurrencies(list);
+  }, []);
 
-  return <View style={styles.container}></View>;
+  const selectCurrency = (item: any) => {
+    dispatch(setCurrency(item.name));
+    dispatch(setSymbol(item.symbol.grapheme));
+    navigation.goBack();
+  };
+
+  const renderItem = useCallback(
+    ({item}) => (
+      <TouchableOpacity onPress={() => selectCurrency(item)}>
+        <View style={styles.currency}>
+          <Text style={[styles.id, fonts.caption]}> {item.id}</Text>
+          <Text style={[styles.name, fonts.smallerCaption]}>({item.name})</Text>
+        </View>
+      </TouchableOpacity>
+    ),
+    [],
+  );
+  const keyExtractor = useCallback(item => item.id.toString(), []);
+
+  const ItemSeperator = () => {
+    return <Divider style={styles.divide} />;
+  };
+  const getItemLayout = useCallback(
+    (data, index) => ({
+      length: hp(5.3),
+      offset: hp(5.3) * index,
+      index,
+    }),
+    [],
+  );
+
+  return (
+    <View style={styles.container}>
+      <FlatList
+        data={currencies}
+        renderItem={renderItem}
+        keyExtractor={keyExtractor}
+        ItemSeparatorComponent={ItemSeperator}
+        getItemLayout={getItemLayout}
+        maxToRenderPerBatch={23}
+        windowSize={30}
+      />
+    </View>
+  );
 };
 
 export default CurrencySettings;

@@ -22,6 +22,10 @@ const styles = StyleSheet.create({
   rightIcon: {
     marginRight: wp(4),
   },
+  iconContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
 });
 
 export default styles;

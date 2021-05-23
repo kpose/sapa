@@ -24,7 +24,14 @@ const SettingsBottom = () => {
       </TouchableOpacity>
       <Divider style={styles.divide} />
       <TouchableOpacity style={[styles.item, {marginTop: hp(1)}]}>
-        <Text style={[fonts.smallerCaption]}> Version 1.0.0</Text>
+        <Text
+          style={[
+            fonts.smallerCaption,
+            {color: colors.PRIMARY, fontWeight: 'bold'},
+          ]}>
+          {' '}
+          Version 1.0.0
+        </Text>
       </TouchableOpacity>
     </View>
   );

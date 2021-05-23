@@ -7,13 +7,16 @@ import {Text, Surface, Divider} from 'react-native-paper';
 import {fonts} from '../../utils/fonts';
 import {SettingsItem, SettingsBottom} from '../../components';
 import {SettingsStackProps} from '../../definitions/navigationTypes';
+import {useSelector} from 'react-redux';
+import {RootState} from '../../redux/store';
 
 const Settings = ({navigation}: SettingsStackProps) => {
+  const {currency, email} = useSelector((state: RootState) => state.userData);
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <Surface style={styles.surface}>
         <Text style={[fonts.smallerCaption, styles.username]}>username</Text>
-        <Text style={[fonts.caption, styles.user]}>kpose@mail.com</Text>
+        <Text style={[fonts.caption, styles.user]}>{email.toLowerCase()}</Text>
       </Surface>
       <SettingsItem
         title="Profile"
@@ -26,6 +29,7 @@ const Settings = ({navigation}: SettingsStackProps) => {
         leftIcon="currency-ngn"
         rightIcon="chevron-right"
         onPress={() => navigation.navigate('CurrencySettings')}
+        value={currency}
       />
       <SettingsItem
         title="Manage Categories"

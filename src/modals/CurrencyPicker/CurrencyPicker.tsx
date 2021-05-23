@@ -15,7 +15,7 @@ import {Currencies} from '../../definitions/currency';
 import {colors, sizes} from '../../utils';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {useDispatch} from 'react-redux';
-import {setCurrency} from '../../redux/userReducer';
+import {setCurrency, setSymbol} from '../../redux/userReducer';
 const currencyJson = require('../../assets/currencies.json');
 
 interface currencyProps {
@@ -36,6 +36,7 @@ const CurrencyPicker = (props: currencyProps) => {
     return Object.entries(filteredCurrencies).map(([currency, info]: any) => {
       const handlePress = () => {
         dispatch(setCurrency(info.name));
+        dispatch(setSymbol(info.symbol.grapheme));
         props.onClose();
       };
 

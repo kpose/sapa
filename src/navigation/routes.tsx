@@ -8,8 +8,9 @@ const Stack = createStackNavigator<RouteStackParams>();
 
 function Routes() {
   return (
-    <Stack.Navigator screenOptions={{headerShown: false}}>
-      {/* <Stack.Screen name="Welcome" component={Welcome} /> */}
+    <Stack.Navigator
+      screenOptions={{headerShown: false, gestureEnabled: false}}>
+      <Stack.Screen name="Welcome" component={Welcome} />
       <Stack.Screen name="Home" component={HomeStack} />
     </Stack.Navigator>
   );

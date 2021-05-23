@@ -13,9 +13,10 @@ interface Props {
   rightIcon: string;
   title: string;
   onPress?: () => void;
+  value?: string;
 }
 
-const SettingsItem = ({leftIcon, rightIcon, title, onPress}: Props) => {
+const SettingsItem = ({leftIcon, rightIcon, title, onPress, value}: Props) => {
   return (
     <TouchableOpacity onPress={onPress}>
       <View style={styles.container}>
@@ -28,12 +29,17 @@ const SettingsItem = ({leftIcon, rightIcon, title, onPress}: Props) => {
           />
           <Text style={[fonts.caption]}>{title}</Text>
         </View>
-        <Icon
-          name={rightIcon}
-          color={colors.LIGHT_GRAY}
-          style={styles.rightIcon}
-          size={sizes.regularIconSize}
-        />
+        <View style={styles.iconContainer}>
+          <Text style={[fonts.caption, {color: colors.LIGHT_GRAY}]}>
+            {value}
+          </Text>
+          <Icon
+            name={rightIcon}
+            color={colors.LIGHT_GRAY}
+            style={styles.rightIcon}
+            size={sizes.navigationIconSize}
+          />
+        </View>
       </View>
     </TouchableOpacity>
   );
