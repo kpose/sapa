@@ -5,10 +5,10 @@ import {Searchbar, ActivityIndicator, Surface, Text} from 'react-native-paper';
 
 /* utils and files */
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import {colors, sizes} from '../../utils';
-import {Currencies} from '../../definitions/currency';
+import {colors, sizes} from '~utils';
+import {Currencies} from '~definitions/currency';
 
-const currencyJson = require('../../assets/currencies.json');
+const currencyJson = require('~assets/currencies.json');
 
 interface currencyProps {
   onClose: any;
@@ -30,7 +30,7 @@ const CurrencyPicker = (props: currencyProps) => {
           <TouchableOpacity>
             <View key={info.symbol.grapheme} style={styles.picker}>
               <Text style={[sizes.fonts.caption]}>{currency}</Text>
-              <Text style={[sizes.fonts.smalerCaption, styles.name]}>
+              <Text style={[sizes.fonts.smallerCaption, styles.name]}>
                 {info.name}
               </Text>
             </View>

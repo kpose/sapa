@@ -5,8 +5,8 @@ import styles from './styles';
 
 /* files and utils */
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import {colors, sizes} from '../../utils';
-import {fonts} from '../../utils/fonts';
+import {colors, sizes} from '~utils';
+import {fonts} from '~utils/fonts';
 
 interface Props {
   closeScreen: () => void;

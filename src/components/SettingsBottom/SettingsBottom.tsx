@@ -3,8 +3,8 @@ import {View, TouchableOpacity} from 'react-native';
 
 /* utils and files */
 import {Text, Divider} from 'react-native-paper';
-import {colors, hp} from '../../utils';
-import {fonts} from '../../utils/fonts';
+import {colors, hp} from '~utils';
+import {fonts} from '~utils/fonts';
 import styles from './styles';
 
 const SettingsBottom = () => {

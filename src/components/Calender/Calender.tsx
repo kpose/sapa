@@ -3,7 +3,7 @@ import {View} from 'react-native';
 import {Text} from 'react-native-paper';
 
 import {Calendar, CalendarList, Agenda} from 'react-native-calendars';
-import {colors, hp} from '../../utils';
+import {colors, hp} from '~utils';
 
 const Calender = () => {
   return (

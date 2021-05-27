@@ -6,7 +6,7 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
 //UTILS AND FILES
 import LargeButton from '../LargeButton/LargeButton';
-import {sizes} from '../../utils';
+import {sizes} from '~utils';
 
 type startedProps = {
   onStartedPress: any;

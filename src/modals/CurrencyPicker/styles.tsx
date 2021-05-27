@@ -14,7 +14,7 @@ const lighttheme = {
 };
 
 const styles = StyleSheet.create({
-  container: {
+  /* container: {
     height: hp(50),
     width: wp(90),
     alignSelf: 'center',
@@ -54,6 +54,45 @@ const styles = StyleSheet.create({
   search: {
     width: wp(77),
     height: hp(4),
+  }, */
+
+  container: {
+    position: 'absolute',
+    height: hp(60),
+    width: wp(90),
+    alignSelf: 'center',
+    top: hp(20),
+    borderRadius: 20,
+  },
+  iconContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: hp(1),
+    marginLeft: wp(2),
+    marginBottom: hp(2),
+  },
+  searchBar: {
+    width: wp(70),
+    marginLeft: wp(10),
+    height: hp(5),
+  },
+  currencyItem: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginLeft: wp(2),
+    marginRight: wp(2),
+  },
+  divide: {
+    marginLeft: wp(2),
+    marginRight: wp(2),
+  },
+  name: {
+    color: colors.LIGHT_GRAY,
+  },
+  id: {
+    marginTop: hp(1),
+    marginBottom: hp(1),
   },
 });
 

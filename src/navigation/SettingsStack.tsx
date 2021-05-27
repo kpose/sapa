@@ -1,13 +1,13 @@
 import * as React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
-import {SettingsStackParams} from '../definitions/navigationTypes';
+import {SettingsStackParams} from '~definitions/navigationTypes';
 import {
   Settings,
   ProfileSettings,
   LanguageSettings,
   CurrencySettings,
-} from '../screens';
-import {colors, hp} from '../utils';
+} from '~screens';
+import {colors, hp} from '~utils';
 
 const Stack = createStackNavigator<SettingsStackParams>();
 

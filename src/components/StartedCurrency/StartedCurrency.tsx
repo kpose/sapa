@@ -7,12 +7,12 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 
 //UTILS AND FILES
 import LargeButton from '../LargeButton/LargeButton';
-import {CurrencyPicker} from '../../modals';
+import {CurrencyPicker} from '~modals';
 //import CurrencyPicker from '../CurrencyPicker/CurrencyPicker';
-import {colors, sizes} from '../../utils';
+import {colors, sizes} from '~utils';
 
 import {useDispatch, useSelector} from 'react-redux';
-import {RootState} from '../../redux/store';
+import {RootState} from '~redux/store';
 
 type startedProps = {
   onButtonPress: any;

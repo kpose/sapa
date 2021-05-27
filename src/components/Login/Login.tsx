@@ -11,9 +11,9 @@ import {Formik} from 'formik';
 
 //UTILS AND FILES
 import LargeButton from '../LargeButton/LargeButton';
-import {sizes} from '../../utils';
+import {sizes} from '~utils';
 import {useDispatch} from 'react-redux';
-import {setFirstName} from '../../redux/userReducer';
+import {setFirstName} from '~redux/userReducer';
 import styles from './styles';
 
 type Props = {

@@ -1,12 +1,12 @@
 import React from 'react';
 import {View, StyleSheet, Dimensions, TouchableOpacity} from 'react-native';
 
-import {colors, hp, sizes, wp} from '../../utils';
+import {colors, hp, sizes, wp} from '~utils';
 import Wave from './Wave';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {Text, Surface, Divider} from 'react-native-paper';
 import {useSelector} from 'react-redux';
-import {RootState} from '../../redux/store';
+import {RootState} from '~redux/store';
 
 interface Props {
   onSettingsPress: () => void;

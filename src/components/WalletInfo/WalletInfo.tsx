@@ -4,8 +4,8 @@ import styles from './styles';
 import {Text} from 'react-native-paper';
 
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import {colors, sizes} from '../../utils';
-import {fonts} from '../../utils/fonts';
+import {colors, sizes} from '~utils';
+import {fonts} from '~utils/fonts';
 
 type Props = {
   title: string;

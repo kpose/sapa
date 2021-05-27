@@ -5,9 +5,9 @@ import {useNavigation} from '@react-navigation/native';
 
 /* utils and files */
 import {Text, Surface, Button} from 'react-native-paper';
-import {fonts} from '../../utils/fonts';
+import {fonts} from '~utils/fonts';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import {colors, sizes} from '../../utils';
+import {colors, sizes} from '~utils';
 
 const WalletCard = () => {
   const navigation = useNavigation();

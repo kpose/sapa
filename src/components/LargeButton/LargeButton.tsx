@@ -2,7 +2,7 @@ import React from 'react';
 import {View} from 'react-native';
 import styles from './styles';
 import {Text, Button} from 'react-native-paper';
-import {sizes} from '../../utils';
+import {sizes} from '~utils';
 
 type ButtonProps = {
   title: string;

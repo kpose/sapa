@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {createMaterialBottomTabNavigator} from '@react-navigation/material-bottom-tabs';
-import {HomeTabParams} from '../definitions/navigationTypes';
+import {HomeTabParams} from '~definitions/navigationTypes';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const Tab = createMaterialBottomTabNavigator<HomeTabParams>();

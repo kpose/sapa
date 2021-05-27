@@ -10,8 +10,8 @@ import {Text, TextInput, Surface} from 'react-native-paper';
 /* styles and utils */
 import styles from './styles';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import {colors, hp, sizes, wp} from '../../utils';
-import {fonts} from '../../utils/fonts';
+import {colors, hp, sizes, wp} from '~utils';
+import {fonts} from '~utils/fonts';
 
 const AddToWalletBody = () => {
   const elsaped = Date.now();

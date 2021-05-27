@@ -5,7 +5,7 @@ import Wave from './Wave';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import {Text, Surface} from 'react-native-paper';
-import {fonts} from '../../utils/fonts';
+import {fonts} from '~utils/fonts';
 
 type Props = {
   onBackPress: () => void;

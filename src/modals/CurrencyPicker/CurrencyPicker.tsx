@@ -1,168 +1,107 @@
-import React, {useState, useEffect} from 'react';
-import {View, TouchableOpacity, ScrollView} from 'react-native';
-import {
-  Portal,
-  Text,
-  Modal,
-  Divider,
-  ActivityIndicator,
-  Searchbar,
-} from 'react-native-paper';
+import React, {useState, useEffect, useCallback} from 'react';
+import {View, TouchableOpacity, FlatList} from 'react-native';
+import {Text, Divider, Surface, Searchbar} from 'react-native-paper';
 import styles from './styles';
 
 /* files and utils */
-import {Currencies} from '../../definitions/currency';
-import {colors, sizes} from '../../utils';
+import {colors, hp, sizes} from '~utils';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {useDispatch} from 'react-redux';
-import {setCurrency, setSymbol} from '../../redux/userReducer';
-const currencyJson = require('../../assets/currencies.json');
+import {setCurrency, setSymbol} from '~redux/userReducer';
+import {fonts} from '~utils/fonts';
 
 interface currencyProps {
-  onClose: any;
-  currency?: string;
+  onClose: () => void;
 }
 
 const CurrencyPicker = (props: currencyProps) => {
   const dispatch = useDispatch();
-  const [currencies, setCurrencies] = useState(currencyJson);
-  const [filteredCurrencies, setFilteredCurrencies] = useState(currencyJson);
+  const [currencies, setCurrencies] = useState<[] | any>([]);
+  const [filtered, setFiltered] = useState('');
 
   useEffect(() => {
-    setFilteredCurrencies(currencyJson);
-  }, [currencies]);
+    const json = require('../../assets/currencies.json');
+    const list = [];
+    for (const k in json) {
+      list.push({
+        id: k,
+        ...json[k],
+      });
+    }
+    setCurrencies(list);
+  }, []);
 
-  const renderCurrency = () => {
-    return Object.entries(filteredCurrencies).map(([currency, info]: any) => {
-      const handlePress = () => {
-        dispatch(setCurrency(info.name));
-        dispatch(setSymbol(info.symbol.grapheme));
-        props.onClose();
-      };
-
-      return (
-        <>
-          <TouchableOpacity onPress={handlePress}>
-            <View key={info.symbol.grapheme} style={styles.picker}>
-              <Text style={[sizes.fonts.caption]}>{currency}</Text>
-              <Text style={[sizes.fonts.smallerCaption, styles.name]}>
-                {info.name}
-              </Text>
-            </View>
-          </TouchableOpacity>
-          <Divider style={styles.divide} />
-        </>
-      );
-    });
+  const keyExtractor = useCallback(item => item.id.toString(), []);
+  const ItemSeperator = () => {
+    return <Divider style={styles.divide} />;
   };
 
-  async function onFilter(value: string) {
-    if (!value || value === undefined || value === '') {
-      setFilteredCurrencies(currencies);
-    } else {
-      const filtered = await filterCurrencies(value);
-      setFilteredCurrencies(filtered);
-    }
-  }
+  const getItemLayout = useCallback(
+    (data, index) => ({
+      length: hp(4),
+      offset: hp(4) * index,
+      index,
+    }),
+    [],
+  );
 
-  async function filterCurrencies(
-    filter: string,
-  ): Promise<Currencies | undefined> {
-    if (!currencies) {
-      return undefined;
-    }
-    const results: Currencies = Object.keys(currencies)
-      .filter((key: string) => {
-        return (
-          key.toLowerCase().indexOf(filter.toLowerCase()) > -1 ||
-          (currencies[key].name &&
-            currencies[key].name.toLowerCase().indexOf(filter.toLowerCase()) >
-              -1)
-        );
-      })
-      .reduce((obj: Currencies, key: string) => {
-        obj[key] = currencies[key];
-        return obj;
-      }, {});
-    return results;
-  }
+  const handlePress = (item: any) => {
+    dispatch(setCurrency(item.name));
+    dispatch(setSymbol(item.symbol.grapheme));
+    props.onClose();
+  };
+
+  const renderItem = useCallback(
+    ({item}) => (
+      <TouchableOpacity onPress={() => handlePress(item)}>
+        <View style={styles.currencyItem}>
+          <Text style={[fonts.caption, styles.id]}>
+            {' '}
+            {item.id} ({item.symbol.grapheme})
+          </Text>
+          <Text style={[fonts.smallerCaption, styles.name]}>{item.name}</Text>
+        </View>
+      </TouchableOpacity>
+    ),
+    [],
+  );
+
+  const filteredArray = filtered
+    ? currencies.filter((value: any) =>
+        value.name.toLowerCase().includes(filtered.toLowerCase()),
+      )
+    : currencies;
 
   return (
-    <Portal>
-      <Modal
-        visible={true}
-        contentContainerStyle={styles.container}
-        onDismiss={props.onClose}>
-        {filteredCurrencies ? (
-          <>
-            <View style={styles.searchContainer}>
-              <TouchableOpacity onPress={props.onClose}>
-                <Icon
-                  name="close"
-                  style={styles.cancelIcon}
-                  size={sizes.regularIconSize}
-                />
-              </TouchableOpacity>
-              <Searchbar
-                placeholder="Filter"
-                style={styles.search}
-                onChangeText={onFilter}
-                //value={filteredCurrencies}
-                inputStyle={sizes.fonts.bodyText}
-              />
-            </View>
-            <ScrollView
-              keyboardDismissMode="on-drag"
-              showsVerticalScrollIndicator={false}>
-              {renderCurrency()}
-            </ScrollView>
-          </>
-        ) : (
-          <ActivityIndicator
-            animating={true}
-            size={sizes.navigationIconSize}
-            color={colors.PRIMARY}
-            style={styles.indicator}
-          />
-        )}
-      </Modal>
-    </Portal>
-  );
-};
-
-export default CurrencyPicker;
-
-/* {
-  filteredCurrencies ? (
-    <>
-      <View style={styles.searchContainer}>
+    <Surface style={styles.container}>
+      <View style={styles.iconContainer}>
         <TouchableOpacity onPress={props.onClose}>
           <Icon
             name="close"
-            style={styles.cancelIcon}
             size={sizes.regularIconSize}
+            color={colors.LIGHT_GRAY}
           />
         </TouchableOpacity>
         <Searchbar
           placeholder="Filter"
-          style={styles.search}
-          onChangeText={onFilter}
-          //value={filteredCurrencies}
+          style={styles.searchBar}
           inputStyle={sizes.fonts.bodyText}
+          onChangeText={text => setFiltered(text)}
+          value={filtered}
         />
       </View>
-      <ScrollView
-        keyboardDismissMode="on-drag"
-        showsVerticalScrollIndicator={false}>
-        {renderCurrency}
-      </ScrollView>
-    </>
-  ) : (
-    <ActivityIndicator
-      animating={true}
-      size={sizes.navigationIconSize}
-      color={colors.PRIMARY}
-      style={styles.indicator}
-    />
+      <FlatList
+        data={filteredArray}
+        renderItem={renderItem}
+        keyExtractor={keyExtractor}
+        ItemSeparatorComponent={ItemSeperator}
+        getItemLayout={getItemLayout}
+        showsVerticalScrollIndicator={false}
+        maxToRenderPerBatch={23}
+        windowSize={30}
+      />
+    </Surface>
   );
-} */
+};
+
+export default CurrencyPicker;

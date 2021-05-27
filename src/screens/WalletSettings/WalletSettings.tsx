@@ -4,9 +4,9 @@ import styles from './styles';
 import {Text} from 'react-native-paper';
 
 /* utils and files */
-import {WalletInfo, LargeButton} from '../../components';
-import {colors} from '../../utils';
-import {fonts} from '../../utils/fonts';
+import {WalletInfo, LargeButton} from '~components';
+import {colors} from '~utils';
+import {fonts} from '~utils/fonts';
 
 const WalletSettings = () => {
   return (

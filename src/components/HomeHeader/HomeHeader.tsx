@@ -5,7 +5,7 @@ import styles from './styles';
 
 /* utils and files */
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import {colors, hp, sizes, wp} from '../../utils';
+import {colors, hp, sizes, wp} from '~utils';
 
 const HomeHeader = () => {
   return (

@@ -1,11 +1,11 @@
 import * as React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
-import {Home, AddToWallet, Settings} from '../screens';
+import {Home, AddToWallet, Settings} from '~screens';
 import BottomTabNavigator from './BottomTabNavigator';
-import {WavyHeader, TabHeader} from '../components';
+import {WavyHeader, TabHeader} from '~components';
 import SettingsStack from './SettingsStack';
-import {colors, hp} from '../utils';
-import {RouteStackParams} from '../definitions/navigationTypes';
+import {colors, hp} from '~utils';
+import {RouteStackParams} from '~definitions/navigationTypes';
 
 const Stack = createStackNavigator<RouteStackParams>();
 

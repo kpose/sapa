@@ -4,9 +4,9 @@ import {View} from 'react-native';
 /* utils and files */
 import styles from './styles';
 import {Text, Divider} from 'react-native-paper';
-import {fonts} from '../../utils/fonts';
+import {fonts} from '~utils/fonts';
 import {useSelector} from 'react-redux';
-import {RootState} from '../../redux/store';
+import {RootState} from '~redux/store';
 
 const ProfileSettings = () => {
   const {firstname, email, lastname} = useSelector(

@@ -5,8 +5,8 @@ import styles from './styles';
 /* utils and files */
 import {Text} from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import {colors, sizes} from '../../utils';
-import {fonts} from '../../utils/fonts';
+import {colors, sizes} from '~/utils';
+import {fonts} from '~utils/fonts';
 
 interface Props {
   leftIcon: string;

@@ -9,11 +9,11 @@ import {Formik} from 'formik';
 
 //UTILS AND FILES
 import LargeButton from '../LargeButton/LargeButton';
-import {colors, sizes} from '../../utils';
+import {colors, sizes} from '~utils';
 
 import {useDispatch, useSelector} from 'react-redux';
-import {RootState} from '../../redux/store';
-import {setEmail} from '../../redux/userReducer';
+import {RootState} from '~redux/store';
+import {setEmail} from '~redux/userReducer';
 
 type startedProps = {
   onButtonPress(): any;

@@ -1,7 +1,7 @@
 import React from 'react';
 import {View, Text} from 'react-native';
 import Svg, {Path} from 'react-native-svg';
-import {hp, wp} from '../../utils';
+import {hp, wp} from '~utils';
 
 type WaveProps = {
   customStyles: any;
