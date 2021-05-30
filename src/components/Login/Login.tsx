@@ -7,14 +7,17 @@ import {
 } from 'react-native';
 import {Text, TextInput, HelperText} from 'react-native-paper';
 import * as yup from 'yup';
+import axios from 'axios';
 import {Formik} from 'formik';
 
 //UTILS AND FILES
 import LargeButton from '../LargeButton/LargeButton';
+import Spinner from '../Spinner/Spinner';
 import {sizes} from '~utils';
 import {useDispatch} from 'react-redux';
-import {setFirstName} from '~redux/userReducer';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import styles from './styles';
+import {useNavigation} from '@react-navigation/native';
 
 type Props = {
   onButtonPress?(): any;
@@ -34,19 +37,37 @@ const vaidation = yup.object().shape({
 
 const Login = (props: Props) => {
   const [email, setEmail] = useState<string>('');
+  const [loading, setLoading] = useState(false);
+  const [servererror, setServerError] = useState();
   const dispatch = useDispatch();
+  const navigation = useNavigation();
 
-  const handlePress = () => {
-    dispatch(setFirstName(email));
+  const handlePress = (values: {}) => {
+    setLoading(true);
+    axios
+      .post(
+        'https://us-central1-sapa-4bd2e.cloudfunctions.net/api/login',
+        values,
+      )
+      .then(response => {
+        AsyncStorage.setItem('AuthToken', `Bearer ${response.data.token}`);
+        navigation.navigate('Home');
+        setLoading(false);
+      })
+      .catch(err => {
+        setLoading(false);
+        setServerError(err.response.data);
+      });
   };
 
   return (
     <KeyboardAvoidingView behavior="padding">
+      {loading && <Spinner />}
       <View style={[styles.captionContainer]}>
         <Formik
           validationSchema={vaidation}
           initialValues={{email: '', password: ''}}
-          onSubmit={handlePress}>
+          onSubmit={values => handlePress(values)}>
           {({handleChange, handleBlur, handleSubmit, errors}) => (
             <>
               <TextInput
@@ -81,6 +102,15 @@ const Login = (props: Props) => {
                   visible={true}
                   style={[sizes.fonts.caption]}>
                   {errors.password}
+                </HelperText>
+              )}
+
+              {servererror && (
+                <HelperText
+                  type="error"
+                  visible={true}
+                  style={[sizes.fonts.caption]}>
+                  Wrong credential combination, try again!
                 </HelperText>
               )}
 

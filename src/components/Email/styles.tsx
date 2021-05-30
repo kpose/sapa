@@ -9,7 +9,7 @@ const styles = StyleSheet.create({
   },
 
   captionContainer: {
-    marginTop: heightPercentageToDP(39),
+    marginTop: heightPercentageToDP(25),
     marginLeft: wp(10),
   },
 

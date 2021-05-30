@@ -16,6 +16,7 @@ import AddToWalletHeader from './AddToWalletHeader/AddToWalletHeader';
 import AddToWalletBody from './AddToWalletBody/AddToWalletBody';
 import SettingsItem from './SettingsItem/SettingsItem';
 import SettingsBottom from './SettingsBottom/SettingsBottom';
+import Spinner from './Spinner/Spinner';
 
 export {
   LargeButton,
@@ -36,4 +37,5 @@ export {
   AddToWalletBody,
   SettingsItem,
   SettingsBottom,
+  Spinner,
 };

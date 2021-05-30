@@ -56,9 +56,3 @@ function HomeStack() {
 }
 
 export default HomeStack;
-
-/* headerStyle: {
-            backgroundColor: colors.SECONDARY,
-          },
-          headerBackTitleVisible: false,
-          headerTintColor: colors.WHITE, */

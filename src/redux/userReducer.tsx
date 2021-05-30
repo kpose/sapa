@@ -15,8 +15,8 @@ const userDataSlice = createSlice({
     email: '',
     currency: '',
     symbol: '',
+    username: '',
     firstname: '',
-    lastname: '',
     avatar: '',
     loading: false,
   },
@@ -25,11 +25,11 @@ const userDataSlice = createSlice({
     setCurrency(state, action: PayloadAction<string>) {
       state.currency = action.payload;
     },
+    setUsername(state, action: PayloadAction<string>) {
+      state.username = action.payload;
+    },
     setFirstName(state, action: PayloadAction<string>) {
       state.firstname = action.payload;
-    },
-    setLastName(state, action: PayloadAction<string>) {
-      state.lastname = action.payload;
     },
     setEmail(state, action: PayloadAction<string>) {
       state.email = action.payload;
@@ -40,7 +40,7 @@ const userDataSlice = createSlice({
   },
 });
 
-export const {setCurrency, setEmail, setFirstName, setLastName, setSymbol} =
+export const {setCurrency, setEmail, setFirstName, setUsername, setSymbol} =
   userDataSlice.actions;
 
 export default userDataSlice.reducer;

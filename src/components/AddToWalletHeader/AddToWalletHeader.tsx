@@ -14,7 +14,6 @@ interface Props {
 
 const AddToWalletHeader = ({closeScreen}: Props) => {
   const [xpense, setXpense] = useState(true);
-  const [selected, setSelected] = useState(true);
   return (
     <View
       style={[

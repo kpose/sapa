@@ -12,6 +12,16 @@ const styles = StyleSheet.create({
     marginBottom: hp(2),
     marginLeft: wp(3),
   },
+  themeContainer: {
+    flexDirection: 'row',
+    marginBottom: hp(1),
+    marginLeft: wp(4),
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  toggle: {
+    marginRight: wp(3),
+  },
 });
 
 export default styles;

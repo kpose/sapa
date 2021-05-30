@@ -13,7 +13,7 @@ import {Formik} from 'formik';
 import LargeButton from '../LargeButton/LargeButton';
 import {sizes} from '~utils';
 import {useDispatch} from 'react-redux';
-import {setFirstName, setLastName} from '~redux/userReducer';
+import {setFirstName, setUsername} from '~redux/userReducer';
 import styles from './styles';
 
 type Props = {
@@ -44,40 +44,42 @@ const FirstName = (props: Props) => {
 
         <Formik
           validationSchema={vaidation}
-          initialValues={{firstname: '', lastname: ''}}
+          initialValues={{firstname: '', username: ''}}
           onSubmit={values => {
+            dispatch(setUsername(values.username));
             dispatch(setFirstName(values.firstname));
-            dispatch(setLastName(values.lastname));
             props.onButtonPress();
           }}>
           {({handleChange, handleBlur, handleSubmit, values, errors}) => (
             <>
               <TextInput
                 style={styles.name}
-                label="First Name"
-                onChangeText={handleChange('firstname')}
+                label="Username"
+                onChangeText={handleChange('username')}
                 autoCompleteType="off"
+                autoCapitalize="none"
                 autoCorrect={false}
                 clearButtonMode="while-editing"
                 //onSubmitEditing={handlePress}
-                value={values.firstname}
+                value={values.username}
               />
-              {errors.firstname && (
+              {errors.username && (
                 <HelperText
                   type="error"
                   visible={true}
                   style={[sizes.fonts.caption]}>
-                  {errors.firstname}
+                  {errors.username}
                 </HelperText>
               )}
 
               <TextInput
                 style={styles.name}
-                label="Last Name (Optional)"
-                onChangeText={handleChange('lastname')}
+                label="First Name (Optional)"
+                onChangeText={handleChange('firstname')}
                 autoCompleteType="off"
                 autoCorrect={false}
-                value={values.lastname}
+                onSubmitEditing={handleSubmit}
+                value={values.firstname}
               />
 
               <View style={styles.buttonContainer}>

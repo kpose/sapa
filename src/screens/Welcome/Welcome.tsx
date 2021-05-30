@@ -6,7 +6,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 
 //utils and files
 import {FirstName, Started, StartedCurrency, Login, Email} from '~components';
-import {sizes} from '~utils';
+import {authMiddleWare, sizes} from '~utils';
 import {RouteStackProps} from '~definitions/navigationTypes';
 
 const welcome = ({navigation}: RouteStackProps) => {
@@ -64,6 +64,7 @@ const welcome = ({navigation}: RouteStackProps) => {
           style={[styles.backgroundVideo, blur && {opacity: 0.3}]}
           muted={true}
           repeat={true}
+          paused={true}
           resizeMode={'cover'}
           rate={1.0}
           ignoreSilentSwitch={'obey'}
@@ -83,7 +84,9 @@ const welcome = ({navigation}: RouteStackProps) => {
         {blur && firstname && (
           <FirstName onBackPress={closeFirstName} onButtonPress={openEmail} />
         )}
+
         {blur && login && <Login onBackPress={closeLogin} />}
+
         {blur && email && (
           <Email
             onBackPress={closeEmail}

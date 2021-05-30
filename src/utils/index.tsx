@@ -4,5 +4,6 @@ import {
   heightPercentageToDP as hp,
 } from './responsive';
 import * as colors from './colors';
+import {authMiddleWare} from './authMiddleware';
 
-export {sizes, wp, hp, colors};
+export {sizes, wp, hp, colors, authMiddleWare};

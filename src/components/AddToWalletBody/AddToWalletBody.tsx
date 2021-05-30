@@ -44,7 +44,7 @@ const AddToWalletBody = () => {
 
           <TextInput
             value={marchant}
-            onChangeText={text => setMerchant(text)}
+            onChangeText={(text: string) => setMerchant(text)}
             placeholder="Merchant"
             underlineColor="transparent"
             style={styles.input}
@@ -59,7 +59,7 @@ const AddToWalletBody = () => {
           />
           <TextInput
             value={note}
-            onChangeText={text => setNote(text)}
+            onChangeText={(text: string) => setNote(text)}
             placeholder="Note"
             underlineColor="transparent"
             style={styles.input}
