@@ -61,7 +61,7 @@ const welcome = ({navigation}: RouteStackProps) => {
       <View style={styles.container}>
         <Video
           source={require('../../assets/videos/pexels-karolina-grabowska-6326863.mp4')}
-          style={[styles.backgroundVideo, blur && {opacity: 0.3}]}
+          style={[styles.backgroundVideo, blur && {opacity: 0.5}]}
           muted={true}
           repeat={true}
           paused={true}

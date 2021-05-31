@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
   modal: {
     height: hp(29),
     width: wp(90),
-    backgroundColor: colors.DARK_GRAY,
+    //backgroundColor: colors.DARK_GRAY,
     alignSelf: 'center',
     position: 'absolute',
     justifyContent: 'flex-start',

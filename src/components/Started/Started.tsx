@@ -36,7 +36,9 @@ const Started = (props: startedProps) => {
           Have a user ID?
         </Text>
         <TouchableOpacity onPress={props.onLoginPress}>
-          <Text style={[sizes.fonts.caption]}>Log In</Text>
+          <Text style={[sizes.fonts.caption, {fontWeight: 'bold'}]}>
+            Log In
+          </Text>
         </TouchableOpacity>
       </View>
     </View>

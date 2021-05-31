@@ -18,7 +18,7 @@ function SettingsStack() {
         name="Settings"
         options={{
           headerStyle: {
-            backgroundColor: colors.SECONDARY,
+            backgroundColor: colors.PRIMARY,
           },
           headerBackTitleVisible: false,
           headerTintColor: colors.WHITE,
@@ -30,7 +30,7 @@ function SettingsStack() {
         name="ProfileSettings"
         options={{
           headerStyle: {
-            backgroundColor: colors.SECONDARY,
+            backgroundColor: colors.PRIMARY,
           },
           headerBackTitleVisible: false,
           headerTintColor: colors.WHITE,
@@ -43,7 +43,7 @@ function SettingsStack() {
         name="CurrencySettings"
         options={{
           headerStyle: {
-            backgroundColor: colors.SECONDARY,
+            backgroundColor: colors.PRIMARY,
           },
           headerBackTitleVisible: false,
           headerTintColor: colors.WHITE,
@@ -56,7 +56,7 @@ function SettingsStack() {
         name="LanguageSettings"
         options={{
           headerStyle: {
-            backgroundColor: colors.SECONDARY,
+            backgroundColor: colors.PRIMARY,
           },
           headerBackTitleVisible: false,
           headerTintColor: colors.WHITE,

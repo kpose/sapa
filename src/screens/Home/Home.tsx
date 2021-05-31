@@ -9,10 +9,12 @@ import {Text, Button, Portal, Modal} from 'react-native-paper';
 import {WalletCard} from '~components';
 import {AddWalletType, AddWallet} from '~modals';
 import {Modalize} from 'react-native-modalize';
+import {ThemeContext} from '~context/ThemeCotext';
 
 const Home = ({navigation}: RouteStackProps) => {
   const walletModalRef = useRef<Modalize>(null);
   const [showmodal, setShowmodal] = useState(false);
+  const {theme} = useContext(ThemeContext);
 
   const openModal = () => {
     walletModalRef.current?.open();
@@ -28,7 +30,10 @@ const Home = ({navigation}: RouteStackProps) => {
         ref={walletModalRef}
         modalHeight={hp(28)}
         withHandle={false}
-        modalStyle={{backgroundColor: colors.DARK_GRAY}}>
+        modalStyle={{
+          backgroundColor:
+            theme.type === 'dark' ? colors.DARK_GRAY : colors.WHITE,
+        }}>
         <AddWalletType onPressManual={openAddModal} />
       </Modalize>
 
@@ -36,7 +41,13 @@ const Home = ({navigation}: RouteStackProps) => {
         <Modal
           visible={showmodal}
           onDismiss={() => setShowmodal(false)}
-          contentContainerStyle={styles.modal}>
+          contentContainerStyle={[
+            styles.modal,
+            {
+              backgroundColor:
+                theme.type === 'dark' ? colors.DARK_GRAY : colors.WHITE,
+            },
+          ]}>
           <AddWallet />
         </Modal>
       </Portal>

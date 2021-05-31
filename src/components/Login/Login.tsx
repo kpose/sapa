@@ -1,10 +1,5 @@
 import React, {useState} from 'react';
-import {
-  View,
-  TouchableOpacity,
-  KeyboardAvoidingView,
-  Platform,
-} from 'react-native';
+import {View, TouchableOpacity, KeyboardAvoidingView} from 'react-native';
 import {Text, TextInput, HelperText} from 'react-native-paper';
 import * as yup from 'yup';
 import axios from 'axios';
@@ -20,8 +15,8 @@ import styles from './styles';
 import {useNavigation} from '@react-navigation/native';
 
 type Props = {
-  onButtonPress?(): any;
-  onBackPress?(): any;
+  onButtonPress?: any;
+  onBackPress?: () => void;
 };
 
 const vaidation = yup.object().shape({
@@ -36,10 +31,8 @@ const vaidation = yup.object().shape({
 });
 
 const Login = (props: Props) => {
-  const [email, setEmail] = useState<string>('');
   const [loading, setLoading] = useState(false);
   const [servererror, setServerError] = useState();
-  const dispatch = useDispatch();
   const navigation = useNavigation();
 
   const handlePress = (values: {}) => {
@@ -71,6 +64,7 @@ const Login = (props: Props) => {
           {({handleChange, handleBlur, handleSubmit, errors}) => (
             <>
               <TextInput
+                testID="emailID"
                 style={styles.name}
                 label="Email"
                 onChangeText={handleChange('email')}
@@ -88,6 +82,7 @@ const Login = (props: Props) => {
               )}
 
               <TextInput
+                testID="passwordID"
                 style={styles.name}
                 label="Password"
                 onChangeText={handleChange('password')}
@@ -98,6 +93,7 @@ const Login = (props: Props) => {
               />
               {errors.password && (
                 <HelperText
+                  testID="passwordErrorID"
                   type="error"
                   visible={true}
                   style={[sizes.fonts.caption]}>
@@ -115,7 +111,11 @@ const Login = (props: Props) => {
               )}
 
               <View style={styles.buttonContainer}>
-                <LargeButton title="Log In" onPress={handleSubmit} />
+                <LargeButton
+                  title="Log In"
+                  onPress={handleSubmit}
+                  testID="buttonID"
+                />
               </View>
             </>
           )}

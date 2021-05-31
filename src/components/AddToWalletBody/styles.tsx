@@ -21,6 +21,7 @@ const styles = StyleSheet.create({
   input: {
     width: wp(80),
     marginLeft: wp(4),
+    backgroundColor: 'transparent',
   },
   cameraContainer: {
     height: hp(8),

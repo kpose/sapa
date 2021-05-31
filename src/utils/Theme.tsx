@@ -8,6 +8,7 @@ import {
 } from 'react-native-paper';
 
 const CombinedLightTheme = {
+  type: 'light',
   ...NavigationLightTheme,
   ...PaperLightTheme,
   roundness: 2,
@@ -20,6 +21,7 @@ const CombinedLightTheme = {
 };
 
 const CombinedDarkTheme = {
+  type: 'dark',
   ...NavigationDarkTheme,
   ...PaperDarkTheme,
   roundness: 2,
