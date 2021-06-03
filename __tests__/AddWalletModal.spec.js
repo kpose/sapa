@@ -1,7 +1,14 @@
 import * as React from 'react';
 import renderer from 'react-test-renderer';
-import {fireEvent, render, waitFor} from '@testing-library/react-native';
+import {
+  fireEvent,
+  render,
+  waitFor,
+  cleanup,
+} from '@testing-library/react-native';
 import {AddWallet} from '../src/modals';
+
+afterEach(cleanup);
 
 describe('Testing add wallet modal', () => {
   const {getByTestId, getByPlaceholderText} = render(<AddWallet />);

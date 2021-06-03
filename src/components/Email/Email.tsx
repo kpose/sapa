@@ -14,11 +14,10 @@ import {colors, sizes} from '~utils';
 import Spinner from '../Spinner/Spinner';
 import {useSelector} from 'react-redux';
 import {RootState} from '~redux/store';
-import {setEmail} from '~redux/userReducer';
 
-type startedProps = {
-  onButtonPress(): any;
-  onBackPress(): any;
+type Props = {
+  onButtonPress: () => void;
+  onBackPress: () => void;
 };
 
 const vaidation = yup.object().shape({
@@ -32,15 +31,14 @@ const vaidation = yup.object().shape({
     .required('Password is Required'),
 });
 
-const StartedCurrency = (props: startedProps) => {
+const Email = (props: Props) => {
   const [loading, setLoading] = useState(false);
   const [servererror, setServerError] = useState();
   const {username, firstname} = useSelector(
     (state: RootState) => state.userData,
   );
-  console.log(firstname);
 
-  const handlePress = (values: {}) => {
+  const handlePress = (values: {email: string; password: string}) => {
     setLoading(true);
     const userData = {
       firstName: firstname,
@@ -93,6 +91,7 @@ const StartedCurrency = (props: startedProps) => {
               />
               {errors.email && (
                 <HelperText
+                  testID="emailErrorID"
                   type="error"
                   visible={true}
                   style={[sizes.fonts.caption]}>
@@ -129,8 +128,6 @@ const StartedCurrency = (props: startedProps) => {
                 </HelperText>
               )}
 
-              {console.log(servererror)}
-
               <View style={styles.buttonContainer}>
                 <LargeButton title="Done" onPress={handleSubmit} />
               </View>
@@ -149,4 +146,4 @@ const StartedCurrency = (props: startedProps) => {
   );
 };
 
-export default StartedCurrency;
+export default Email;

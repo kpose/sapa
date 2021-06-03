@@ -1,6 +1,8 @@
 import React from 'react';
-import {fireEvent, render} from '@testing-library/react-native';
+import {fireEvent, render, cleanup} from '@testing-library/react-native';
 import {LargeButton} from '../src/components';
+
+afterEach(cleanup);
 
 describe('test large button component', () => {
   it('calls onpress when fired', async () => {

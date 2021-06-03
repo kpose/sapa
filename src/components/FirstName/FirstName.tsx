@@ -12,28 +12,27 @@ import {Formik} from 'formik';
 //UTILS AND FILES
 import LargeButton from '../LargeButton/LargeButton';
 import {sizes} from '~utils';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {setFirstName, setUsername} from '~redux/userReducer';
 import styles from './styles';
+import {RootState} from '~redux/store';
 
 type Props = {
-  onButtonPress(): any;
-  onBackPress?(): any;
+  onButtonPress: () => void;
+  onBackPress?: () => void;
 };
 const vaidation = yup.object().shape({
-  firstname: yup
+  username: yup
     .string()
-    .min(2, ({min}) => `Name should be at least ${2} characters`)
-    .required('Provide your first name'),
+    .min(2, ({min}) => `Username should be at least ${2} characters`)
+    .required('Provide your username'),
 });
 
 const FirstName = (props: Props) => {
   const dispatch = useDispatch();
-
-  /* const handlePress = () => {
-    dispatch(setFirstName(first));
-    props.onButtonPress();
-  }; */
+  /* const {username, firstname} = useSelector(
+    (state: RootState) => state.userData,
+  ); */
 
   return (
     <KeyboardAvoidingView behavior="padding">
@@ -53,6 +52,8 @@ const FirstName = (props: Props) => {
           {({handleChange, handleBlur, handleSubmit, values, errors}) => (
             <>
               <TextInput
+                testID="usernameID"
+                //defaultValue={username}
                 style={styles.name}
                 label="Username"
                 onChangeText={handleChange('username')}
@@ -61,10 +62,10 @@ const FirstName = (props: Props) => {
                 autoCorrect={false}
                 clearButtonMode="while-editing"
                 //onSubmitEditing={handlePress}
-                value={values.username}
               />
               {errors.username && (
                 <HelperText
+                  testID="errorID"
                   type="error"
                   visible={true}
                   style={[sizes.fonts.caption]}>
@@ -73,17 +74,21 @@ const FirstName = (props: Props) => {
               )}
 
               <TextInput
+                //defaultValue={firstname}
                 style={styles.name}
                 label="First Name (Optional)"
                 onChangeText={handleChange('firstname')}
                 autoCompleteType="off"
                 autoCorrect={false}
                 onSubmitEditing={handleSubmit}
-                value={values.firstname}
               />
 
               <View style={styles.buttonContainer}>
-                <LargeButton title="Next" onPress={handleSubmit} />
+                <LargeButton
+                  title="Next"
+                  onPress={handleSubmit}
+                  testID="buttonID"
+                />
               </View>
             </>
           )}

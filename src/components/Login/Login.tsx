@@ -15,7 +15,7 @@ import styles from './styles';
 import {useNavigation} from '@react-navigation/native';
 
 type Props = {
-  onButtonPress?: any;
+  //onButtonPress?: () => void;
   onBackPress?: () => void;
 };
 

@@ -60,6 +60,7 @@ const welcome = ({navigation}: RouteStackProps) => {
       <StatusBar hidden={true} />
       <View style={styles.container}>
         <Video
+          testID="videoID"
           source={require('../../assets/videos/pexels-karolina-grabowska-6326863.mp4')}
           style={[styles.backgroundVideo, blur && {opacity: 0.5}]}
           muted={true}

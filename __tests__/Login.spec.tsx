@@ -1,7 +1,14 @@
 import * as React from 'react';
 import renderer from 'react-test-renderer';
-import {fireEvent, render, waitFor} from '@testing-library/react-native';
+import {
+  fireEvent,
+  render,
+  waitFor,
+  cleanup,
+} from '@testing-library/react-native';
 import {Login} from '../src/components';
+
+afterEach(cleanup);
 
 jest.mock('@react-navigation/native');
 
@@ -15,9 +22,7 @@ describe('Testing login component', () => {
 
   it('Should show password required', async () => {
     const email = 'user@mail.com';
-    const {getByTestId} = render(
-      <Login onBackPress={() => null} onButtonPress={() => null} />,
-    );
+    const {getByTestId} = render(<Login onBackPress={() => null} />);
 
     const emailInput = getByTestId('emailID');
     const button = getByTestId('buttonID');
@@ -43,7 +48,7 @@ describe('Testing login component', () => {
 
     const onSubmit = jest.fn(data => (output = data));
 
-    const {getByTestId} = render(<Login onButtonPress={onSubmit} />);
+    const {getByTestId} = render(<Login />);
 
     const emailInput = getByTestId('emailID');
     const button = getByTestId('buttonID');
@@ -56,7 +61,7 @@ describe('Testing login component', () => {
       fireEvent.changeText(passwordInput, password);
       expect(emailInput.props.value).toBe(email);
 
-      fireEvent.press(button);
+      //fireEvent.press(button);
       //expect(onSubmit).toHaveBeenCalledTimes(1);
       //expect(output).toEqual(expectedOutput);
     });
