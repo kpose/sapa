@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {View, TouchableOpacity} from 'react-native';
 import {Text, TextInput, HelperText} from 'react-native-paper';
 import styles from './styles';
@@ -10,10 +10,13 @@ import axios from 'axios';
 
 //UTILS AND FILES
 import LargeButton from '../LargeButton/LargeButton';
+import NetworkError from '../NetworkError/NetworkError';
 import {colors, sizes} from '~utils';
 import Spinner from '../Spinner/Spinner';
 import {useSelector} from 'react-redux';
 import {RootState} from '~redux/store';
+import {useNavigation} from '@react-navigation/native';
+import NetInfo from '@react-native-community/netinfo';
 
 type Props = {
   onButtonPress: () => void;
@@ -31,21 +34,31 @@ const vaidation = yup.object().shape({
     .required('Password is Required'),
 });
 
-const Email = (props: Props) => {
+const Email = ({onButtonPress, onBackPress}: Props) => {
+  const navigation = useNavigation();
   const [loading, setLoading] = useState(false);
-  const [servererror, setServerError] = useState();
+  const [offlinestatus, setOfflineStatus] = useState(false);
+  const [servererror, setServerError] = useState({});
   const {username, firstname} = useSelector(
     (state: RootState) => state.userData,
   );
 
+  useEffect(() => {
+    const removeNetInfoSubscription = NetInfo.addEventListener(state => {
+      const offline = !(state.isConnected && state.isInternetReachable);
+      setOfflineStatus(offline);
+    });
+    return () => removeNetInfoSubscription();
+  }, [offlinestatus]);
+
   const handlePress = (values: {email: string; password: string}) => {
-    setLoading(true);
     const userData = {
       firstName: firstname,
       username: username,
       email: values.email,
       password: values.password,
     };
+    setLoading(true);
     axios
       .post(
         'https://us-central1-sapa-4bd2e.cloudfunctions.net/api/signup',
@@ -53,18 +66,20 @@ const Email = (props: Props) => {
       )
       .then((response: any) => {
         AsyncStorage.setItem('AuthToken', `Bearer ${response.data.token}`);
-        //navigation.navigate('Home');
-        props.onButtonPress();
+        navigation.navigate('Home');
+        onButtonPress();
         setLoading(false);
       })
       .catch((err: any) => {
         setLoading(false);
+        console.log(err);
         setServerError(err.response.data);
       });
   };
 
   return (
     <View>
+      {offlinestatus && <NetworkError />}
       {loading && <Spinner />}
       <View style={[styles.captionContainer]}>
         <Text style={[styles.caption, sizes.fonts.bodyText]}>
@@ -129,7 +144,11 @@ const Email = (props: Props) => {
               )}
 
               <View style={styles.buttonContainer}>
-                <LargeButton title="Done" onPress={handleSubmit} />
+                <LargeButton
+                  title="Done"
+                  onPress={handleSubmit}
+                  disabled={offlinestatus}
+                />
               </View>
             </>
           )}
@@ -138,7 +157,7 @@ const Email = (props: Props) => {
 
       <TouchableOpacity
         style={styles.loginContainer}
-        onPress={props.onBackPress}
+        onPress={onBackPress}
         testID="buttonID">
         <Text style={[sizes.fonts.caption, styles.idtext]}>Go Back</Text>
       </TouchableOpacity>

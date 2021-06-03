@@ -17,6 +17,7 @@ import AddToWalletBody from './AddToWalletBody/AddToWalletBody';
 import SettingsItem from './SettingsItem/SettingsItem';
 import SettingsBottom from './SettingsBottom/SettingsBottom';
 import Spinner from './Spinner/Spinner';
+import NetworkError from './NetworkError/NetworkError';
 
 export {
   LargeButton,
@@ -38,4 +39,5 @@ export {
   SettingsItem,
   SettingsBottom,
   Spinner,
+  NetworkError,
 };

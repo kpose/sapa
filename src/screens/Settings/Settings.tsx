@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {ScrollView} from 'react-native';
 import styles from './styles';
 
@@ -12,10 +12,11 @@ import {RootState} from '~redux/store';
 
 const Settings = ({navigation}: SettingsStackProps) => {
   const {currency, email} = useSelector((state: RootState) => state.userData);
+
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <Surface style={styles.surface}>
-        <Text style={[fonts.smallerCaption, styles.username]}>username</Text>
+        <Text style={[fonts.smallerCaption, styles.username]}>Email:</Text>
         <Text style={[fonts.caption, styles.user]}>{email.toLowerCase()}</Text>
       </Surface>
       <SettingsItem

@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {View, TouchableOpacity, KeyboardAvoidingView} from 'react-native';
 import {Text, TextInput, HelperText} from 'react-native-paper';
 import * as yup from 'yup';
@@ -9,10 +9,11 @@ import {Formik} from 'formik';
 import LargeButton from '../LargeButton/LargeButton';
 import Spinner from '../Spinner/Spinner';
 import {sizes} from '~utils';
-import {useDispatch} from 'react-redux';
+import NetworkError from '../NetworkError/NetworkError';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import styles from './styles';
 import {useNavigation} from '@react-navigation/native';
+import NetInfo from '@react-native-community/netinfo';
 
 type Props = {
   //onButtonPress?: () => void;
@@ -33,7 +34,16 @@ const vaidation = yup.object().shape({
 const Login = (props: Props) => {
   const [loading, setLoading] = useState(false);
   const [servererror, setServerError] = useState();
+  const [offlinestatus, setOfflineStatus] = useState(false);
   const navigation = useNavigation();
+
+  useEffect(() => {
+    const removeNetInfoSubscription = NetInfo.addEventListener(state => {
+      const offline = !(state.isConnected && state.isInternetReachable);
+      setOfflineStatus(offline);
+    });
+    return () => removeNetInfoSubscription();
+  }, [offlinestatus]);
 
   const handlePress = (values: {}) => {
     setLoading(true);
@@ -44,17 +54,18 @@ const Login = (props: Props) => {
       )
       .then(response => {
         AsyncStorage.setItem('AuthToken', `Bearer ${response.data.token}`);
-        navigation.navigate('Home');
         setLoading(false);
+        navigation.navigate('Home');
       })
       .catch(err => {
-        setLoading(false);
         setServerError(err.response.data);
+        setLoading(false);
       });
   };
 
   return (
     <KeyboardAvoidingView behavior="padding">
+      {offlinestatus && <NetworkError />}
       {loading && <Spinner />}
       <View style={[styles.captionContainer]}>
         <Formik
@@ -114,6 +125,7 @@ const Login = (props: Props) => {
                 <LargeButton
                   title="Log In"
                   onPress={handleSubmit}
+                  disabled={offlinestatus}
                   testID="buttonID"
                 />
               </View>

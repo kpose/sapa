@@ -1,20 +1,46 @@
-import React, {useRef, useState, useContext} from 'react';
+import React, {useRef, useState, useContext, useEffect} from 'react';
 import {View, ScrollView} from 'react-native';
-import styles from './styles';
-import {RouteStackProps} from '~definitions/navigationTypes';
-import {colors, hp, sizes} from '~utils';
+import {Modalize} from 'react-native-modalize';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import {Text, Button, Portal, Modal} from 'react-native-paper';
+import axios from 'axios';
+import {useDispatch, useSelector} from 'react-redux';
 
 /* utils and files */
 import {WalletCard} from '~components';
 import {AddWalletType, AddWallet} from '~modals';
-import {Modalize} from 'react-native-modalize';
+import {colors, hp, sizes} from '~utils';
 import {ThemeContext} from '~context/ThemeCotext';
+import styles from './styles';
+import {RouteStackProps} from '~definitions/navigationTypes';
+import {setEmail, setFirstName, setUsername} from '~redux/userReducer';
 
 const Home = ({navigation}: RouteStackProps) => {
   const walletModalRef = useRef<Modalize>(null);
   const [showmodal, setShowmodal] = useState(false);
   const {theme} = useContext(ThemeContext);
+  const [bearertoken, setBearerToken] = useState<any>('');
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    getToken();
+    axios.defaults.headers.common = {Authorization: `${bearertoken}`};
+    axios
+      .get('https://us-central1-sapa-4bd2e.cloudfunctions.net/api/user')
+      .then(response => {
+        dispatch(setUsername(response.data.userCredentials.username));
+        dispatch(setFirstName(response.data.userCredentials.firstName));
+        dispatch(setEmail(response.data.userCredentials.email));
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  }, [bearertoken]);
+
+  const getToken = async () => {
+    const token = await AsyncStorage.getItem('AuthToken');
+    setBearerToken(token);
+  };
 
   const openModal = () => {
     walletModalRef.current?.open();
