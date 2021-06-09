@@ -21,6 +21,7 @@ import NetworkError from './NetworkError/NetworkError';
 import ExpenseCard from './ExpenseCard/ExpenseCard';
 import LoadingAnime from './Lottie/LoadingAnime';
 import EmptyAnime from './Lottie/EmptyAnime';
+import TransactionCard from './TransactionCard/TransactionCard';
 
 export {
   LargeButton,
@@ -46,4 +47,5 @@ export {
   ExpenseCard,
   LoadingAnime,
   EmptyAnime,
+  TransactionCard,
 };

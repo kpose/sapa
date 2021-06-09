@@ -18,6 +18,8 @@ interface Props {
 const WalletCard = (props: Props) => {
   const navigation = useNavigation();
 
+  console.log(props.transactions);
+
   return (
     <View style={styles.container}>
       <TouchableOpacity

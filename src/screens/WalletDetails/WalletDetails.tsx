@@ -1,19 +1,40 @@
-import React from 'react';
-import {View} from 'react-native';
+import React, {useCallback} from 'react';
+import {View, FlatList} from 'react-native';
 import {Text} from 'react-native-paper';
 import {BottomTabProps} from '~definitions/navigationTypes';
-import {sizes} from '~utils';
-import {EmptyAnime} from '~components';
+
+import {EmptyAnime, TransactionCard} from '~components';
 import styles from './styles';
 
 const WalletDetails = ({route, navigation}: BottomTabProps) => {
   const {uid, title, transactions} = route.params;
-  console.log(transactions);
+
+  const renderWallets = useCallback(
+    ({item}) => (
+      <TransactionCard
+        date={item.createdAt}
+        category={item.category}
+        amount={item.amount}
+        marchant={item.marchant}
+        type={item.type}
+      />
+    ),
+    [],
+  );
+
+  const keyExtractor = useCallback(item => item.createdAt.toString(), []);
 
   return (
     <View style={styles.container}>
       {transactions && transactions.length ? (
-        <Text>{'found'}</Text>
+        <FlatList
+          data={transactions}
+          renderItem={renderWallets}
+          keyExtractor={keyExtractor}
+          showsVerticalScrollIndicator={false}
+          maxToRenderPerBatch={7}
+          windowSize={7}
+        />
       ) : (
         <EmptyAnime />
       )}
