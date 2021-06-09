@@ -6,12 +6,14 @@ import {
   KeyboardAvoidingView,
 } from 'react-native';
 import {Text, TextInput, Surface} from 'react-native-paper';
+import {useDispatch, useSelector} from 'react-redux';
 
 /* styles and utils */
 import styles from './styles';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {colors, hp, sizes, wp} from '~utils';
 import {fonts} from '~utils/fonts';
+import {setMarchant, setNote} from '~redux/AddExpenseReducer';
 
 interface Props {
   title: string;
@@ -20,8 +22,7 @@ interface Props {
 const AddToWalletBody = ({title}: Props) => {
   const elsaped = Date.now();
   const today = new Date(elsaped).toDateString();
-  const [marchant, setMerchant] = useState('');
-  const [note, setNote] = useState('');
+  const dispatch = useDispatch();
 
   return (
     <KeyboardAvoidingView
@@ -47,8 +48,7 @@ const AddToWalletBody = ({title}: Props) => {
           />
 
           <TextInput
-            value={marchant}
-            onChangeText={(text: string) => setMerchant(text)}
+            onChangeText={(text: string) => dispatch(setMarchant(text))}
             placeholder="Merchant"
             underlineColor="transparent"
             style={styles.input}
@@ -62,8 +62,8 @@ const AddToWalletBody = ({title}: Props) => {
             size={sizes.navigationIconSize}
           />
           <TextInput
-            value={note}
-            onChangeText={(text: string) => setNote(text)}
+            //value={note}
+            onChangeText={(text: string) => dispatch(setNote(text))}
             placeholder="Note"
             underlineColor="transparent"
             style={styles.input}

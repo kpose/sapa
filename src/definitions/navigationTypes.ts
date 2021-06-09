@@ -9,7 +9,7 @@ export type RouteStackParams = {
     Welcome: undefined;
     Home: undefined;
     BottomTabs: undefined;
-    AddToWallet: {uid: string}
+    AddToWallet: {uid: string, title: string}
     SettingsStack: undefined
 };
 
