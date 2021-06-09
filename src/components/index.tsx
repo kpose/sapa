@@ -19,6 +19,8 @@ import SettingsBottom from './SettingsBottom/SettingsBottom';
 import Spinner from './Spinner/Spinner';
 import NetworkError from './NetworkError/NetworkError';
 import ExpenseCard from './ExpenseCard/ExpenseCard';
+import LoadingAnime from './Lottie/LoadingAnime';
+import EmptyAnime from './Lottie/EmptyAnime';
 
 export {
   LargeButton,
@@ -42,4 +44,6 @@ export {
   Spinner,
   NetworkError,
   ExpenseCard,
+  LoadingAnime,
+  EmptyAnime,
 };

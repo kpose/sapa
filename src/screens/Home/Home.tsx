@@ -13,7 +13,7 @@ import axios from 'axios';
 import {useDispatch, useSelector} from 'react-redux';
 
 /* utils and files */
-import {WalletCard} from '~components';
+import {WalletCard, LoadingAnime} from '~components';
 import {AddWalletType, AddWallet} from '~modals';
 import {colors, hp, sizes} from '~utils';
 import {ThemeContext} from '~context/ThemeCotext';
@@ -25,12 +25,14 @@ const Home = ({navigation}: RouteStackProps) => {
   const walletModalRef = useRef<Modalize>(null);
   const [showmodal, setShowmodal] = useState(false);
   const [isFetching, setIsFetching] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [wallets, setWallets] = useState();
   const {theme} = useContext(ThemeContext);
   const [bearertoken, setBearerToken] = useState<any>('');
   const dispatch = useDispatch();
 
   useEffect(() => {
+    setLoading(true);
     getToken();
     axios.defaults.headers.common = {Authorization: `${bearertoken}`};
     axios
@@ -39,9 +41,11 @@ const Home = ({navigation}: RouteStackProps) => {
         dispatch(setUsername(response.data.userCredentials.username));
         dispatch(setFirstName(response.data.userCredentials.firstName));
         dispatch(setEmail(response.data.userCredentials.email));
+        setLoading(false);
       })
       .catch(error => {
         console.log(error);
+        setLoading(false);
       });
   }, [bearertoken]);
 
@@ -55,6 +59,7 @@ const Home = ({navigation}: RouteStackProps) => {
   };
 
   const getWallets = async () => {
+    setLoading(true);
     const token = await AsyncStorage.getItem('AuthToken');
     axios.defaults.headers.common = {Authorization: `${token}`};
     axios
@@ -62,9 +67,11 @@ const Home = ({navigation}: RouteStackProps) => {
       .then(response => {
         setWallets(response.data);
         setIsFetching(false);
+        setLoading(false);
       })
       .catch(error => {
         console.log(error);
+        setLoading(false);
       });
   };
 
@@ -83,7 +90,13 @@ const Home = ({navigation}: RouteStackProps) => {
   };
 
   const renderWallets = useCallback(
-    ({item}) => <WalletCard title={item.title} uid={item.walletId} />,
+    ({item}) => (
+      <WalletCard
+        title={item.title}
+        uid={item.walletId}
+        transactions={item.transactions}
+      />
+    ),
     [],
   );
 

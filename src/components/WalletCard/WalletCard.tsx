@@ -8,9 +8,11 @@ import {Text, Surface, Button} from 'react-native-paper';
 import {fonts} from '~utils/fonts';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {colors, sizes} from '~utils';
+
 interface Props {
   title: string;
   uid: string;
+  transactions: [];
 }
 
 const WalletCard = (props: Props) => {
@@ -22,7 +24,11 @@ const WalletCard = (props: Props) => {
         onPress={() =>
           navigation.navigate('BottomTabs', {
             screen: 'WalletDetails',
-            params: {uid: props.uid, title: props.title},
+            params: {
+              uid: props.uid,
+              title: props.title,
+              transactions: props.transactions,
+            },
           })
         }>
         <Surface style={styles.surface}>

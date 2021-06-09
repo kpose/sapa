@@ -9,8 +9,6 @@ import {AddToWalletHeader, AddToWalletBody} from '~components';
 
 const AddToWallet = ({navigation, route}: RouteStackProps) => {
   const {uid, title} = route.params;
-  //const walletId = route.params.uid;
-  //console.log(walletId);
 
   return (
     <View style={styles.container}>
