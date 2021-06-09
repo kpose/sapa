@@ -7,11 +7,15 @@ import styles from './styles';
 import {RouteStackProps} from '~definitions/navigationTypes';
 import {AddToWalletHeader, AddToWalletBody} from '~components';
 
-const AddToWallet = ({navigation}: RouteStackProps) => {
+const AddToWallet = ({navigation, route}: RouteStackProps) => {
+  const {uid, title} = route.params;
+  //const walletId = route.params.uid;
+  //console.log(walletId);
+
   return (
     <View style={styles.container}>
       <AddToWalletHeader closeScreen={() => navigation.goBack()} />
-      <AddToWalletBody />
+      <AddToWalletBody title={title} />
     </View>
   );
 };

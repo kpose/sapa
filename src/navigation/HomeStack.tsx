@@ -25,11 +25,12 @@ function HomeStack() {
       />
 
       <Stack.Screen
-        options={({navigation}) => ({
+        options={({navigation, route}) => ({
           header: () => (
             <TabHeader
               onBackPress={() => navigation.goBack()}
               onPlusPress={() => navigation.navigate('AddToWallet')}
+              data={route.params}
             />
           ),
           headerStyle: {
@@ -39,6 +40,7 @@ function HomeStack() {
         name="BottomTabs"
         component={BottomTabNavigator}
       />
+
       <Stack.Screen
         name="AddToWallet"
         options={{headerShown: false}}

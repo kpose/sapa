@@ -1,8 +1,8 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {View} from 'react-native';
 import styles from './styles';
-import {Text, Button} from 'react-native-paper';
-import {sizes} from '~utils';
+import {Text, Button, ActivityIndicator} from 'react-native-paper';
+import {colors, sizes} from '~utils';
 
 type ButtonProps = {
   title: string;
@@ -10,6 +10,7 @@ type ButtonProps = {
   disabled?: boolean;
   color?: string;
   testID?: string;
+  loading?: boolean;
 };
 
 const LargeButton = (props: ButtonProps) => {
@@ -24,7 +25,11 @@ const LargeButton = (props: ButtonProps) => {
       style={styles.button}
       dark={true}
       labelStyle={[sizes.fonts.buttonText]}>
-      {props.title}
+      {props.loading ? (
+        <ActivityIndicator animating={true} color={colors.WHITE} />
+      ) : (
+        props.title
+      )}
     </Button>
   );
 };

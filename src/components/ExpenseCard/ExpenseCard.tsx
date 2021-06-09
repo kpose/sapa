@@ -4,16 +4,17 @@ import styles from './styles';
 import {useNavigation} from '@react-navigation/native';
 
 /* utils and files */
-import {Text, Surface, Button} from 'react-native-paper';
+import {Text, Surface} from 'react-native-paper';
 import {fonts} from '~utils/fonts';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {colors, sizes} from '~utils';
+
 interface Props {
   title: string;
   uid: string;
 }
 
-const WalletCard = (props: Props) => {
+const ExpenseCard = (props: Props) => {
   const navigation = useNavigation();
 
   return (
@@ -45,12 +46,7 @@ const WalletCard = (props: Props) => {
 
           <TouchableOpacity
             style={styles.button}
-            onPress={() =>
-              navigation.navigate('AddToWallet', {
-                uid: props.uid,
-                title: props.title,
-              })
-            }>
+            onPress={() => navigation.navigate('AddToWallet')}>
             <Icon
               name="plus"
               size={sizes.navigationIconSize}
@@ -63,4 +59,4 @@ const WalletCard = (props: Props) => {
   );
 };
 
-export default WalletCard;
+export default ExpenseCard;

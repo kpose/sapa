@@ -13,7 +13,11 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {colors, hp, sizes, wp} from '~utils';
 import {fonts} from '~utils/fonts';
 
-const AddToWalletBody = () => {
+interface Props {
+  title: string;
+}
+
+const AddToWalletBody = ({title}: Props) => {
   const elsaped = Date.now();
   const today = new Date(elsaped).toDateString();
   const [marchant, setMerchant] = useState('');
@@ -73,7 +77,7 @@ const AddToWalletBody = () => {
             size={sizes.navigationIconSize}
           />
           <Text style={[fonts.bodyText, {marginLeft: wp(4)}]}>Wallet</Text>
-          <Text style={[fonts.bodyText, styles.wallet]}>Osusu</Text>
+          <Text style={[fonts.caption, styles.wallet]}>{title}</Text>
         </View>
 
         <TouchableOpacity onPress={() => console.log('camera')}>

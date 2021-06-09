@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {View, SafeAreaView, TouchableOpacity} from 'react-native';
-import {Text} from 'react-native-paper';
+import {Text, TextInput} from 'react-native-paper';
 import styles from './styles';
 
 /* files and utils */
@@ -14,6 +14,7 @@ interface Props {
 
 const AddToWalletHeader = ({closeScreen}: Props) => {
   const [xpense, setXpense] = useState(true);
+  const [amount, setAmount] = useState<string>('');
   return (
     <View
       style={[
@@ -55,6 +56,8 @@ const AddToWalletHeader = ({closeScreen}: Props) => {
             <Text style={[fonts.caption]}>Income</Text>
           </TouchableOpacity>
         </View>
+
+        {/* submit new transaction */}
         <TouchableOpacity>
           <Icon
             name="check-bold"
@@ -63,8 +66,16 @@ const AddToWalletHeader = ({closeScreen}: Props) => {
           />
         </TouchableOpacity>
       </SafeAreaView>
+
       <View style={styles.bottomRow}>
-        <Text style={[fonts.bodyText]}> - 0.00</Text>
+        <TextInput
+          onChangeText={value => setAmount(value)}
+          style={[styles.input, fonts.bodyText]}
+          placeholder={xpense ? '-' + ' 0.00' : '+' + ' 0.00'}
+          underlineColor={xpense ? colors.SECONDARY : colors.PRIMARY}
+          autoFocus={true}
+          keyboardType="number-pad"
+        />
         <TouchableOpacity>
           <Icon
             name="bullseye"

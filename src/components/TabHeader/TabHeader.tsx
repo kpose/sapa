@@ -10,9 +10,10 @@ import {fonts} from '~utils/fonts';
 type Props = {
   onBackPress: () => void;
   onPlusPress: () => void;
+  data?: {[params: string]: any};
 };
 
-const TabHeader = ({onBackPress, onPlusPress}: Props) => {
+const TabHeader = ({onBackPress, onPlusPress, data}: Props) => {
   return (
     <View>
       <Wave
@@ -46,7 +47,9 @@ const TabHeader = ({onBackPress, onPlusPress}: Props) => {
 
       <Surface style={styles.surface}>
         <View style={[styles.myWallet]}>
-          <Text style={[fonts.caption, styles.wallet]}>My wallet</Text>
+          <Text style={[fonts.caption, styles.wallet]}>
+            {data?.params.title}
+          </Text>
           <Text style={[fonts.caption]}>n0.00</Text>
         </View>
 

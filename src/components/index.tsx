@@ -18,6 +18,7 @@ import SettingsItem from './SettingsItem/SettingsItem';
 import SettingsBottom from './SettingsBottom/SettingsBottom';
 import Spinner from './Spinner/Spinner';
 import NetworkError from './NetworkError/NetworkError';
+import ExpenseCard from './ExpenseCard/ExpenseCard';
 
 export {
   LargeButton,
@@ -40,4 +41,5 @@ export {
   SettingsBottom,
   Spinner,
   NetworkError,
+  ExpenseCard,
 };

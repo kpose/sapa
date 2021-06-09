@@ -5,35 +5,35 @@ import {colors, hp, wp} from '~utils';
 import {LargeButton} from '~components';
 import {fonts} from '~utils/fonts';
 import axios from 'axios';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const AddWallet = () => {
+interface Props {
+  close: () => void;
+  getWallets: () => void;
+  token: string;
+}
+
+const AddWallet = ({close, getWallets, token}: Props) => {
   const [title, setTitle] = useState<string>('');
-  const [bearertoken, setBearerToken] = useState<any>('');
-
-  useEffect(() => {
-    getToken();
-  }, [bearertoken]);
-
-  const getToken = async () => {
-    const token = await AsyncStorage.getItem('AuthToken');
-    setBearerToken(token);
-  };
+  const [loading, setLoading] = useState<boolean>(false);
 
   const saveWallet = () => {
     const userWallet = {
       title,
     };
-    axios.defaults.headers.common = {Authorization: `${bearertoken}`};
+    setLoading(true);
+    axios.defaults.headers.common = {Authorization: `${token}`};
     axios
       .post(
         'https://us-central1-sapa-4bd2e.cloudfunctions.net/api/createwallet',
         userWallet,
       )
       .then(response => {
-        console.log(response);
+        setLoading(false);
+        close();
+        getWallets();
       })
       .catch(error => {
+        setLoading(false);
         console.log(error);
       });
   };
@@ -52,6 +52,7 @@ const AddWallet = () => {
         disabled={title ? false : true}
         onPress={saveWallet}
         title="Save"
+        loading={loading ? true : false}
       />
     </View>
   );

@@ -1,5 +1,11 @@
-import React, {useRef, useState, useContext, useEffect} from 'react';
-import {View, ScrollView} from 'react-native';
+import React, {
+  useRef,
+  useState,
+  useContext,
+  useEffect,
+  useCallback,
+} from 'react';
+import {View, FlatList} from 'react-native';
 import {Modalize} from 'react-native-modalize';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {Text, Button, Portal, Modal} from 'react-native-paper';
@@ -18,6 +24,8 @@ import {setEmail, setFirstName, setUsername} from '~redux/userReducer';
 const Home = ({navigation}: RouteStackProps) => {
   const walletModalRef = useRef<Modalize>(null);
   const [showmodal, setShowmodal] = useState(false);
+  const [isFetching, setIsFetching] = useState(false);
+  const [wallets, setWallets] = useState();
   const {theme} = useContext(ThemeContext);
   const [bearertoken, setBearerToken] = useState<any>('');
   const dispatch = useDispatch();
@@ -37,6 +45,29 @@ const Home = ({navigation}: RouteStackProps) => {
       });
   }, [bearertoken]);
 
+  useEffect(() => {
+    getWallets();
+  }, []);
+
+  const onRefresh = () => {
+    setIsFetching(true);
+    getWallets();
+  };
+
+  const getWallets = async () => {
+    const token = await AsyncStorage.getItem('AuthToken');
+    axios.defaults.headers.common = {Authorization: `${token}`};
+    axios
+      .get('https://us-central1-sapa-4bd2e.cloudfunctions.net/api/wallets')
+      .then(response => {
+        setWallets(response.data);
+        setIsFetching(false);
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  };
+
   const getToken = async () => {
     const token = await AsyncStorage.getItem('AuthToken');
     setBearerToken(token);
@@ -50,6 +81,14 @@ const Home = ({navigation}: RouteStackProps) => {
     setShowmodal(true);
     walletModalRef.current?.close();
   };
+
+  const renderWallets = useCallback(
+    ({item}) => <WalletCard title={item.title} uid={item.walletId} />,
+    [],
+  );
+
+  const keyExtractor = useCallback(item => item.walletId.toString(), []);
+
   return (
     <>
       <Modalize
@@ -74,7 +113,11 @@ const Home = ({navigation}: RouteStackProps) => {
                 theme.type === 'dark' ? colors.DARK_GRAY : colors.WHITE,
             },
           ]}>
-          <AddWallet />
+          <AddWallet
+            close={() => setShowmodal(false)}
+            getWallets={getWallets}
+            token={bearertoken}
+          />
         </Modal>
       </Portal>
 
@@ -92,9 +135,16 @@ const Home = ({navigation}: RouteStackProps) => {
           <Text style={[styles.edit, sizes.fonts.caption]}>Edit</Text>
         </View>
 
-        <ScrollView>
-          <WalletCard />
-        </ScrollView>
+        <FlatList
+          data={wallets}
+          renderItem={renderWallets}
+          keyExtractor={keyExtractor}
+          showsVerticalScrollIndicator={false}
+          maxToRenderPerBatch={7}
+          windowSize={7}
+          refreshing={isFetching}
+          onRefresh={onRefresh}
+        />
       </View>
     </>
   );

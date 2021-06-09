@@ -5,11 +5,11 @@ import {RouteProp} from '@react-navigation/native'
 /* Define Params */
 
 //home stack params
-export type RouteStackParams = {
+export type RouteStackParams = { 
     Welcome: undefined;
     Home: undefined;
     BottomTabs: undefined;
-    AddToWallet: undefined;
+    AddToWallet: {uid: string}
     SettingsStack: undefined
 };
 
@@ -24,25 +24,25 @@ export type SettingsStackParams = {
 };
 
 //bottom tab params
-export type HomeTabParams = {
-    WalletDetails: undefined;
+export type BottomTabParams = {
+    WalletDetails: {uid : string, title: string};
     WalletBudget: undefined;
      WalletCalender: undefined;
     WalletChart: undefined;
-     WalletSettings: undefined
+     WalletSettings: undefined 
 };
 
 
 /* anotate screen navigation */
 type RouteStackNavigationProp = StackNavigationProp<RouteStackParams, 'Home'>
-type HomeTabsNavigationProp = MaterialBottomTabNavigationProp<HomeTabParams, 'WalletDetails'>
+type HomeTabsNavigationProp = MaterialBottomTabNavigationProp<BottomTabParams, 'WalletDetails'>
 type SettingsStackNavigationProp = StackNavigationProp<SettingsStackParams, 'Settings'>
 
 
 
 /* anotate screen route */
 type RouteStackRouteProp = RouteProp<RouteStackParams, 'Home'>
-type HomeTabsRouteProp = RouteProp<HomeTabParams, 'WalletDetails'>
+type HomeTabsRouteProp = RouteProp<BottomTabParams, 'WalletDetails'>
 type SettingsStackRouteProp = RouteProp<SettingsStackParams, 'Settings'>
 
 
@@ -54,7 +54,7 @@ export type RouteStackProps = {
     route : RouteStackRouteProp
 }
 
-export type WalletTabProps = {
+export type BottomTabProps = {
     navigation: HomeTabsNavigationProp,
     route : HomeTabsRouteProp
 }

@@ -36,6 +36,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+
+  input: {
+    //width: wp(80),
+    //marginLeft: wp(4),
+    backgroundColor: 'transparent',
+    height: hp(5),
+    fontWeight: 'bold',
+  },
 });
 
 export default styles;
