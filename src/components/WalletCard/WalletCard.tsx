@@ -15,10 +15,10 @@ interface Props {
   title: string;
   uid: string;
   transactions: [];
-  refresh: any;
+  refresh: () => void;
 }
 
-const WalletCard = (props: Props) => {
+const WalletCard = ({title, uid, transactions, refresh}: Props) => {
   const navigation = useNavigation();
   const {symbol} = useSelector((state: RootState) => state.userData);
 
@@ -29,15 +29,16 @@ const WalletCard = (props: Props) => {
           navigation.navigate('BottomTabs', {
             screen: 'WalletDetails',
             params: {
-              uid: props.uid,
-              title: props.title,
-              transactions: props.transactions,
+              uid,
+              title,
+              transactions,
+              refresh,
             },
           })
         }>
         <Surface style={styles.surface}>
           <View style={[styles.myWallet]}>
-            <Text style={[fonts.bodyText, styles.wallet]}>{props.title}</Text>
+            <Text style={[fonts.bodyText, styles.wallet]}>{title}</Text>
             <Text style={[fonts.caption]}>{symbol} 0.00</Text>
           </View>
 
@@ -57,9 +58,9 @@ const WalletCard = (props: Props) => {
             style={styles.button}
             onPress={() =>
               navigation.navigate('AddToWallet', {
-                uid: props.uid,
-                title: props.title,
-                refresh: props.refresh,
+                uid,
+                title,
+                refresh,
               })
             }>
             <Icon

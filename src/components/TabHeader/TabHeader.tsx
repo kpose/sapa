@@ -13,10 +13,13 @@ type Props = {
   onBackPress: () => void;
   onPlusPress: () => void;
   data?: {[params: string]: any};
+  navigation: any;
 };
 
-const TabHeader = ({onBackPress, onPlusPress, data}: Props) => {
+const TabHeader = ({onBackPress, onPlusPress, data, navigation}: Props) => {
   const {symbol} = useSelector((state: RootState) => state.userData);
+  console.log(data);
+
   return (
     <View>
       <Wave
@@ -68,7 +71,15 @@ const TabHeader = ({onBackPress, onPlusPress, data}: Props) => {
           </View>
         </View>
 
-        <TouchableOpacity style={styles.button} onPress={onPlusPress}>
+        <TouchableOpacity
+          style={styles.button}
+          /* onPress={onPlusPress} */ onPress={() =>
+            navigation.navigate('AddToWallet', {
+              uid: data?.params.uid,
+              title: data?.params.title,
+              //refresh,
+            })
+          }>
           <Icon
             name="plus"
             size={sizes.navigationIconSize}

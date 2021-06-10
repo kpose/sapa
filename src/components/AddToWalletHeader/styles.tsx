@@ -38,11 +38,19 @@ const styles = StyleSheet.create({
   },
 
   input: {
-    //width: wp(80),
-    //marginLeft: wp(4),
     backgroundColor: 'transparent',
     height: hp(5),
     fontWeight: 'bold',
+  },
+
+  modal: {
+    height: hp(50),
+    width: wp(95),
+    alignSelf: 'center',
+    position: 'absolute',
+    justifyContent: 'flex-start',
+    top: hp(20),
+    borderRadius: wp(5),
   },
 });
 

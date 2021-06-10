@@ -13,7 +13,7 @@ import axios from 'axios';
 import {useDispatch, useSelector} from 'react-redux';
 
 /* utils and files */
-import {WalletCard, LoadingAnime} from '~components';
+import {WalletCard, LoadingAnime, ContentHeader} from '~components';
 import {AddWalletType, AddWallet} from '~modals';
 import {colors, hp, sizes} from '~utils';
 import {ThemeContext} from '~context/ThemeCotext';
@@ -25,7 +25,7 @@ const Home = ({navigation}: RouteStackProps) => {
   const walletModalRef = useRef<Modalize>(null);
   const [showmodal, setShowmodal] = useState(false);
   const [isFetching, setIsFetching] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [wallets, setWallets] = useState();
   const {theme} = useContext(ThemeContext);
   const [bearertoken, setBearerToken] = useState<any>('');
@@ -136,19 +136,9 @@ const Home = ({navigation}: RouteStackProps) => {
       </Portal>
 
       <View style={styles.container}>
-        <View style={styles.walletsHeader}>
-          <Button
-            icon="plus"
-            onPress={openModal}
-            mode="contained"
-            uppercase={false}
-            style={styles.addWallet}
-            labelStyle={[sizes.fonts.buttonText]}>
-            Add wallet
-          </Button>
-          <Text style={[styles.edit, sizes.fonts.caption]}>Edit</Text>
-        </View>
+        {loading ? null : <ContentHeader openPress={openModal} />}
 
+        {/* {loading && <LoadingAnime />} */}
         <FlatList
           data={wallets}
           renderItem={renderWallets}

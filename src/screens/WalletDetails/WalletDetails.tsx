@@ -7,7 +7,7 @@ import {EmptyAnime, TransactionCard} from '~components';
 import styles from './styles';
 
 const WalletDetails = ({route, navigation}: BottomTabProps) => {
-  const {uid, title, transactions} = route.params;
+  const {uid, title, transactions, refresh} = route.params;
 
   const renderWallets = useCallback(
     ({item}) => (

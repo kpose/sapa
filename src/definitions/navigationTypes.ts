@@ -7,7 +7,7 @@ import {RouteProp} from '@react-navigation/native'
 //home stack params
 export type RouteStackParams = { 
     Welcome: undefined;
-    Home: {uid: string, title: string, refresh: any} 
+    Home: {uid: string, title: string, refresh: any, } 
     BottomTabs: undefined;
     AddToWallet: undefined;
     SettingsStack: undefined
@@ -25,7 +25,7 @@ export type SettingsStackParams = {
 
 //bottom tab params
 export type BottomTabParams = {
-    WalletDetails: {uid : string, title: string, transactions: []};
+    WalletDetails: {uid : string, title: string, transactions: [], refresh: any};
     WalletBudget: undefined;
      WalletCalender: undefined;
     WalletChart: undefined;

@@ -1,6 +1,6 @@
-import React, {useState} from 'react';
+import React, {useState, useContext} from 'react';
 import {View, SafeAreaView, TouchableOpacity} from 'react-native';
-import {Text, TextInput} from 'react-native-paper';
+import {Text, TextInput, Portal, Modal} from 'react-native-paper';
 import styles from './styles';
 import {useSelector, useDispatch} from 'react-redux';
 import axios from 'axios';
@@ -12,17 +12,20 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {colors, sizes} from '~utils';
 import {fonts} from '~utils/fonts';
 import {RootState} from '~redux/store';
+import {ThemeContext} from '~context/ThemeCotext';
 
 interface Props {
   closeScreen: () => void;
   walletID: string;
-  refresh: any;
+  refresh: () => void;
 }
 
 const AddToWalletHeader = ({closeScreen, walletID, refresh}: Props) => {
   const [xpense, setXpense] = useState(true);
   const [loading, setLoading] = useState(false);
+  const [showmodal, setShowmodal] = useState(true);
   const [amount, setAmount] = useState('');
+  const {theme} = useContext(ThemeContext);
 
   const {note, marchant, category, image} = useSelector(
     (state: RootState) => state.AddExpense,
@@ -59,6 +62,22 @@ const AddToWalletHeader = ({closeScreen, walletID, refresh}: Props) => {
   return (
     <>
       {loading && <Spinner />}
+
+      <Portal>
+        <Modal
+          visible={showmodal}
+          onDismiss={() => setShowmodal(false)}
+          contentContainerStyle={[
+            styles.modal,
+            {
+              backgroundColor:
+                theme.type === 'dark' ? colors.DARK_GRAY : colors.WHITE,
+            },
+          ]}>
+          <Text> hello </Text>
+        </Modal>
+      </Portal>
+
       <View
         style={[
           styles.container,
