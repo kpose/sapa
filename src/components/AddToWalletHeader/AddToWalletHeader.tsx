@@ -23,7 +23,7 @@ interface Props {
 const AddToWalletHeader = ({closeScreen, walletID, refresh}: Props) => {
   const [xpense, setXpense] = useState(true);
   const [loading, setLoading] = useState(false);
-  const [showmodal, setShowmodal] = useState(true);
+  const [showmodal, setShowmodal] = useState(false);
   const [amount, setAmount] = useState('');
   const {theme} = useContext(ThemeContext);
 
@@ -138,7 +138,7 @@ const AddToWalletHeader = ({closeScreen, walletID, refresh}: Props) => {
             autoFocus={true}
             keyboardType="number-pad"
           />
-          <TouchableOpacity>
+          <TouchableOpacity onPress={() => setShowmodal(true)}>
             <Icon
               name="bullseye"
               size={sizes.navigationIconSize}
