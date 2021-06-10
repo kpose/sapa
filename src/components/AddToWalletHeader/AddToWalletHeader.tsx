@@ -5,7 +5,7 @@ import styles from './styles';
 import {useSelector, useDispatch} from 'react-redux';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {Spinner} from '~components';
+import {Spinner, TransactionCategory} from '~components';
 
 /* files and utils */
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -74,7 +74,7 @@ const AddToWalletHeader = ({closeScreen, walletID, refresh}: Props) => {
                 theme.type === 'dark' ? colors.DARK_GRAY : colors.WHITE,
             },
           ]}>
-          <Text> hello </Text>
+          <TransactionCategory />
         </Modal>
       </Portal>
 

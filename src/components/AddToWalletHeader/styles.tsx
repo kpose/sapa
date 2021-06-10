@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
 
   modal: {
     height: hp(50),
-    width: wp(95),
+    width: wp(100),
     alignSelf: 'center',
     position: 'absolute',
     justifyContent: 'flex-start',

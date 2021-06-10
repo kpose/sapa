@@ -23,6 +23,8 @@ import LoadingAnime from './Lottie/LoadingAnime';
 import EmptyAnime from './Lottie/EmptyAnime';
 import TransactionCard from './TransactionCard/TransactionCard';
 import ContentHeader from './ContentHeader/ContentHeader';
+import TransactionCategory from './TransactionCategory/TransactionCategory';
+import CategoryIcon from './CategoryIcon/CategoryIcon';
 
 export {
   LargeButton,
@@ -50,4 +52,6 @@ export {
   EmptyAnime,
   TransactionCard,
   ContentHeader,
+  TransactionCategory,
+  CategoryIcon,
 };
