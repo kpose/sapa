@@ -6,6 +6,8 @@ import {fonts} from '~utils/fonts';
 import styles from './styles';
 
 /* utils  */
+import {useSelector} from 'react-redux';
+import {RootState} from '~redux/store';
 
 interface Props {
   date: string;
@@ -26,6 +28,7 @@ const TransactionCard = ({
   type,
   note,
 }: Props) => {
+  const {symbol} = useSelector((state: RootState) => state.userData);
   let isoDate = date;
   var timestamp = new Date(isoDate);
 
@@ -51,7 +54,9 @@ const TransactionCard = ({
           </Surface>
         )}
         <Text style={[fonts.smallerCaption, styles.note]}>{marchant}</Text>
-        <Text style={[fonts.caption, styles.amount]}>{amount}</Text>
+        <Text style={[fonts.caption, styles.amount]}>
+          {symbol} {amount}
+        </Text>
       </View>
     </Surface>
   );

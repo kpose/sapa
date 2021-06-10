@@ -8,13 +8,14 @@ import {RouteStackProps} from '~definitions/navigationTypes';
 import {AddToWalletHeader, AddToWalletBody} from '~components';
 
 const AddToWallet = ({navigation, route}: RouteStackProps) => {
-  const {uid, title} = route.params;
+  const {uid, title, refresh} = route.params;
 
   return (
     <View style={styles.container}>
       <AddToWalletHeader
         closeScreen={() => navigation.goBack()}
         walletID={uid}
+        refresh={refresh}
       />
       <AddToWalletBody title={title} />
     </View>

@@ -6,6 +6,8 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import {Text, Surface} from 'react-native-paper';
 import {fonts} from '~utils/fonts';
+import {useSelector} from 'react-redux';
+import {RootState} from '~redux/store';
 
 type Props = {
   onBackPress: () => void;
@@ -14,6 +16,7 @@ type Props = {
 };
 
 const TabHeader = ({onBackPress, onPlusPress, data}: Props) => {
+  const {symbol} = useSelector((state: RootState) => state.userData);
   return (
     <View>
       <Wave
@@ -50,18 +53,18 @@ const TabHeader = ({onBackPress, onPlusPress, data}: Props) => {
           <Text style={[fonts.caption, styles.wallet]}>
             {data?.params.title}
           </Text>
-          <Text style={[fonts.caption]}>n0.00</Text>
+          <Text style={[fonts.caption]}>{symbol} 0.00</Text>
         </View>
 
         <View style={styles.footer}>
           <View style={styles.days}>
             <Text style={[fonts.smallerCaption]}>Last 30 days</Text>
-            <Text style={[fonts.caption]}>n0.00</Text>
+            <Text style={[fonts.caption]}>{symbol} 0.00</Text>
           </View>
 
           <View>
             <Text style={[fonts.smallerCaption]}>Last 7 days</Text>
-            <Text style={[fonts.caption]}>n0.00</Text>
+            <Text style={[fonts.caption]}>{symbol} 0.00</Text>
           </View>
         </View>
 

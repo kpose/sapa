@@ -95,6 +95,7 @@ const Home = ({navigation}: RouteStackProps) => {
         title={item.title}
         uid={item.walletId}
         transactions={item.transactions}
+        refresh={onRefresh}
       />
     ),
     [],

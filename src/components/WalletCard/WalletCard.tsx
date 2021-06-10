@@ -8,17 +8,19 @@ import {Text, Surface, Button} from 'react-native-paper';
 import {fonts} from '~utils/fonts';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {colors, sizes} from '~utils';
+import {useSelector} from 'react-redux';
+import {RootState} from '~redux/store';
 
 interface Props {
   title: string;
   uid: string;
   transactions: [];
+  refresh: any;
 }
 
 const WalletCard = (props: Props) => {
   const navigation = useNavigation();
-
-  console.log(props.transactions);
+  const {symbol} = useSelector((state: RootState) => state.userData);
 
   return (
     <View style={styles.container}>
@@ -36,18 +38,18 @@ const WalletCard = (props: Props) => {
         <Surface style={styles.surface}>
           <View style={[styles.myWallet]}>
             <Text style={[fonts.bodyText, styles.wallet]}>{props.title}</Text>
-            <Text style={[fonts.caption]}>n0.00</Text>
+            <Text style={[fonts.caption]}>{symbol} 0.00</Text>
           </View>
 
           <View style={styles.footer}>
             <View style={styles.days}>
               <Text style={[fonts.smallerCaption]}>Last 30 days</Text>
-              <Text style={[fonts.caption]}>n0.00</Text>
+              <Text style={[fonts.caption]}>{symbol} 0.00</Text>
             </View>
 
             <View>
               <Text style={[fonts.smallerCaption]}>Last 7 days</Text>
-              <Text style={[fonts.caption]}>n0.00</Text>
+              <Text style={[fonts.caption]}>{symbol} 0.00</Text>
             </View>
           </View>
 
@@ -57,6 +59,7 @@ const WalletCard = (props: Props) => {
               navigation.navigate('AddToWallet', {
                 uid: props.uid,
                 title: props.title,
+                refresh: props.refresh,
               })
             }>
             <Icon

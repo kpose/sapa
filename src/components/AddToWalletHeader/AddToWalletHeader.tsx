@@ -16,9 +16,10 @@ import {RootState} from '~redux/store';
 interface Props {
   closeScreen: () => void;
   walletID: string;
+  refresh: any;
 }
 
-const AddToWalletHeader = ({closeScreen, walletID}: Props) => {
+const AddToWalletHeader = ({closeScreen, walletID, refresh}: Props) => {
   const [xpense, setXpense] = useState(true);
   const [loading, setLoading] = useState(false);
   const [amount, setAmount] = useState('');
@@ -45,8 +46,8 @@ const AddToWalletHeader = ({closeScreen, walletID}: Props) => {
         newTransaction,
       )
       .then(response => {
-        console.log(response.data);
         setLoading(false);
+        refresh();
         closeScreen();
       })
       .catch(error => {

@@ -7,7 +7,7 @@ import {RouteProp} from '@react-navigation/native'
 //home stack params
 export type RouteStackParams = { 
     Welcome: undefined;
-    Home: {uid: string, title: string} 
+    Home: {uid: string, title: string, refresh: any} 
     BottomTabs: undefined;
     AddToWallet: undefined;
     SettingsStack: undefined
