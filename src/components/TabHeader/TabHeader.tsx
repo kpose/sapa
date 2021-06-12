@@ -18,7 +18,6 @@ type Props = {
 
 const TabHeader = ({onBackPress, onPlusPress, data, navigation}: Props) => {
   const {symbol} = useSelector((state: RootState) => state.userData);
-  console.log(data);
 
   return (
     <View>
@@ -73,13 +72,15 @@ const TabHeader = ({onBackPress, onPlusPress, data, navigation}: Props) => {
 
         <TouchableOpacity
           style={styles.button}
-          /* onPress={onPlusPress} */ onPress={() =>
-            navigation.navigate('AddToWallet', {
+          onPress={onPlusPress}
+          /* onPress={() =>
+            navigation.navigate('AddToWalletToo', {
               uid: data?.params.uid,
               title: data?.params.title,
-              //refresh,
+              refresh: data?.params.refresh,
             })
-          }>
+          } */
+        >
           <Icon
             name="plus"
             size={sizes.navigationIconSize}

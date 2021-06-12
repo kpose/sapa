@@ -10,6 +10,7 @@ import Settings from './Settings/Settings';
 import ProfileSettings from './ProfileSettings/ProfileSettings';
 import CurrencySettings from './CurrencySettings/CurrencySettings';
 import LanguageSettings from './LanguageSettings/LanguageSettings';
+import AddToWalletToo from './AddToWalletToo/AddToWalletToo';
 
 export {
   Welcome,
@@ -24,4 +25,5 @@ export {
   ProfileSettings,
   CurrencySettings,
   LanguageSettings,
+  AddToWalletToo,
 };

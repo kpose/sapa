@@ -5,22 +5,23 @@ import {colors, hp, wp} from '~utils';
 import {LargeButton} from '~components';
 import {fonts} from '~utils/fonts';
 import axios from 'axios';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 interface Props {
   close: () => void;
   getWallets: () => void;
-  token: string;
 }
 
-const AddWallet = ({close, getWallets, token}: Props) => {
+const AddWallet = ({close, getWallets}: Props) => {
   const [title, setTitle] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(false);
 
-  const saveWallet = () => {
+  const saveWallet = async () => {
     const userWallet = {
       title,
     };
     setLoading(true);
+    const token = await AsyncStorage.getItem('AuthToken');
     axios.defaults.headers.common = {Authorization: `${token}`};
     axios
       .post(
@@ -29,8 +30,8 @@ const AddWallet = ({close, getWallets, token}: Props) => {
       )
       .then(response => {
         setLoading(false);
-        close();
         getWallets();
+        close();
       })
       .catch(error => {
         setLoading(false);

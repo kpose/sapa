@@ -31,7 +31,7 @@ const Home = ({navigation}: RouteStackProps) => {
   const [bearertoken, setBearerToken] = useState<any>('');
   const dispatch = useDispatch();
 
-  useEffect(() => {
+  /* useEffect(() => {
     setLoading(true);
     getToken();
     axios.defaults.headers.common = {Authorization: `${bearertoken}`};
@@ -47,7 +47,12 @@ const Home = ({navigation}: RouteStackProps) => {
         console.log(error);
         setLoading(false);
       });
-  }, [bearertoken]);
+  }, [bearertoken]); */
+
+  /* const getToken = async () => {
+    const token = await AsyncStorage.getItem('AuthToken');
+    setBearerToken(token);
+  }; */
 
   useEffect(() => {
     getWallets();
@@ -73,11 +78,6 @@ const Home = ({navigation}: RouteStackProps) => {
         console.log(error);
         setLoading(false);
       });
-  };
-
-  const getToken = async () => {
-    const token = await AsyncStorage.getItem('AuthToken');
-    setBearerToken(token);
   };
 
   const openModal = () => {
@@ -130,13 +130,13 @@ const Home = ({navigation}: RouteStackProps) => {
           <AddWallet
             close={() => setShowmodal(false)}
             getWallets={getWallets}
-            token={bearertoken}
           />
         </Modal>
       </Portal>
 
       <View style={styles.container}>
-        {loading ? null : <ContentHeader openPress={openModal} />}
+        {/* {loading ? null : <ContentHeader openPress={openModal} />} */}
+        <ContentHeader openPress={openModal} />
 
         {/* {loading && <LoadingAnime />} */}
         <FlatList

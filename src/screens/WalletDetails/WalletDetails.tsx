@@ -1,4 +1,4 @@
-import React, {useCallback} from 'react';
+import React, {useCallback, useEffect} from 'react';
 import {View, FlatList} from 'react-native';
 import {Text} from 'react-native-paper';
 import {BottomTabProps} from '~definitions/navigationTypes';
@@ -19,7 +19,7 @@ const WalletDetails = ({route, navigation}: BottomTabProps) => {
         type={item.type}
       />
     ),
-    [],
+    [transactions],
   );
 
   const keyExtractor = useCallback(item => item.createdAt.toString(), []);
@@ -36,10 +36,16 @@ const WalletDetails = ({route, navigation}: BottomTabProps) => {
           windowSize={7}
         />
       ) : (
-        <EmptyAnime />
+        <View>
+          <Text>HRO</Text>
+        </View>
       )}
     </View>
   );
 };
 
 export default WalletDetails;
+
+{
+  /* <EmptyAnime /> */
+}
