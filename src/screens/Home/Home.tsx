@@ -28,31 +28,7 @@ const Home = ({navigation}: RouteStackProps) => {
   const [loading, setLoading] = useState(true);
   const [wallets, setWallets] = useState();
   const {theme} = useContext(ThemeContext);
-  const [bearertoken, setBearerToken] = useState<any>('');
   const dispatch = useDispatch();
-
-  /* useEffect(() => {
-    setLoading(true);
-    getToken();
-    axios.defaults.headers.common = {Authorization: `${bearertoken}`};
-    axios
-      .get('https://us-central1-sapa-4bd2e.cloudfunctions.net/api/user')
-      .then(response => {
-        dispatch(setUsername(response.data.userCredentials.username));
-        dispatch(setFirstName(response.data.userCredentials.firstName));
-        dispatch(setEmail(response.data.userCredentials.email));
-        setLoading(false);
-      })
-      .catch(error => {
-        console.log(error);
-        setLoading(false);
-      });
-  }, [bearertoken]); */
-
-  /* const getToken = async () => {
-    const token = await AsyncStorage.getItem('AuthToken');
-    setBearerToken(token);
-  }; */
 
   useEffect(() => {
     getWallets();
@@ -134,11 +110,10 @@ const Home = ({navigation}: RouteStackProps) => {
         </Modal>
       </Portal>
 
-      <View style={styles.container}>
-        {/* {loading ? null : <ContentHeader openPress={openModal} />} */}
-        <ContentHeader openPress={openModal} />
+      {loading && <LoadingAnime />}
 
-        {/* {loading && <LoadingAnime />} */}
+      <View style={styles.container}>
+        <ContentHeader openPress={openModal} />
         <FlatList
           data={wallets}
           renderItem={renderWallets}
@@ -155,3 +130,26 @@ const Home = ({navigation}: RouteStackProps) => {
 };
 
 export default Home;
+
+/* useEffect(() => {
+    setLoading(true);
+    getToken();
+    axios.defaults.headers.common = {Authorization: `${bearertoken}`};
+    axios
+      .get('https://us-central1-sapa-4bd2e.cloudfunctions.net/api/user')
+      .then(response => {
+        dispatch(setUsername(response.data.userCredentials.username));
+        dispatch(setFirstName(response.data.userCredentials.firstName));
+        dispatch(setEmail(response.data.userCredentials.email));
+        setLoading(false);
+      })
+      .catch(error => {
+        console.log(error);
+        setLoading(false);
+      });
+  }, [bearertoken]); */
+
+/* const getToken = async () => {
+    const token = await AsyncStorage.getItem('AuthToken');
+    setBearerToken(token);
+  }; */

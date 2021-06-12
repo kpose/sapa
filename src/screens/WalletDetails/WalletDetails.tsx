@@ -1,6 +1,5 @@
 import React, {useCallback, useEffect} from 'react';
 import {View, FlatList} from 'react-native';
-import {Text} from 'react-native-paper';
 import {BottomTabProps} from '~definitions/navigationTypes';
 
 import {EmptyAnime, TransactionCard} from '~components';

@@ -1,5 +1,5 @@
 import React from 'react';
-import {SafeAreaView, StyleSheet} from 'react-native';
+import {StyleSheet} from 'react-native';
 import {Text, Portal, Modal} from 'react-native-paper';
 import {colors, hp, wp} from '~utils';
 import {fonts} from '~utils/fonts';
