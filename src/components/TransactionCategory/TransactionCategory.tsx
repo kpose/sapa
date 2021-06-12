@@ -4,12 +4,18 @@ import styles from './styles';
 import CategoryIcon from '../CategoryIcon/CategoryIcon';
 import iconPack from '../../assets/iconPack';
 
-const TransactionCategory = () => {
-  const [icons, setIcons] = useState<[] | any>([]);
+interface Props {
+  onClose: any;
+  title: any;
+  category: any;
+}
 
-  /* useEffect(() => {
-        setIcons(iconPack);
-    }, []); */
+const TransactionCategory = ({onClose, title, category}: Props) => {
+  const selectIcon = (icon: string, cat: string) => {
+    onClose();
+    title(icon);
+    category(cat);
+  };
 
   const renderCategories = useCallback(
     ({item}) => (
@@ -18,7 +24,7 @@ const TransactionCategory = () => {
         color={item.color}
         title={item.title}
         icon={item.icon}
-        onPress={() => console.log('pppp')}
+        onPress={() => selectIcon(item.icon, item.title)}
       />
     ),
     [],

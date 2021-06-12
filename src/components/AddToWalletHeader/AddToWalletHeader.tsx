@@ -1,11 +1,17 @@
 import React, {useState, useContext} from 'react';
-import {View, SafeAreaView, TouchableOpacity} from 'react-native';
+import {
+  View,
+  SafeAreaView,
+  TouchableOpacity,
+  Keyboard,
+  TouchableWithoutFeedback,
+} from 'react-native';
 import {Text, TextInput, Portal, Modal} from 'react-native-paper';
 import styles from './styles';
 import {useSelector, useDispatch} from 'react-redux';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {Spinner, TransactionCategory} from '~components';
+import {Spinner, TransactionCategory, AmountError} from '~components';
 
 /* files and utils */
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -13,6 +19,7 @@ import {colors, sizes} from '~utils';
 import {fonts} from '~utils/fonts';
 import {RootState} from '~redux/store';
 import {ThemeContext} from '~context/ThemeCotext';
+import {setCategory} from '~redux/AddExpenseReducer';
 
 interface Props {
   closeScreen: () => void;
@@ -24,21 +31,25 @@ const AddToWalletHeader = ({closeScreen, walletID, refresh}: Props) => {
   const [xpense, setXpense] = useState(true);
   const [loading, setLoading] = useState(false);
   const [showmodal, setShowmodal] = useState(false);
+  const [title, setTitle] = useState('');
   const [amount, setAmount] = useState('');
   const {theme} = useContext(ThemeContext);
+  const [amountError, setAmountError] = useState(false);
+
+  const dispatch = useDispatch();
 
   const {note, marchant, category, image} = useSelector(
     (state: RootState) => state.AddExpense,
   );
 
-  const saveTransaction = async () => {
+  const transaction = async () => {
     const newTransaction = {
       note,
       marchant,
       amount,
       type: xpense ? 'Expense' : 'Income',
       createdAt: new Date().toISOString(),
-      category: 'groceries',
+      category: category ? {category} : 'Others',
     };
     setLoading(true);
     const token = await AsyncStorage.getItem('AuthToken');
@@ -59,10 +70,43 @@ const AddToWalletHeader = ({closeScreen, walletID, refresh}: Props) => {
       });
   };
 
+  const saveTransaction = () => {
+    if (amount) {
+      transaction();
+    } else {
+      setAmountError(true);
+    }
+  };
+
+  const closeModal = () => {
+    setShowmodal(false);
+  };
+
+  const saveTitle = (title: string) => {
+    setTitle(title);
+  };
+
+  const saveCategory = (cate: string) => {
+    //dispatch category here
+    dispatch(setCategory(cate));
+  };
+
+  const dismissError = () => {
+    setAmountError(false);
+  };
+
+  /* const DismissKeyboard = ({children}: any) => {
+    return (
+      <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+        {children}
+      </TouchableWithoutFeedback>
+    );
+  }; */
+
   return (
     <>
       {loading && <Spinner />}
-
+      <AmountError visible={amountError} dismiss={dismissError} />
       <Portal>
         <Modal
           visible={showmodal}
@@ -74,7 +118,11 @@ const AddToWalletHeader = ({closeScreen, walletID, refresh}: Props) => {
                 theme.type === 'dark' ? colors.DARK_GRAY : colors.WHITE,
             },
           ]}>
-          <TransactionCategory />
+          <TransactionCategory
+            onClose={closeModal}
+            title={(val: string) => saveTitle(val)}
+            category={(val: string) => saveCategory(val)}
+          />
         </Modal>
       </Portal>
 
@@ -136,13 +184,16 @@ const AddToWalletHeader = ({closeScreen, walletID, refresh}: Props) => {
             placeholder={xpense ? '-' + ' 0.00' : '+' + ' 0.00'}
             underlineColor={xpense ? colors.SECONDARY : colors.PRIMARY}
             autoFocus={true}
+            maxLength={20}
             keyboardType="number-pad"
           />
-          <TouchableOpacity onPress={() => setShowmodal(true)}>
+          <TouchableOpacity
+            style={styles.icon}
+            onPress={() => setShowmodal(true)}>
             <Icon
-              name="bullseye"
-              size={sizes.navigationIconSize}
-              color={colors.WHITE}
+              name={title ? title : 'bullseye'}
+              size={sizes.regularIconSize}
+              color={colors.SECONDARY}
             />
           </TouchableOpacity>
         </View>

@@ -25,6 +25,7 @@ import TransactionCard from './TransactionCard/TransactionCard';
 import ContentHeader from './ContentHeader/ContentHeader';
 import TransactionCategory from './TransactionCategory/TransactionCategory';
 import CategoryIcon from './CategoryIcon/CategoryIcon';
+import AmountError from './AmountError/AmountErrror';
 
 export {
   LargeButton,
@@ -54,4 +55,5 @@ export {
   ContentHeader,
   TransactionCategory,
   CategoryIcon,
+  AmountError,
 };

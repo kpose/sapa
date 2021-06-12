@@ -16,8 +16,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    marginLeft: wp(5),
-    marginRight: wp(5),
+    marginLeft: wp(3),
+    marginRight: wp(3),
     marginTop: hp(5),
   },
   buttonContainer: {
@@ -51,6 +51,15 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     top: hp(20),
     borderRadius: wp(5),
+  },
+  icon: {
+    backgroundColor: colors.WHITE,
+
+    width: wp(9),
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: hp(4),
+    borderRadius: 100,
   },
 });
 

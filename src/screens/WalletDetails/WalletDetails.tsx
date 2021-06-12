@@ -19,7 +19,7 @@ const WalletDetails = ({route, navigation}: BottomTabProps) => {
         type={item.type}
       />
     ),
-    [transactions],
+    [],
   );
 
   const keyExtractor = useCallback(item => item.createdAt.toString(), []);
@@ -31,14 +31,13 @@ const WalletDetails = ({route, navigation}: BottomTabProps) => {
           data={transactions}
           renderItem={renderWallets}
           keyExtractor={keyExtractor}
+          //inverted={true}
           showsVerticalScrollIndicator={false}
           maxToRenderPerBatch={7}
           windowSize={7}
         />
       ) : (
-        <View>
-          <Text>HRO</Text>
-        </View>
+        <EmptyAnime />
       )}
     </View>
   );
