@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {View, TouchableOpacity} from 'react-native';
-import {Text, Button, Portal, Modal} from 'react-native-paper';
+import {Text} from 'react-native-paper';
 import styles from './styles';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
@@ -8,11 +8,9 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 //UTILS AND FILES
 import LargeButton from '../LargeButton/LargeButton';
 import {CurrencyPicker} from '~modals';
-//import CurrencyPicker from '../CurrencyPicker/CurrencyPicker';
 import {colors, sizes} from '~utils';
 
-import {useDispatch, useSelector} from 'react-redux';
-import {RootState} from '~redux/store';
+import {useAppSelector, useAppDispatch} from '~redux/reduxhooks';
 
 type startedProps = {
   onButtonPress: any;
@@ -21,7 +19,7 @@ type startedProps = {
 
 const StartedCurrency = (props: startedProps) => {
   const [showPicker, setShowPicker] = useState(false);
-  const {currency} = useSelector((state: RootState) => state.userData);
+  const currency = useAppSelector(state => state.user.currency);
 
   return (
     <View>

@@ -6,16 +6,16 @@ import styles from './styles';
 /* files and utils */
 import {colors, hp, sizes} from '~utils';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import {useDispatch} from 'react-redux';
-import {setCurrency, setSymbol} from '~redux/userReducer';
+import {useAppSelector, useAppDispatch} from '~redux/reduxhooks';
 import {fonts} from '~utils/fonts';
+import {setCurrency, setSymbol} from '~redux/userSlice';
 
 interface currencyProps {
   onClose: () => void;
 }
 
 const CurrencyPicker = (props: currencyProps) => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const [currencies, setCurrencies] = useState<[] | any>([]);
   const [filtered, setFiltered] = useState('');
 

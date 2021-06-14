@@ -5,7 +5,7 @@ import {View, TouchableOpacity, FlatList} from 'react-native';
 import styles from './styles';
 import {Text, Divider} from 'react-native-paper';
 import {useDispatch} from 'react-redux';
-import {setCurrency, setSymbol} from '~redux/userReducer';
+import {setCurrency, setSymbol} from '~redux/userSlice';
 import {fonts} from '~utils/fonts';
 import {hp} from '~utils';
 import {SettingsStackProps} from '~definitions/navigationTypes';

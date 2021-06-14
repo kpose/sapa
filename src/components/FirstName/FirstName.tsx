@@ -13,7 +13,7 @@ import {Formik} from 'formik';
 import LargeButton from '../LargeButton/LargeButton';
 import {sizes} from '~utils';
 import {useDispatch, useSelector} from 'react-redux';
-import {setFirstName, setUsername} from '~redux/userReducer';
+import {setFirstName, setUsername} from '~redux/userSlice';
 import styles from './styles';
 import {RootState} from '~redux/store';
 

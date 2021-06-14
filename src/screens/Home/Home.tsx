@@ -19,7 +19,7 @@ import {colors, hp, sizes} from '~utils';
 import {ThemeContext} from '~context/ThemeCotext';
 import styles from './styles';
 import {RouteStackProps} from '~definitions/navigationTypes';
-import {setEmail, setFirstName, setUsername} from '~redux/userReducer';
+import {setEmail, setFirstName, setUsername} from '~redux/userSlice';
 
 const Home = ({navigation}: RouteStackProps) => {
   const walletModalRef = useRef<Modalize>(null);
@@ -53,6 +53,20 @@ const Home = ({navigation}: RouteStackProps) => {
       .catch(error => {
         console.log(error);
         setLoading(false);
+      });
+  };
+
+  const myFunction = () => {
+    axios
+      .get('https://us-central1-sapa-4bd2e.cloudfunctions.net/api/myUser')
+      .then(res => {
+        if (res.data) {
+          console.log('finallt');
+          console.log(res.data);
+        }
+      })
+      .catch(err => {
+        console.log(err);
       });
   };
 
@@ -114,6 +128,8 @@ const Home = ({navigation}: RouteStackProps) => {
 
       <View style={styles.container}>
         <ContentHeader openPress={openModal} />
+
+        {/* <ContentHeader openPress={myFunction} /> */}
         <FlatList
           data={wallets}
           renderItem={renderWallets}

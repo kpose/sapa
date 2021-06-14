@@ -8,20 +8,22 @@ interface UserData {
   avatar: string;
   symbol: string;
   token: string;
+  username: string
+}
+const initialState : UserData = {
+  email: '',
+  currency: '',
+  firstname: '',
+  lastname:'',
+  avatar: '',
+  symbol: '',
+  token: '',
+  username: '',
 }
 
-const userDataSlice = createSlice({
+const userSlice = createSlice({
   name: 'user',
-  initialState: {
-    email: '',
-    currency: '',
-    symbol: '',
-    username: '',
-    firstname: '',
-    avatar: '',
-    loading: false,
-    token: '',
-  },
+  initialState,
 
   reducers: {
     setCurrency(state, action: PayloadAction<string>) {
@@ -52,6 +54,6 @@ export const {
   setUsername,
   setSymbol,
   setToken,
-} = userDataSlice.actions;
+} = userSlice.actions;
 
-export default userDataSlice.reducer;
+export default userSlice.reducer;
