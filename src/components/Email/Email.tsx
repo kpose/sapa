@@ -13,10 +13,11 @@ import LargeButton from '../LargeButton/LargeButton';
 import NetworkError from '../NetworkError/NetworkError';
 import {colors, sizes} from '~utils';
 import Spinner from '../Spinner/Spinner';
-import {useSelector} from 'react-redux';
-import {RootState} from '~redux/store';
 import {useNavigation} from '@react-navigation/native';
 import NetInfo from '@react-native-community/netinfo';
+import {useAppSelector, useAppDispatch} from '~redux/reduxhooks';
+import {string} from 'yup/lib/locale';
+import {setEmail} from '~redux/userSlice';
 
 type Props = {
   onButtonPress: () => void;
@@ -34,14 +35,23 @@ const vaidation = yup.object().shape({
     .required('Password is Required'),
 });
 
+interface ServerError {
+  email: string;
+  username: string;
+}
+
 const Email = ({onButtonPress, onBackPress}: Props) => {
   const navigation = useNavigation();
   const [loading, setLoading] = useState(false);
   const [offlinestatus, setOfflineStatus] = useState(false);
-  const [servererror, setServerError] = useState({});
-  const {username, firstname} = useSelector(
-    (state: RootState) => state.userData,
+  const [servererror, setServerError] = useState<ServerError>({
+    email: '',
+    username: '',
+  });
+  const {username, firstname, email, symbol} = useAppSelector(
+    state => state.user,
   );
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     const removeNetInfoSubscription = NetInfo.addEventListener(state => {
@@ -52,6 +62,7 @@ const Email = ({onButtonPress, onBackPress}: Props) => {
   }, [offlinestatus]);
 
   const handlePress = (values: {email: string; password: string}) => {
+    dispatch(setEmail(values.email));
     const userData = {
       firstName: firstname,
       username: username,
@@ -72,7 +83,6 @@ const Email = ({onButtonPress, onBackPress}: Props) => {
       })
       .catch((err: any) => {
         setLoading(false);
-        console.log(err);
         setServerError(err.response.data);
       });
   };
@@ -93,6 +103,7 @@ const Email = ({onButtonPress, onBackPress}: Props) => {
           {({handleChange, handleBlur, handleSubmit, errors}) => (
             <>
               <TextInput
+                defaultValue={email}
                 style={styles.name}
                 label="Email address"
                 onChangeText={handleChange('email')}

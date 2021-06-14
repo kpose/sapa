@@ -12,10 +12,9 @@ import {Formik} from 'formik';
 //UTILS AND FILES
 import LargeButton from '../LargeButton/LargeButton';
 import {sizes} from '~utils';
-import {useDispatch, useSelector} from 'react-redux';
+import {useAppDispatch, useAppSelector} from '~redux/reduxhooks';
 import {setFirstName, setUsername} from '~redux/userSlice';
 import styles from './styles';
-import {RootState} from '~redux/store';
 
 type Props = {
   onButtonPress: () => void;
@@ -29,10 +28,8 @@ const vaidation = yup.object().shape({
 });
 
 const FirstName = (props: Props) => {
-  const dispatch = useDispatch();
-  /* const {username, firstname} = useSelector(
-    (state: RootState) => state.userData,
-  ); */
+  const dispatch = useAppDispatch();
+  const {firstname, username} = useAppSelector(state => state.user);
 
   return (
     <KeyboardAvoidingView behavior="padding">
@@ -53,7 +50,7 @@ const FirstName = (props: Props) => {
             <>
               <TextInput
                 testID="usernameID"
-                //defaultValue={username}
+                defaultValue={username}
                 style={styles.name}
                 label="Username"
                 onChangeText={handleChange('username')}
@@ -74,7 +71,7 @@ const FirstName = (props: Props) => {
               )}
 
               <TextInput
-                //defaultValue={firstname}
+                defaultValue={firstname}
                 style={styles.name}
                 label="First Name (Optional)"
                 onChangeText={handleChange('firstname')}

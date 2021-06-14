@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import {View, StatusBar, TouchableOpacity} from 'react-native';
 import styles from './styles';
 import Video from 'react-native-video';
@@ -6,7 +6,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 
 //utils and files
 import {FirstName, Started, StartedCurrency, Login, Email} from '~components';
-import {authMiddleWare, sizes} from '~utils';
+import {sizes} from '~utils';
 import {RouteStackProps} from '~definitions/navigationTypes';
 
 const welcome = ({navigation}: RouteStackProps) => {
