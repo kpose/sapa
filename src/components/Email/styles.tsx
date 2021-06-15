@@ -9,8 +9,8 @@ const styles = StyleSheet.create({
   },
 
   captionContainer: {
-    marginTop: heightPercentageToDP(25),
-    marginLeft: wp(10),
+    marginTop: heightPercentageToDP(40),
+    alignItems: 'center',
   },
 
   name: {
@@ -18,11 +18,13 @@ const styles = StyleSheet.create({
     width: wp(85),
     backgroundColor: 'transparent',
     fontWeight: 'bold',
+    alignSelf: 'center',
   },
 
   caption: {
     fontWeight: 'bold',
-    alignItems: 'center',
+    //alignItems: 'center',
+    textAlign: 'center',
   },
 
   idtext: {
@@ -30,8 +32,13 @@ const styles = StyleSheet.create({
   },
 
   buttonContainer: {
-    marginTop: heightPercentageToDP(25),
-    marginLeft: wp(-10),
+    //marginTop: heightPercentageToDP(34),
+    position: 'absolute',
+    bottom: hp(8),
+    right: 0,
+    left: 0,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   loginContainer: {
     flexDirection: 'row',

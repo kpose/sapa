@@ -22,7 +22,7 @@ const StartedCurrency = (props: startedProps) => {
   const currency = useAppSelector(state => state.user.currency);
 
   return (
-    <View>
+    <View style={styles.container}>
       {showPicker && <CurrencyPicker onClose={() => setShowPicker(false)} />}
 
       <View style={[styles.captionContainer, showPicker && {opacity: 0}]}>
@@ -60,14 +60,21 @@ const StartedCurrency = (props: startedProps) => {
           onPress={props.onButtonPress}
           disabled={showPicker && true}
         />
+
+        <TouchableOpacity
+          style={styles.loginContainer}
+          onPress={props.onBackPress}
+          disabled={showPicker && true}>
+          <Text style={[sizes.fonts.caption, styles.idtext]}>Go Back</Text>
+        </TouchableOpacity>
       </View>
 
-      <TouchableOpacity
+      {/* <TouchableOpacity
         style={styles.loginContainer}
         onPress={props.onBackPress}
         disabled={showPicker && true}>
         <Text style={[sizes.fonts.caption, styles.idtext]}>Go Back</Text>
-      </TouchableOpacity>
+      </TouchableOpacity> */}
     </View>
   );
 };

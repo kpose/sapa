@@ -154,8 +154,3 @@ export default Home;
         setLoading(false);
       });
   }, [bearertoken]); */
-
-/* const getToken = async () => {
-    const token = await AsyncStorage.getItem('AuthToken');
-    setBearerToken(token);
-  }; */

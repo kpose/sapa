@@ -8,8 +8,8 @@ const styles = StyleSheet.create({
   },
 
   captionContainer: {
-    marginTop: hp(39),
-    marginLeft: wp(10),
+    marginTop: hp(40),
+    alignItems: 'center',
   },
   caption: {
     fontWeight: 'bold',
@@ -21,16 +21,19 @@ const styles = StyleSheet.create({
     width: wp(85),
     backgroundColor: 'transparent',
     fontWeight: 'bold',
+    alignSelf: 'center',
   },
 
   buttonContainer: {
-    marginTop: hp(18),
-    marginLeft: wp(-10),
+    position: 'absolute',
+    bottom: hp(8),
+    right: 0,
+    left: 0,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   loginContainer: {
     flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
     marginTop: hp(1.5),
   },
   idtext: {

@@ -15,7 +15,7 @@ type startedProps = {
 
 const Started = (props: startedProps) => {
   return (
-    <View>
+    <View style={styles.container}>
       <View style={styles.captionContainer}>
         <Text style={[styles.caption, sizes.fonts.bodyText]}>
           Keep track of your expenses for FREE.
@@ -29,17 +29,17 @@ const Started = (props: startedProps) => {
 
       <View style={styles.buttonContainer}>
         <LargeButton title="Get Started" onPress={props.onStartedPress} />
-      </View>
 
-      <View style={styles.loginContainer}>
-        <Text style={[sizes.fonts.caption, styles.idtext]}>
-          Have a user ID?
-        </Text>
-        <TouchableOpacity onPress={props.onLoginPress}>
-          <Text style={[sizes.fonts.caption, {fontWeight: 'bold'}]}>
-            Log In
+        <View style={styles.loginContainer}>
+          <Text style={[sizes.fonts.caption, styles.idtext]}>
+            Have a user ID?
           </Text>
-        </TouchableOpacity>
+          <TouchableOpacity onPress={props.onLoginPress}>
+            <Text style={[sizes.fonts.caption, {fontWeight: 'bold'}]}>
+              Log In
+            </Text>
+          </TouchableOpacity>
+        </View>
       </View>
     </View>
   );

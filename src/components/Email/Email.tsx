@@ -20,7 +20,7 @@ import {string} from 'yup/lib/locale';
 import {setEmail} from '~redux/userSlice';
 
 type Props = {
-  onButtonPress: () => void;
+  onButtonPress?: () => void;
   onBackPress: () => void;
 };
 
@@ -78,7 +78,7 @@ const Email = ({onButtonPress, onBackPress}: Props) => {
       .then((response: any) => {
         AsyncStorage.setItem('AuthToken', `Bearer ${response.data.token}`);
         navigation.navigate('Home');
-        onButtonPress();
+        //onButtonPress();
         setLoading(false);
       })
       .catch((err: any) => {
@@ -88,90 +88,91 @@ const Email = ({onButtonPress, onBackPress}: Props) => {
   };
 
   return (
-    <View>
+    <View style={styles.container}>
       {offlinestatus && <NetworkError />}
       {loading && <Spinner />}
-      <View style={[styles.captionContainer]}>
+      <View style={styles.captionContainer}>
         <Text style={[styles.caption, sizes.fonts.bodyText]}>
           Enter displayed email address on your expense report.
         </Text>
-
-        <Formik
-          validationSchema={vaidation}
-          initialValues={{email: '', password: ''}}
-          onSubmit={values => handlePress(values)}>
-          {({handleChange, handleBlur, handleSubmit, errors}) => (
-            <>
-              <TextInput
-                defaultValue={email}
-                style={styles.name}
-                label="Email address"
-                onChangeText={handleChange('email')}
-                right={<AntDesign name="home" />}
-                keyboardType="email-address"
-                returnKeyType="go"
-                returnKeyLabel="go"
-                clearButtonMode="while-editing"
-                onSubmitEditing={handleSubmit}
-                testID="emailID"
-              />
-              {errors.email && (
-                <HelperText
-                  testID="emailErrorID"
-                  type="error"
-                  visible={true}
-                  style={[sizes.fonts.caption]}>
-                  {errors.email}
-                </HelperText>
-              )}
-
-              <TextInput
-                style={styles.name}
-                label="Password"
-                onChangeText={handleChange('password')}
-                secureTextEntry={true}
-                clearButtonMode="while-editing"
-                onSubmitEditing={handleSubmit}
-                error={errors.password ? true : false}
-                testID="passwordID"
-              />
-              {errors.password && (
-                <HelperText
-                  testID="passwordErrorID"
-                  type="error"
-                  visible={true}
-                  style={[sizes.fonts.caption]}>
-                  {errors.password}
-                </HelperText>
-              )}
-
-              {servererror && (
-                <HelperText
-                  type="error"
-                  visible={true}
-                  style={[sizes.fonts.caption]}>
-                  {servererror.email || servererror.username}
-                </HelperText>
-              )}
-
-              <View style={styles.buttonContainer}>
-                <LargeButton
-                  title="Done"
-                  onPress={handleSubmit}
-                  disabled={offlinestatus}
-                />
-              </View>
-            </>
-          )}
-        </Formik>
       </View>
 
-      <TouchableOpacity
-        style={styles.loginContainer}
-        onPress={onBackPress}
-        testID="buttonID">
-        <Text style={[sizes.fonts.caption, styles.idtext]}>Go Back</Text>
-      </TouchableOpacity>
+      <Formik
+        validationSchema={vaidation}
+        initialValues={{email: '', password: ''}}
+        onSubmit={values => handlePress(values)}>
+        {({handleChange, handleBlur, handleSubmit, values, errors}) => (
+          <>
+            <TextInput
+              defaultValue={email}
+              style={styles.name}
+              label="Email address"
+              onChangeText={handleChange('email')}
+              right={<AntDesign name="home" />}
+              keyboardType="email-address"
+              returnKeyType="go"
+              returnKeyLabel="go"
+              clearButtonMode="while-editing"
+              onSubmitEditing={handleSubmit}
+              testID="emailID"
+            />
+            {errors.email && (
+              <HelperText
+                testID="emailErrorID"
+                type="error"
+                visible={true}
+                style={[sizes.fonts.caption, styles.name]}>
+                {errors.email}
+              </HelperText>
+            )}
+
+            <TextInput
+              style={styles.name}
+              label="Password"
+              onChangeText={handleChange('password')}
+              secureTextEntry={true}
+              clearButtonMode="while-editing"
+              onSubmitEditing={handleSubmit}
+              error={errors.password ? true : false}
+              testID="passwordID"
+            />
+            {errors.password && (
+              <HelperText
+                testID="passwordErrorID"
+                type="error"
+                visible={true}
+                style={[sizes.fonts.caption, styles.name]}>
+                {errors.password}
+              </HelperText>
+            )}
+
+            {servererror && (
+              <HelperText
+                type="error"
+                visible={true}
+                style={[sizes.fonts.caption]}>
+                {servererror.email || servererror.username}
+              </HelperText>
+            )}
+
+            <View style={styles.buttonContainer}>
+              <LargeButton
+                title="Done"
+                onPress={handleSubmit}
+                disabled={offlinestatus}
+              />
+
+              <TouchableOpacity
+                style={styles.loginContainer}
+                onPress={onBackPress}>
+                <Text style={[sizes.fonts.caption, styles.idtext]}>
+                  Go Back
+                </Text>
+              </TouchableOpacity>
+            </View>
+          </>
+        )}
+      </Formik>
     </View>
   );
 };

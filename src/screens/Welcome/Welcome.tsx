@@ -91,7 +91,7 @@ const welcome = ({navigation}: RouteStackProps) => {
         {blur && email && (
           <Email
             onBackPress={closeEmail}
-            onButtonPress={() => navigation.navigate('Home')}
+            //onButtonPress={() => navigation.navigate('Home')}
           />
         )}
 

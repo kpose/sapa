@@ -9,7 +9,7 @@ const styles = StyleSheet.create({
   },
 
   captionContainer: {
-    marginTop: heightPercentageToDP(39),
+    marginTop: heightPercentageToDP(40),
     marginLeft: wp(10),
   },
   caption: {
@@ -31,12 +31,17 @@ const styles = StyleSheet.create({
   },
 
   buttonContainer: {
-    marginTop: heightPercentageToDP(34),
+    //marginTop: heightPercentageToDP(34),
+    position: 'absolute',
+    bottom: hp(8),
+    right: 0,
+    left: 0,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
+
   loginContainer: {
     flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
     marginTop: hp(1.5),
   },
   idtext: {

@@ -64,82 +64,88 @@ const Login = (props: Props) => {
   };
 
   return (
-    <KeyboardAvoidingView behavior="padding">
+    <View style={styles.container}>
       {offlinestatus && <NetworkError />}
       {loading && <Spinner />}
-      <View style={[styles.captionContainer]}>
-        <Formik
-          validationSchema={vaidation}
-          initialValues={{email: '', password: ''}}
-          onSubmit={values => handlePress(values)}>
-          {({handleChange, handleBlur, handleSubmit, errors}) => (
-            <>
-              <TextInput
-                testID="emailID"
-                style={styles.name}
-                label="Email"
-                onChangeText={handleChange('email')}
-                keyboardType="email-address"
-                clearButtonMode="while-editing"
-                error={errors.email ? true : false}
-              />
-              {errors.email && (
-                <HelperText
-                  type="error"
-                  visible={true}
-                  style={[sizes.fonts.caption]}>
-                  {errors.email}
-                </HelperText>
-              )}
-
-              <TextInput
-                testID="passwordID"
-                style={styles.name}
-                label="Password"
-                onChangeText={handleChange('password')}
-                secureTextEntry={true}
-                clearButtonMode="while-editing"
-                onSubmitEditing={handleSubmit}
-                error={errors.password ? true : false}
-              />
-              {errors.password && (
-                <HelperText
-                  testID="passwordErrorID"
-                  type="error"
-                  visible={true}
-                  style={[sizes.fonts.caption]}>
-                  {errors.password}
-                </HelperText>
-              )}
-
-              {servererror && (
-                <HelperText
-                  type="error"
-                  visible={true}
-                  style={[sizes.fonts.caption]}>
-                  Wrong credential combination, try again!
-                </HelperText>
-              )}
-
-              <View style={styles.buttonContainer}>
-                <LargeButton
-                  title="Log In"
-                  onPress={handleSubmit}
-                  disabled={offlinestatus}
-                  testID="buttonID"
-                />
-              </View>
-            </>
-          )}
-        </Formik>
+      <View style={styles.captionContainer}>
+        {/* <Text style={[sizes.fonts.bodyText, styles.caption]}>
+          What should i call you?
+        </Text> */}
       </View>
 
-      <TouchableOpacity
-        style={styles.loginContainer}
-        onPress={props.onBackPress}>
-        <Text style={[sizes.fonts.caption, styles.idtext]}>Get Started</Text>
-      </TouchableOpacity>
-    </KeyboardAvoidingView>
+      <Formik
+        validationSchema={vaidation}
+        initialValues={{email: '', password: ''}}
+        onSubmit={values => handlePress(values)}>
+        {({handleChange, handleBlur, handleSubmit, errors}) => (
+          <>
+            <TextInput
+              testID="emailID"
+              style={styles.name}
+              label="Email"
+              onChangeText={handleChange('email')}
+              keyboardType="email-address"
+              clearButtonMode="while-editing"
+              error={errors.email ? true : false}
+            />
+            {errors.email && (
+              <HelperText
+                type="error"
+                visible={true}
+                style={[sizes.fonts.caption, styles.name]}>
+                {errors.email}
+              </HelperText>
+            )}
+
+            <TextInput
+              testID="passwordID"
+              style={styles.name}
+              label="Password"
+              onChangeText={handleChange('password')}
+              secureTextEntry={true}
+              clearButtonMode="while-editing"
+              onSubmitEditing={handleSubmit}
+              error={errors.password ? true : false}
+            />
+            {errors.password && (
+              <HelperText
+                testID="passwordErrorID"
+                type="error"
+                visible={true}
+                style={[sizes.fonts.caption, styles.name]}>
+                {errors.password}
+              </HelperText>
+            )}
+
+            {servererror && (
+              <HelperText
+                type="error"
+                visible={true}
+                style={[sizes.fonts.caption]}>
+                Wrong credential combination, try again!
+              </HelperText>
+            )}
+
+            <View style={styles.buttonContainer}>
+              <LargeButton
+                title="Log In"
+                onPress={handleSubmit}
+                disabled={offlinestatus}
+                testID="buttonID"
+              />
+
+              <TouchableOpacity
+                style={styles.loginContainer}
+                onPress={props.onBackPress}>
+                <Text style={[sizes.fonts.caption, styles.idtext]}>
+                  Get Started
+                </Text>
+              </TouchableOpacity>
+            </View>
+          </>
+        )}
+      </Formik>
+    </View>
   );
 };
 
