@@ -6,8 +6,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import {Text, Surface} from 'react-native-paper';
 import {fonts} from '~utils/fonts';
-import {useSelector} from 'react-redux';
-import {RootState} from '~redux/store';
+import {useAppSelector} from '~redux/reduxhooks';
 
 type Props = {
   onBackPress: () => void;
@@ -17,7 +16,7 @@ type Props = {
 };
 
 const TabHeader = ({onBackPress, onPlusPress, data, navigation}: Props) => {
-  const {symbol} = useSelector((state: RootState) => state.userData);
+  const {symbol} = useAppSelector(state => state.user);
 
   return (
     <View>

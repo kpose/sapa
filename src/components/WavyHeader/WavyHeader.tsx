@@ -5,15 +5,15 @@ import {colors, hp, sizes, wp} from '~utils';
 import Wave from './Wave';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {Text, Surface, Divider} from 'react-native-paper';
-import {useSelector} from 'react-redux';
-import {RootState} from '~redux/store';
+
+import {useAppSelector} from '~redux/reduxhooks';
 
 interface Props {
   onSettingsPress: () => void;
 }
 
 const WavyHeader = ({onSettingsPress}: Props) => {
-  const {symbol} = useSelector((state: RootState) => state.userData);
+  const {symbol} = useAppSelector(state => state.user);
   return (
     <View style={styles.container}>
       <Wave

@@ -7,12 +7,10 @@ import {Text, Surface, Divider} from 'react-native-paper';
 import {fonts} from '~utils/fonts';
 import {SettingsItem, SettingsBottom} from '~components';
 import {SettingsStackProps} from '~definitions/navigationTypes';
-import {useSelector} from 'react-redux';
-import {RootState} from '~redux/store';
+import {useAppSelector} from '~redux/reduxhooks';
 
 const Settings = ({navigation}: SettingsStackProps) => {
-  const {currency, email} = useSelector((state: RootState) => state.userData);
-
+  const {currency, email} = useAppSelector(state => state.user);
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <Surface style={styles.surface}>

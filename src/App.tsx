@@ -13,6 +13,11 @@ import {createStackNavigator} from '@react-navigation/stack';
 import {RouteStackParams} from '../src/definitions/navigationTypes';
 import HomeStack from '../src/navigation/HomeStack';
 
+import {PersistGate} from 'redux-persist/integration/react';
+import {persistStore} from 'redux-persist';
+
+let persistor = persistStore(store);
+
 const Stack = createStackNavigator<RouteStackParams>();
 
 const App = () => {
@@ -46,17 +51,19 @@ const App = () => {
     <ThemeContext.Provider value={{theme, toggleTheme}}>
       <PaperProvider theme={theme}>
         <ReduxProvider store={store}>
-          <NavigationContainer theme={theme}>
-            {user ? (
-              <Stack.Navigator
-                screenOptions={{headerShown: false, gestureEnabled: false}}>
-                <Stack.Screen name="Home" component={HomeStack} />
-              </Stack.Navigator>
-            ) : (
-              <Routes />
-            )}
-            {/* <Routes /> */}
-          </NavigationContainer>
+          <PersistGate loading={null} persistor={persistor}>
+            <NavigationContainer theme={theme}>
+              {user ? (
+                <Stack.Navigator
+                  screenOptions={{headerShown: false, gestureEnabled: false}}>
+                  <Stack.Screen name="Home" component={HomeStack} />
+                </Stack.Navigator>
+              ) : (
+                <Routes />
+              )}
+              {/* <Routes /> */}
+            </NavigationContainer>
+          </PersistGate>
         </ReduxProvider>
       </PaperProvider>
     </ThemeContext.Provider>

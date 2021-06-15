@@ -4,12 +4,11 @@ import styles from './styles';
 import {useNavigation} from '@react-navigation/native';
 
 /* utils and files */
-import {Text, Surface, Button} from 'react-native-paper';
+import {Text, Surface} from 'react-native-paper';
 import {fonts} from '~utils/fonts';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {colors, sizes} from '~utils';
-import {useSelector} from 'react-redux';
-import {RootState} from '~redux/store';
+import {useAppSelector} from '~redux/reduxhooks';
 
 interface Props {
   title: string;
@@ -20,7 +19,7 @@ interface Props {
 
 const WalletCard = ({title, uid, transactions, refresh}: Props) => {
   const navigation = useNavigation();
-  const {symbol} = useSelector((state: RootState) => state.userData);
+  const {symbol} = useAppSelector(state => state.user);
 
   return (
     <View style={styles.container}>

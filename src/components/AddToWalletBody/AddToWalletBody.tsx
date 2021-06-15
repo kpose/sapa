@@ -6,14 +6,14 @@ import {
   KeyboardAvoidingView,
 } from 'react-native';
 import {Text, TextInput, Surface} from 'react-native-paper';
-import {useDispatch, useSelector} from 'react-redux';
 
 /* styles and utils */
 import styles from './styles';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {colors, hp, sizes, wp} from '~utils';
 import {fonts} from '~utils/fonts';
-import {setMarchant, setNote} from '~redux/AddExpenseReducer';
+import {setMarchant, setNote} from '~redux/expenseSlice';
+import {useAppDispatch} from '~redux/reduxhooks';
 
 interface Props {
   title: string;
@@ -22,7 +22,7 @@ interface Props {
 const AddToWalletBody = ({title}: Props) => {
   const elsaped = Date.now();
   const today = new Date(elsaped).toDateString();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch;
 
   return (
     <KeyboardAvoidingView

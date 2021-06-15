@@ -10,16 +10,20 @@ import {Modalize} from 'react-native-modalize';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {Text, Button, Portal, Modal} from 'react-native-paper';
 import axios from 'axios';
-import {useDispatch, useSelector} from 'react-redux';
 
 /* utils and files */
-import {WalletCard, LoadingAnime, ContentHeader} from '~components';
+import {
+  WalletCard,
+  LoadingAnime,
+  ContentHeader,
+  NoWalletAnime,
+} from '~components';
 import {AddWalletType, AddWallet} from '~modals';
 import {colors, hp, sizes} from '~utils';
 import {ThemeContext} from '~context/ThemeCotext';
 import styles from './styles';
 import {RouteStackProps} from '~definitions/navigationTypes';
-import {setEmail, setFirstName, setUsername} from '~redux/userSlice';
+import {useAppDispatch} from '~redux/reduxhooks';
 
 const Home = ({navigation}: RouteStackProps) => {
   const walletModalRef = useRef<Modalize>(null);
@@ -28,11 +32,10 @@ const Home = ({navigation}: RouteStackProps) => {
   const [loading, setLoading] = useState(true);
   const [wallets, setWallets] = useState();
   const {theme} = useContext(ThemeContext);
-  const dispatch = useDispatch();
 
-  useEffect(() => {
+  /* useEffect(() => {
     getWallets();
-  }, []);
+  }, []); */
 
   const onRefresh = () => {
     setIsFetching(true);
@@ -53,20 +56,6 @@ const Home = ({navigation}: RouteStackProps) => {
       .catch(error => {
         console.log(error);
         setLoading(false);
-      });
-  };
-
-  const myFunction = () => {
-    axios
-      .get('https://us-central1-sapa-4bd2e.cloudfunctions.net/api/myUser')
-      .then(res => {
-        if (res.data) {
-          console.log('finallt');
-          console.log(res.data);
-        }
-      })
-      .catch(err => {
-        console.log(err);
       });
   };
 
@@ -92,6 +81,7 @@ const Home = ({navigation}: RouteStackProps) => {
   );
 
   const keyExtractor = useCallback(item => item.walletId.toString(), []);
+  console.log(wallets);
 
   return (
     <>
@@ -119,27 +109,27 @@ const Home = ({navigation}: RouteStackProps) => {
           ]}>
           <AddWallet
             close={() => setShowmodal(false)}
-            getWallets={getWallets}
+            //getWallets={getWallets}
           />
         </Modal>
       </Portal>
 
-      {loading && <LoadingAnime />}
-
       <View style={styles.container}>
         <ContentHeader openPress={openModal} />
-
-        {/* <ContentHeader openPress={myFunction} /> */}
-        <FlatList
-          data={wallets}
-          renderItem={renderWallets}
-          keyExtractor={keyExtractor}
-          showsVerticalScrollIndicator={false}
-          maxToRenderPerBatch={7}
-          windowSize={7}
-          refreshing={isFetching}
-          onRefresh={onRefresh}
-        />
+        {wallets ? (
+          <FlatList
+            data={wallets}
+            renderItem={renderWallets}
+            keyExtractor={keyExtractor}
+            showsVerticalScrollIndicator={false}
+            maxToRenderPerBatch={7}
+            windowSize={7}
+            refreshing={isFetching}
+            //onRefresh={onRefresh}
+          />
+        ) : (
+          <NoWalletAnime />
+        )}
       </View>
     </>
   );

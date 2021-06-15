@@ -6,8 +6,7 @@ import {fonts} from '~utils/fonts';
 import styles from './styles';
 
 /* utils  */
-import {useSelector} from 'react-redux';
-import {RootState} from '~redux/store';
+import {useAppSelector} from '~redux/reduxhooks';
 
 interface Props {
   date: string;
@@ -28,7 +27,7 @@ const TransactionCard = ({
   type,
   note,
 }: Props) => {
-  const {symbol} = useSelector((state: RootState) => state.userData);
+  const {symbol} = useAppSelector(state => state.user);
   let isoDate = date;
   var timestamp = new Date(isoDate);
 

@@ -19,8 +19,9 @@ import SettingsBottom from './SettingsBottom/SettingsBottom';
 import Spinner from './Spinner/Spinner';
 import NetworkError from './NetworkError/NetworkError';
 import ExpenseCard from './ExpenseCard/ExpenseCard';
-import LoadingAnime from './Lottie/LoadingAnime';
-import EmptyAnime from './Lottie/EmptyAnime';
+import LoadingAnime from './LottieAnimations/LoadingAnime';
+import NoWalletAnime from './LottieAnimations/NoWalletAnime';
+import EmptyAnime from './LottieAnimations/EmptyAnime';
 import TransactionCard from './TransactionCard/TransactionCard';
 import ContentHeader from './ContentHeader/ContentHeader';
 import TransactionCategory from './TransactionCategory/TransactionCategory';
@@ -56,4 +57,5 @@ export {
   TransactionCategory,
   CategoryIcon,
   AmountError,
+  NoWalletAnime,
 };

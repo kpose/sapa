@@ -1,13 +1,30 @@
 import {configureStore} from '@reduxjs/toolkit';
 import userSlice from './userSlice';
-import AddExpenseReducer from './AddExpenseReducer';
+import ExpenseSlice from './expenseSlice';
 import {useDispatch} from 'react-redux';
 
+import storage from 'redux-persist/lib/storage'
+import { combineReducers } from 'redux';
+import { persistReducer } from 'redux-persist';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+//import thunk from 'redux-thunk'
+
+
+
+const reducers = combineReducers({
+  user: userSlice,
+    expense: ExpenseSlice,
+})
+
+const  persistConfig = {
+  key: 'root',
+  storage: AsyncStorage
+}
+
+const persistedReducer = persistReducer(persistConfig, reducers)
+
 export const store = configureStore({
-  reducer: {
-    user: userSlice,
-    AddExpense: AddExpenseReducer,
-  },
+  reducer: persistedReducer
 });
 
 export type RootState = ReturnType<typeof store.getState>;

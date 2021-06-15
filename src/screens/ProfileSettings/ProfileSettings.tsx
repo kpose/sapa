@@ -5,14 +5,11 @@ import {View} from 'react-native';
 import styles from './styles';
 import {Text, Divider} from 'react-native-paper';
 import {fonts} from '~utils/fonts';
-import {useSelector} from 'react-redux';
-import {RootState} from '~redux/store';
+import {useAppSelector} from '~redux/reduxhooks';
 
 const ProfileSettings = () => {
-  const {firstname, email, username} = useSelector(
-    (state: RootState) => state.userData,
-  );
-  console.log(username);
+  const {firstname, email, username} = useAppSelector(state => state.user);
+
   return (
     <View style={styles.container}>
       <View style={styles.username}>

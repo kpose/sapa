@@ -1,16 +1,30 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 
-const AddExpenseSlice = createSlice({
-  name: 'user',
-  initialState: {
-    marchant: '',
-    note: '',
-    amount: '',
-    type: '',
-    category: '',
-    image: '',
-    loading: false,
-  },
+interface ExpenseData {
+  marchant: string;
+    note: string;
+    amount: number;
+    type: string;
+    category: string;
+    image: string;
+    loading: boolean
+}
+
+const initialState : ExpenseData = {
+  marchant: '',
+  note: '',
+  amount: 0,
+  type: '',
+  category: '',
+  image: '',
+  loading: false
+
+
+}
+
+const ExpenseSlice = createSlice({
+  name: 'expense',
+  initialState,
 
   reducers: {
     setMarchant(state, action: PayloadAction<string>) {
@@ -19,7 +33,7 @@ const AddExpenseSlice = createSlice({
     setNote(state, action: PayloadAction<string>) {
       state.note = action.payload;
     },
-    setAmount(state, action: PayloadAction<string>) {
+    setAmount(state, action: PayloadAction<number>) {
       state.amount = action.payload;
     },
     setType(state, action: PayloadAction<string>) {
@@ -45,6 +59,6 @@ export const {
   setMarchant,
   setNote,
   setType,
-} = AddExpenseSlice.actions;
+} = ExpenseSlice.actions;
 
-export default AddExpenseSlice.reducer;
+export default ExpenseSlice.reducer;

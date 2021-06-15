@@ -8,7 +8,7 @@ import {
 } from 'react-native';
 import {Text, TextInput, Portal, Modal} from 'react-native-paper';
 import styles from './styles';
-import {useSelector, useDispatch} from 'react-redux';
+import {useDispatch} from 'react-redux';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {Spinner, TransactionCategory, AmountError} from '~components';
@@ -19,7 +19,8 @@ import {colors, sizes} from '~utils';
 import {fonts} from '~utils/fonts';
 import {RootState} from '~redux/store';
 import {ThemeContext} from '~context/ThemeCotext';
-import {setCategory} from '~redux/AddExpenseReducer';
+import {setCategory} from '~redux/expenseSlice';
+import {useAppSelector, useAppDispatch} from '~redux/reduxhooks';
 
 interface Props {
   closeScreen: () => void;
@@ -36,10 +37,10 @@ const AddToWalletHeader = ({closeScreen, walletID, refresh}: Props) => {
   const {theme} = useContext(ThemeContext);
   const [amountError, setAmountError] = useState(false);
 
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
-  const {note, marchant, category, image} = useSelector(
-    (state: RootState) => state.AddExpense,
+  const {note, marchant, category, image} = useAppSelector(
+    state => state.expense,
   );
 
   const transaction = async () => {
