@@ -51,19 +51,17 @@ const App = () => {
     <ThemeContext.Provider value={{theme, toggleTheme}}>
       <PaperProvider theme={theme}>
         <ReduxProvider store={store}>
-          <PersistGate loading={null} persistor={persistor}>
-            <NavigationContainer theme={theme}>
-              {user ? (
-                <Stack.Navigator
-                  screenOptions={{headerShown: false, gestureEnabled: false}}>
-                  <Stack.Screen name="Home" component={HomeStack} />
-                </Stack.Navigator>
-              ) : (
-                <Routes />
-              )}
-              {/* <Routes /> */}
-            </NavigationContainer>
-          </PersistGate>
+          <NavigationContainer theme={theme}>
+            {user ? (
+              <Stack.Navigator
+                screenOptions={{headerShown: false, gestureEnabled: false}}>
+                <Stack.Screen name="Home" component={HomeStack} />
+              </Stack.Navigator>
+            ) : (
+              <Routes />
+            )}
+            {/* <Routes /> */}
+          </NavigationContainer>
         </ReduxProvider>
       </PaperProvider>
     </ThemeContext.Provider>

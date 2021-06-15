@@ -7,7 +7,7 @@ import storage from 'redux-persist/lib/storage'
 import { combineReducers } from 'redux';
 import { persistReducer } from 'redux-persist';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-//import thunk from 'redux-thunk'
+
 
 
 
@@ -24,10 +24,14 @@ const  persistConfig = {
 const persistedReducer = persistReducer(persistConfig, reducers)
 
 export const store = configureStore({
-  reducer: persistedReducer
+  reducer : reducers
+
 });
 
 export type RootState = ReturnType<typeof store.getState>;
 
 export type AppDispatch = typeof store.dispatch;
 export const useAppDispatch = () => useDispatch<AppDispatch>();
+
+
+reducer: persistedReducer
