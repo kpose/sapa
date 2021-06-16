@@ -4,33 +4,31 @@ import {Text, TextInput} from 'react-native-paper';
 import {colors, hp, wp} from '~utils';
 import {LargeButton} from '~components';
 import {fonts} from '~utils/fonts';
-import axios from 'axios';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import firestore from '@react-native-firebase/firestore';
 
 interface Props {
   close: () => void;
-  getWallets: () => void;
+  email: string;
+  getWallets?: () => void;
 }
 
-const AddWallet = ({close, getWallets}: Props) => {
+const AddWallet = ({close, getWallets, email}: Props) => {
   const [title, setTitle] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(false);
 
   const saveWallet = async () => {
-    const userWallet = {
-      title,
-    };
     setLoading(true);
-    const token = await AsyncStorage.getItem('AuthToken');
-    axios.defaults.headers.common = {Authorization: `${token}`};
-    axios
-      .post(
-        'https://us-central1-sapa-4bd2e.cloudfunctions.net/api/createwallet',
-        userWallet,
-      )
-      .then(response => {
+    const newWallet = {
+      title,
+      createdAt: new Date().toISOString(),
+      email,
+      transactions: [],
+    };
+    firestore()
+      .collection('wallets')
+      .add(newWallet)
+      .then(doc => {
         setLoading(false);
-        getWallets();
         close();
       })
       .catch(error => {

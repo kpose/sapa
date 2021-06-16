@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import {View, TouchableOpacity, KeyboardAvoidingView} from 'react-native';
 import {Text, TextInput, HelperText} from 'react-native-paper';
 import * as yup from 'yup';
-import axios from 'axios';
+import auth from '@react-native-firebase/auth';
 import {Formik} from 'formik';
 
 //UTILS AND FILES
@@ -10,13 +10,13 @@ import LargeButton from '../LargeButton/LargeButton';
 import Spinner from '../Spinner/Spinner';
 import {sizes} from '~utils';
 import NetworkError from '../NetworkError/NetworkError';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import styles from './styles';
 import {useNavigation} from '@react-navigation/native';
 import NetInfo from '@react-native-community/netinfo';
+import {useAppDispatch} from '~redux/reduxhooks';
+import {setEmail} from '~redux/userSlice';
 
 type Props = {
-  //onButtonPress?: () => void;
   onBackPress?: () => void;
 };
 
@@ -33,32 +33,38 @@ const vaidation = yup.object().shape({
 
 const Login = (props: Props) => {
   const [loading, setLoading] = useState(false);
-  const [servererror, setServerError] = useState();
+  const [servererror, setServerError] = useState<string>();
   const [offlinestatus, setOfflineStatus] = useState(false);
   const navigation = useNavigation();
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     const removeNetInfoSubscription = NetInfo.addEventListener(state => {
       const offline = !(state.isConnected && state.isInternetReachable);
       setOfflineStatus(offline);
+      setLoading(false);
     });
     return () => removeNetInfoSubscription();
   }, [offlinestatus]);
 
-  const handlePress = (values: {}) => {
+  const handlePress = (values: {email: string; password: string}) => {
     setLoading(true);
-    axios
-      .post(
-        'https://us-central1-sapa-4bd2e.cloudfunctions.net/api/login',
-        values,
-      )
-      .then(response => {
-        AsyncStorage.setItem('AuthToken', `Bearer ${response.data.token}`);
+    auth()
+      .signInWithEmailAndPassword(values.email, values.password)
+      .then(data => {
         setLoading(false);
+        dispatch(setEmail(values.email));
         navigation.navigate('Home');
       })
       .catch(err => {
-        setServerError(err.response.data);
+        if (err.code === 'auth/user-not-found') {
+          setLoading(false);
+          setServerError('This account does not exist !!');
+        }
+        if (err.code === 'auth/wrong-password') {
+          setLoading(false);
+          setServerError('Wrong password, try again ');
+        }
         setLoading(false);
       });
   };
@@ -67,11 +73,7 @@ const Login = (props: Props) => {
     <View style={styles.container}>
       {offlinestatus && <NetworkError />}
       {loading && <Spinner />}
-      <View style={styles.captionContainer}>
-        {/* <Text style={[sizes.fonts.bodyText, styles.caption]}>
-          What should i call you?
-        </Text> */}
-      </View>
+      <View style={styles.captionContainer}></View>
 
       <Formik
         validationSchema={vaidation}
@@ -121,8 +123,8 @@ const Login = (props: Props) => {
               <HelperText
                 type="error"
                 visible={true}
-                style={[sizes.fonts.caption]}>
-                Wrong credential combination, try again!
+                style={[sizes.fonts.caption, styles.name]}>
+                {servererror}
               </HelperText>
             )}
 

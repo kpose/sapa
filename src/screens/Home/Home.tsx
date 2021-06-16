@@ -5,60 +5,60 @@ import React, {
   useEffect,
   useCallback,
 } from 'react';
-import {View, FlatList, TouchableOpacity} from 'react-native';
+import {View, FlatList} from 'react-native';
 import {Modalize} from 'react-native-modalize';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import {Text, Button, Portal, Modal} from 'react-native-paper';
-import axios from 'axios';
-import auth from '@react-native-firebase/auth';
+import {Portal, Modal} from 'react-native-paper';
+import firestore from '@react-native-firebase/firestore';
 
 /* utils and files */
-import {
-  WalletCard,
-  LoadingAnime,
-  ContentHeader,
-  NoWalletAnime,
-} from '~components';
+import {WalletCard, ContentHeader, NoWalletAnime} from '~components';
 import {AddWalletType, AddWallet} from '~modals';
-import {colors, hp, sizes} from '~utils';
+import {colors, hp} from '~utils';
 import {ThemeContext} from '~context/ThemeCotext';
 import styles from './styles';
 import {RouteStackProps} from '~definitions/navigationTypes';
-import {useAppDispatch} from '~redux/reduxhooks';
+import {useAppDispatch, useAppSelector} from '~redux/reduxhooks';
+import auth from '@react-native-firebase/auth';
+import {setEmail} from '~redux/userSlice';
 
 const Home = ({navigation}: RouteStackProps) => {
   const walletModalRef = useRef<Modalize>(null);
   const [showmodal, setShowmodal] = useState(false);
   const [isFetching, setIsFetching] = useState(false);
   const [loading, setLoading] = useState(true);
-  const [wallets, setWallets] = useState();
+  const [wallets, setWallets] = useState([]);
   const {theme} = useContext(ThemeContext);
+  const {email} = useAppSelector(state => state.user);
+  const dispatch = useAppDispatch();
 
-  /* useEffect(() => {
-    getWallets();
-  }, []); */
+  useEffect(() => {
+    const user: any = auth().currentUser;
+    if (user) {
+      dispatch(setEmail(user.email));
+    }
+  }, []);
 
-  const onRefresh = () => {
-    setIsFetching(true);
-    getWallets();
-  };
-
-  const getWallets = async () => {
+  useEffect(() => {
     setLoading(true);
-    const token = await AsyncStorage.getItem('AuthToken');
-    axios.defaults.headers.common = {Authorization: `${token}`};
-    axios
-      .get('https://us-central1-sapa-4bd2e.cloudfunctions.net/api/wallets')
-      .then(response => {
-        setWallets(response.data);
-        setIsFetching(false);
+    const subscriber = firestore()
+      .collection('wallets')
+      .where('email', '==', email)
+      .orderBy('createdAt', 'desc')
+      .onSnapshot(querySnapshot => {
+        let wallets: any = [];
+        querySnapshot.forEach(doc => {
+          wallets.push({
+            walletId: doc.id,
+            title: doc.data().title,
+            transactions: doc.data().transactions,
+            createdAt: doc.data().createdAt,
+          });
+        });
         setLoading(false);
-      })
-      .catch(error => {
-        console.log(error);
-        setLoading(false);
+        setWallets(wallets);
       });
-  };
+    return () => subscriber();
+  }, [email]);
 
   const openModal = () => {
     walletModalRef.current?.open();
@@ -69,19 +69,18 @@ const Home = ({navigation}: RouteStackProps) => {
     walletModalRef.current?.close();
   };
 
+  const keyExtractor = useCallback(item => item.walletId.toString(), []);
+
   const renderWallets = useCallback(
     ({item}) => (
       <WalletCard
         title={item.title}
         uid={item.walletId}
         transactions={item.transactions}
-        refresh={onRefresh}
       />
     ),
     [],
   );
-
-  const keyExtractor = useCallback(item => item.walletId.toString(), []);
 
   return (
     <>
@@ -109,6 +108,7 @@ const Home = ({navigation}: RouteStackProps) => {
           ]}>
           <AddWallet
             close={() => setShowmodal(false)}
+            email={email}
             //getWallets={getWallets}
           />
         </Modal>
@@ -116,44 +116,24 @@ const Home = ({navigation}: RouteStackProps) => {
 
       <View style={styles.container}>
         <ContentHeader openPress={openModal} />
+        {/* {loading && <Text>loading ......</Text>} */}
+
+        {wallets.length ? (
+          <FlatList
+            data={wallets}
+            renderItem={renderWallets}
+            keyExtractor={keyExtractor}
+            showsVerticalScrollIndicator={false}
+            maxToRenderPerBatch={7}
+            windowSize={7}
+            refreshing={isFetching}
+          />
+        ) : (
+          <NoWalletAnime />
+        )}
       </View>
     </>
   );
 };
 
 export default Home;
-
-/* useEffect(() => {
-    setLoading(true);
-    getToken();
-    axios.defaults.headers.common = {Authorization: `${bearertoken}`};
-    axios
-      .get('https://us-central1-sapa-4bd2e.cloudfunctions.net/api/user')
-      .then(response => {
-        dispatch(setUsername(response.data.userCredentials.username));
-        dispatch(setFirstName(response.data.userCredentials.firstName));
-        dispatch(setEmail(response.data.userCredentials.email));
-        setLoading(false);
-      })
-      .catch(error => {
-        console.log(error);
-        setLoading(false);
-      });
-  }, [bearertoken]); */
-
-/* {
-    wallets ? (
-      <FlatList
-        data={wallets}
-        renderItem={renderWallets}
-        keyExtractor={keyExtractor}
-        showsVerticalScrollIndicator={false}
-        maxToRenderPerBatch={7}
-        windowSize={7}
-        refreshing={isFetching}
-        //onRefresh={onRefresh}
-      />
-    ) : (
-      <NoWalletAnime />
-    );
-  } */

@@ -1,6 +1,7 @@
 import React, {useState, useContext} from 'react';
 import {View, TouchableOpacity} from 'react-native';
 import auth from '@react-native-firebase/auth';
+import {useNavigation} from '@react-navigation/native';
 
 /* utils and files */
 import {Text, Divider, Switch} from 'react-native-paper';
@@ -12,6 +13,7 @@ import styles from './styles';
 const SettingsBottom = () => {
   const [switchon, setSwitchOn] = useState<boolean>(true);
   const {toggleTheme} = useContext(ThemeContext);
+  const navigation = useNavigation();
 
   const onToggleSwitch = () => {
     toggleTheme();
@@ -42,7 +44,10 @@ const SettingsBottom = () => {
         onPress={() =>
           auth()
             .signOut()
-            .then(() => console.log('User signed out!'))
+            .then(() => {
+              navigation.navigate('Welcome');
+              console.log('User signed out!');
+            })
         }>
         <Text style={[fonts.caption, {color: colors.WARNING}]}> Logout</Text>
       </TouchableOpacity>

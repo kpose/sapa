@@ -8,10 +8,10 @@ import {hp, wp} from '~utils';
 const EmptyAnime = () => {
   return (
     <LottieView
-      source={require('../../assets/lottieanimation/payment.json')}
+      source={require('../../assets/lottieanimation/empty11.json')}
       autoPlay
       loop
-      //style={styles.animation}
+      style={styles.animation}
     />
   );
 };
@@ -20,12 +20,14 @@ export default EmptyAnime;
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    //flex: 1,
     alignItems: 'center',
+    justifyContent: 'center',
   },
   animation: {
     height: hp(40),
     width: 20,
     alignSelf: 'center',
+    marginTop: hp(5),
   },
 });

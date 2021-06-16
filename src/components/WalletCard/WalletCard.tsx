@@ -14,7 +14,7 @@ interface Props {
   title: string;
   uid: string;
   transactions: [];
-  refresh: () => void;
+  refresh?: () => void;
 }
 
 const WalletCard = ({title, uid, transactions, refresh}: Props) => {

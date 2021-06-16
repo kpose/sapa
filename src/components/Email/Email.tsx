@@ -35,20 +35,12 @@ const vaidation = yup.object().shape({
     .required('Password is Required'),
 });
 
-interface ServerError {
-  email: string;
-  username: string;
-}
-
 const Email = ({onButtonPress, onBackPress}: Props) => {
   const navigation = useNavigation();
   const [loading, setLoading] = useState(false);
   const [offlinestatus, setOfflineStatus] = useState(false);
   const dispatch = useAppDispatch();
-  const [servererror, setServerError] = useState<ServerError>({
-    email: '',
-    username: '',
-  });
+  const [servererror, setServerError] = useState<string>();
   const {username, firstname, email, symbol} = useAppSelector(
     state => state.user,
   );
@@ -66,7 +58,6 @@ const Email = ({onButtonPress, onBackPress}: Props) => {
     auth()
       .createUserWithEmailAndPassword(values.email, values.password)
       .then(() => {
-        console.log('works');
         const userCredentials = {
           firstName: firstname,
           username: username,
@@ -80,19 +71,17 @@ const Email = ({onButtonPress, onBackPress}: Props) => {
       })
       .then(() => {
         setLoading(false);
+        dispatch(setEmail(values.email));
         navigation.navigate('Home');
       })
       .catch(error => {
         setLoading(false);
         if (error.code === 'auth/email-already-in-use') {
-          console.log('That email address is already in use!');
-          console.log(error);
+          setServerError('That email address is already in use!');
         }
         if (error.code === 'auth/invalid-email') {
-          console.log('That email address is invalid!');
-          console.log(error);
+          setServerError('That email address is invalid!');
         }
-        console.error(error);
       });
   };
 
@@ -135,6 +124,15 @@ const Email = ({onButtonPress, onBackPress}: Props) => {
               </HelperText>
             )}
 
+            {servererror && (
+              <HelperText
+                type="error"
+                visible={true}
+                style={[sizes.fonts.caption, styles.name]}>
+                {servererror}
+              </HelperText>
+            )}
+
             <TextInput
               style={styles.name}
               label="Password"
@@ -152,15 +150,6 @@ const Email = ({onButtonPress, onBackPress}: Props) => {
                 visible={true}
                 style={[sizes.fonts.caption, styles.name]}>
                 {errors.password}
-              </HelperText>
-            )}
-
-            {servererror && (
-              <HelperText
-                type="error"
-                visible={true}
-                style={[sizes.fonts.caption]}>
-                {servererror.email || servererror.username}
               </HelperText>
             )}
 
@@ -187,29 +176,3 @@ const Email = ({onButtonPress, onBackPress}: Props) => {
 };
 
 export default Email;
-
-/* const handlePress = (values: {email: string; password: string}) => {
-  dispatch(setEmail(values.email));
-  const userData = {
-    firstName: firstname,
-    username: username,
-    email: values.email,
-    password: values.password,
-  };
-  setLoading(true);
-  axios
-    .post(
-      'https://us-central1-sapa-4bd2e.cloudfunctions.net/api/signup',
-      userData,
-    )
-    .then((response: any) => {
-      AsyncStorage.setItem('AuthToken', `Bearer ${response.data.token}`);
-      navigation.navigate('Home');
-      //onButtonPress();
-      setLoading(false);
-    })
-    .catch((err: any) => {
-      setLoading(false);
-      setServerError(err.response.data);
-    });
-} */

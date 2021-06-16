@@ -6,7 +6,6 @@ import {WavyHeader, TabHeader} from '~components';
 import SettingsStack from './SettingsStack';
 import {colors, hp} from '~utils';
 import {RouteStackParams} from '~definitions/navigationTypes';
-import Routed from '../navigation/Routed';
 
 const Stack = createStackNavigator<RouteStackParams>();
 
@@ -71,11 +70,3 @@ function HomeStack() {
 }
 
 export default HomeStack;
-
-/* uid: route.params.uid,
-                  title: route.params.title,
-                  refresh: route.params.refresh, */
-
-/*  navigation.navigate('AddToWalletToo', {
-                    data: route.params,
-                  }); */
