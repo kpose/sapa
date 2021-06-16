@@ -3,7 +3,6 @@ import {createStackNavigator} from '@react-navigation/stack';
 import {Welcome} from '../screens';
 import HomeStack from './HomeStack';
 import {RouteStackParams} from '../definitions/navigationTypes';
-import axios from 'axios';
 
 const Stack = createStackNavigator<RouteStackParams>();
 
