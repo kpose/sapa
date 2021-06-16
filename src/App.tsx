@@ -10,6 +10,7 @@ import {createStackNavigator} from '@react-navigation/stack';
 import {RouteStackParams} from '../src/definitions/navigationTypes';
 import HomeStack from '../src/navigation/HomeStack';
 import auth from '@react-native-firebase/auth';
+import {Spinner} from '../src/components';
 
 const Stack = createStackNavigator<RouteStackParams>();
 
@@ -24,6 +25,7 @@ const App = () => {
 
   function onAuthStateChanged(user: any) {
     setUser(user);
+    console.log(user);
     if (initializing) setInitializing(false);
   }
 
@@ -32,7 +34,7 @@ const App = () => {
     return subscriber;
   }, []);
 
-  if (initializing) return null;
+  if (initializing) return <Spinner />;
 
   return (
     <ThemeContext.Provider value={{theme, toggleTheme}}>

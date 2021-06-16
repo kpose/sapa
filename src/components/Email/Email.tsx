@@ -5,8 +5,9 @@ import styles from './styles';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import * as yup from 'yup';
 import {Formik} from 'formik';
+import auth from '@react-native-firebase/auth';
+import firestore from '@react-native-firebase/firestore';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import axios from 'axios';
 
 //UTILS AND FILES
 import LargeButton from '../LargeButton/LargeButton';
@@ -16,7 +17,6 @@ import Spinner from '../Spinner/Spinner';
 import {useNavigation} from '@react-navigation/native';
 import NetInfo from '@react-native-community/netinfo';
 import {useAppSelector, useAppDispatch} from '~redux/reduxhooks';
-import {string} from 'yup/lib/locale';
 import {setEmail} from '~redux/userSlice';
 
 type Props = {
@@ -44,6 +44,7 @@ const Email = ({onButtonPress, onBackPress}: Props) => {
   const navigation = useNavigation();
   const [loading, setLoading] = useState(false);
   const [offlinestatus, setOfflineStatus] = useState(false);
+  const dispatch = useAppDispatch();
   const [servererror, setServerError] = useState<ServerError>({
     email: '',
     username: '',
@@ -51,7 +52,6 @@ const Email = ({onButtonPress, onBackPress}: Props) => {
   const {username, firstname, email, symbol} = useAppSelector(
     state => state.user,
   );
-  const dispatch = useAppDispatch();
 
   useEffect(() => {
     const removeNetInfoSubscription = NetInfo.addEventListener(state => {
@@ -62,28 +62,37 @@ const Email = ({onButtonPress, onBackPress}: Props) => {
   }, [offlinestatus]);
 
   const handlePress = (values: {email: string; password: string}) => {
-    dispatch(setEmail(values.email));
-    const userData = {
-      firstName: firstname,
-      username: username,
-      email: values.email,
-      password: values.password,
-    };
     setLoading(true);
-    axios
-      .post(
-        'https://us-central1-sapa-4bd2e.cloudfunctions.net/api/signup',
-        userData,
-      )
-      .then((response: any) => {
-        AsyncStorage.setItem('AuthToken', `Bearer ${response.data.token}`);
-        navigation.navigate('Home');
-        //onButtonPress();
-        setLoading(false);
+    auth()
+      .createUserWithEmailAndPassword(values.email, values.password)
+      .then(() => {
+        console.log('works');
+        const userCredentials = {
+          firstName: firstname,
+          username: username,
+          email: values.email,
+          createdAt: new Date().toISOString(),
+        };
+        return firestore()
+          .collection('users')
+          .doc(`${userCredentials.email}`)
+          .set(userCredentials);
       })
-      .catch((err: any) => {
+      .then(() => {
         setLoading(false);
-        setServerError(err.response.data);
+        navigation.navigate('Home');
+      })
+      .catch(error => {
+        setLoading(false);
+        if (error.code === 'auth/email-already-in-use') {
+          console.log('That email address is already in use!');
+          console.log(error);
+        }
+        if (error.code === 'auth/invalid-email') {
+          console.log('That email address is invalid!');
+          console.log(error);
+        }
+        console.error(error);
       });
   };
 
@@ -178,3 +187,29 @@ const Email = ({onButtonPress, onBackPress}: Props) => {
 };
 
 export default Email;
+
+/* const handlePress = (values: {email: string; password: string}) => {
+  dispatch(setEmail(values.email));
+  const userData = {
+    firstName: firstname,
+    username: username,
+    email: values.email,
+    password: values.password,
+  };
+  setLoading(true);
+  axios
+    .post(
+      'https://us-central1-sapa-4bd2e.cloudfunctions.net/api/signup',
+      userData,
+    )
+    .then((response: any) => {
+      AsyncStorage.setItem('AuthToken', `Bearer ${response.data.token}`);
+      navigation.navigate('Home');
+      //onButtonPress();
+      setLoading(false);
+    })
+    .catch((err: any) => {
+      setLoading(false);
+      setServerError(err.response.data);
+    });
+} */

@@ -5,11 +5,12 @@ import React, {
   useEffect,
   useCallback,
 } from 'react';
-import {View, FlatList} from 'react-native';
+import {View, FlatList, TouchableOpacity} from 'react-native';
 import {Modalize} from 'react-native-modalize';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {Text, Button, Portal, Modal} from 'react-native-paper';
 import axios from 'axios';
+import auth from '@react-native-firebase/auth';
 
 /* utils and files */
 import {
@@ -81,7 +82,6 @@ const Home = ({navigation}: RouteStackProps) => {
   );
 
   const keyExtractor = useCallback(item => item.walletId.toString(), []);
-  console.log(wallets);
 
   return (
     <>
@@ -116,20 +116,6 @@ const Home = ({navigation}: RouteStackProps) => {
 
       <View style={styles.container}>
         <ContentHeader openPress={openModal} />
-        {wallets ? (
-          <FlatList
-            data={wallets}
-            renderItem={renderWallets}
-            keyExtractor={keyExtractor}
-            showsVerticalScrollIndicator={false}
-            maxToRenderPerBatch={7}
-            windowSize={7}
-            refreshing={isFetching}
-            //onRefresh={onRefresh}
-          />
-        ) : (
-          <NoWalletAnime />
-        )}
       </View>
     </>
   );
@@ -154,3 +140,20 @@ export default Home;
         setLoading(false);
       });
   }, [bearertoken]); */
+
+/* {
+    wallets ? (
+      <FlatList
+        data={wallets}
+        renderItem={renderWallets}
+        keyExtractor={keyExtractor}
+        showsVerticalScrollIndicator={false}
+        maxToRenderPerBatch={7}
+        windowSize={7}
+        refreshing={isFetching}
+        //onRefresh={onRefresh}
+      />
+    ) : (
+      <NoWalletAnime />
+    );
+  } */

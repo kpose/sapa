@@ -1,5 +1,6 @@
 import React, {useState, useContext} from 'react';
 import {View, TouchableOpacity} from 'react-native';
+import auth from '@react-native-firebase/auth';
 
 /* utils and files */
 import {Text, Divider, Switch} from 'react-native-paper';
@@ -36,7 +37,13 @@ const SettingsBottom = () => {
       <TouchableOpacity style={[styles.item]}>
         <Text style={[fonts.caption]}> Privacy Policy</Text>
       </TouchableOpacity>
-      <TouchableOpacity style={[styles.item]}>
+      <TouchableOpacity
+        style={[styles.item]}
+        onPress={() =>
+          auth()
+            .signOut()
+            .then(() => console.log('User signed out!'))
+        }>
         <Text style={[fonts.caption, {color: colors.WARNING}]}> Logout</Text>
       </TouchableOpacity>
       <Divider style={styles.divide} />
