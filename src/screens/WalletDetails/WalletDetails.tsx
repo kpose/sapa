@@ -30,7 +30,6 @@ const WalletDetails = ({route, navigation}: BottomTabProps) => {
           data={transactions}
           renderItem={renderWallets}
           keyExtractor={keyExtractor}
-          //inverted={true}
           showsVerticalScrollIndicator={false}
           maxToRenderPerBatch={7}
           windowSize={7}
@@ -43,7 +42,3 @@ const WalletDetails = ({route, navigation}: BottomTabProps) => {
 };
 
 export default WalletDetails;
-
-{
-  /* <EmptyAnime /> */
-}
