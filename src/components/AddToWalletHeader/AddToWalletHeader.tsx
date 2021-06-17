@@ -1,14 +1,7 @@
 import React, {useState, useContext} from 'react';
-import {
-  View,
-  SafeAreaView,
-  TouchableOpacity,
-  Keyboard,
-  TouchableWithoutFeedback,
-} from 'react-native';
+import {View, SafeAreaView, TouchableOpacity} from 'react-native';
 import {Text, TextInput, Portal, Modal} from 'react-native-paper';
 import styles from './styles';
-import {useDispatch} from 'react-redux';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {Spinner, TransactionCategory, AmountError} from '~components';
@@ -17,62 +10,61 @@ import {Spinner, TransactionCategory, AmountError} from '~components';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {colors, sizes} from '~utils';
 import {fonts} from '~utils/fonts';
-import {RootState} from '~redux/store';
 import {ThemeContext} from '~context/ThemeCotext';
 import {setCategory} from '~redux/expenseSlice';
 import {useAppSelector, useAppDispatch} from '~redux/reduxhooks';
+import firestore from '@react-native-firebase/firestore';
 
 interface Props {
   closeScreen: () => void;
   walletID: string;
-  refresh: () => void;
+  //refresh?: () => void;
 }
 
-const AddToWalletHeader = ({closeScreen, walletID, refresh}: Props) => {
+const AddToWalletHeader = ({closeScreen, walletID}: Props) => {
   const [xpense, setXpense] = useState(true);
   const [loading, setLoading] = useState(false);
   const [showmodal, setShowmodal] = useState(false);
   const [title, setTitle] = useState('');
-  const [amount, setAmount] = useState('');
+  const [amount, setAmount] = useState<number>();
   const {theme} = useContext(ThemeContext);
   const [amountError, setAmountError] = useState(false);
-
   const dispatch = useAppDispatch();
 
   const {note, marchant, category, image} = useAppSelector(
     state => state.expense,
   );
 
+  const expenditure = '-' + amount;
+  const income = '+' + amount;
+
   const transaction = async () => {
     const newTransaction = {
       note,
       marchant,
-      amount,
+      amount: xpense ? expenditure : income,
       type: xpense ? 'Expense' : 'Income',
       createdAt: new Date().toISOString(),
-      category: category ? {category} : 'Others',
+      category: category ? category : 'Others',
     };
     setLoading(true);
-    const token = await AsyncStorage.getItem('AuthToken');
-    axios.defaults.headers.common = {Authorization: `${token}`};
-    axios
-      .post(
-        `https://us-central1-sapa-4bd2e.cloudfunctions.net/api/createtransaction/${walletID}`,
-        newTransaction,
-      )
+    firestore()
+      .collection('wallets')
+      .doc(`${walletID}`)
+      .update({
+        transactions: firestore.FieldValue.arrayUnion(newTransaction),
+      })
       .then(response => {
         setLoading(false);
-        refresh();
         closeScreen();
       })
       .catch(error => {
-        console.log(error);
         setLoading(false);
       });
   };
 
   const saveTransaction = () => {
-    if (amount) {
+    if (amount && amount > 0) {
       transaction();
     } else {
       setAmountError(true);
@@ -95,14 +87,6 @@ const AddToWalletHeader = ({closeScreen, walletID, refresh}: Props) => {
   const dismissError = () => {
     setAmountError(false);
   };
-
-  /* const DismissKeyboard = ({children}: any) => {
-    return (
-      <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-        {children}
-      </TouchableWithoutFeedback>
-    );
-  }; */
 
   return (
     <>
@@ -182,7 +166,8 @@ const AddToWalletHeader = ({closeScreen, walletID, refresh}: Props) => {
           <TextInput
             onChangeText={value => setAmount(value)}
             style={[styles.input, fonts.bodyText]}
-            placeholder={xpense ? '-' + ' 0.00' : '+' + ' 0.00'}
+            //placeholder={xpense ? '- 0.00' : '+ 0.00'}
+            //defaultValue={xpense ? '- ' : '+ '}
             underlineColor={xpense ? colors.SECONDARY : colors.PRIMARY}
             autoFocus={true}
             maxLength={20}

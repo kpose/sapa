@@ -16,6 +16,7 @@ type Props = {
 };
 
 const TabHeader = ({onBackPress, onPlusPress, data, navigation}: Props) => {
+  const {Total} = data?.params;
   const {symbol} = useAppSelector(state => state.user);
 
   return (
@@ -54,7 +55,13 @@ const TabHeader = ({onBackPress, onPlusPress, data, navigation}: Props) => {
           <Text style={[fonts.caption, styles.wallet]}>
             {data?.params.title}
           </Text>
-          <Text style={[fonts.caption]}>{symbol} 0.00</Text>
+          <Text
+            style={[
+              fonts.caption,
+              {color: Total < -0 ? colors.WARNING : colors.WHITE},
+            ]}>
+            {symbol} {Total}
+          </Text>
         </View>
 
         <View style={styles.footer}>

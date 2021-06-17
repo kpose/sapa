@@ -8,6 +8,8 @@ import styles from './styles';
 const WalletDetails = ({route, navigation}: BottomTabProps) => {
   const {uid, title, transactions, refresh} = route.params;
 
+  console.log(transactions);
+
   const renderWallets = useCallback(
     ({item}) => (
       <TransactionCard

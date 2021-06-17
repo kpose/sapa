@@ -22,7 +22,7 @@ interface Props {
 const AddToWalletBody = ({title}: Props) => {
   const elsaped = Date.now();
   const today = new Date(elsaped).toDateString();
-  const dispatch = useAppDispatch;
+  const dispatch = useAppDispatch();
 
   return (
     <KeyboardAvoidingView
