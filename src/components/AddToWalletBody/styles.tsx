@@ -35,6 +35,13 @@ const styles = StyleSheet.create({
     borderEndColor: colors.SECONDARY,
     borderTopColor: colors.SECONDARY,
   },
+  modalStyle: {
+    position: 'absolute',
+    alignSelf: 'center',
+    bottom: 0,
+    left: 0,
+    right: 0,
+  },
 });
 
 export default styles;
