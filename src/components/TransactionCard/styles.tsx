@@ -29,6 +29,13 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+
+  image: {
+    width: wp(20),
+    borderRadius: wp(2),
+    height: hp(10),
+    resizeMode: 'cover',
+  },
   detailsContainer: {
     marginLeft: wp(5),
     //justifyContent: 'space-evenly',

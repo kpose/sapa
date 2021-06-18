@@ -1,5 +1,5 @@
 import React from 'react';
-import {View} from 'react-native';
+import {View, Image} from 'react-native';
 import {Text, Surface} from 'react-native-paper';
 import {colors} from '~utils';
 import {fonts} from '~utils/fonts';
@@ -10,7 +10,7 @@ import {useAppSelector} from '~redux/reduxhooks';
 
 interface Props {
   date: string;
-  image?: string;
+  image: string;
   category: string;
   amount: number;
   marchant: string;
@@ -37,7 +37,11 @@ const TransactionCard = ({
   return (
     <Surface style={styles.container}>
       <View style={styles.imageContainer}>
-        <Text>Image</Text>
+        {image ? (
+          <Image source={{uri: image}} style={styles.image} />
+        ) : (
+          <Text>Image</Text>
+        )}
       </View>
       <View style={styles.detailsContainer}>
         <Text style={[fonts.smallerCaption]}>

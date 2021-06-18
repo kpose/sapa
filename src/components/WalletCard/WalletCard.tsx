@@ -23,6 +23,9 @@ const WalletCard = ({title, uid, transactions, refresh}: Props) => {
   const {symbol} = useAppSelector(state => state.user);
 
   const getTotal = () => {
+    if (transactions.length === 0) {
+      return;
+    }
     const transact = transactions
       .map(item => item.amount)
       .reduce((prev, next) => Number(prev) + Number(next));

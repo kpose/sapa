@@ -4,7 +4,7 @@ import {
   TouchableOpacity,
   ScrollView,
   KeyboardAvoidingView,
-  Alert,
+  Image,
 } from 'react-native';
 import {Text, TextInput, Surface, Portal, Modal} from 'react-native-paper';
 
@@ -15,7 +15,7 @@ import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import {colors, hp, sizes, wp} from '~utils';
 import {CameraModal} from '~modals';
 import {fonts} from '~utils/fonts';
-import {setMarchant, setNote} from '~redux/expenseSlice';
+import {setImage, setMarchant, setNote} from '~redux/expenseSlice';
 import {useAppDispatch} from '~redux/reduxhooks';
 
 interface Props {
@@ -34,10 +34,10 @@ interface PhotoProps {
 const AddToWalletBody = ({title}: Props) => {
   const elsaped = Date.now();
   const today = new Date(elsaped).toDateString();
-  const [visible, setVisible] = React.useState(false);
+  const [visible, setVisible] = useState(false);
   const showModal = () => setVisible(true);
   const hideModal = () => setVisible(false);
-  const [imageSource, setImageSource] = useState(null);
+  const [imageSource, setImageSource] = useState('');
   const dispatch = useAppDispatch();
 
   function selectPhoto() {
@@ -53,8 +53,11 @@ const AddToWalletBody = ({title}: Props) => {
     };
 
     launchImageLibrary(options, response => {
-      let source = {uri: response.uri};
-      setImageSource(source.uri);
+      let source: string = response.assets[0].uri;
+      //console.log(source);
+      setVisible(false);
+      setImageSource(source);
+      dispatch(setImage(source));
     });
   }
 
@@ -70,10 +73,10 @@ const AddToWalletBody = ({title}: Props) => {
       },
     };
     launchCamera(options, response => {
-      console.log({response});
-
       let source = {uri: response.uri};
-      setImageSource(source.uri);
+      setVisible(false);
+      setImageSource(source);
+      dispatch(setImage(source.uri));
     });
   }
 
@@ -146,11 +149,19 @@ const AddToWalletBody = ({title}: Props) => {
 
           <TouchableOpacity onPress={showModal}>
             <Surface style={styles.cameraContainer}>
-              <Icon
-                name="camera"
-                color={colors.LIGHT_GRAY}
-                size={sizes.navigationIconSize}
-              />
+              {imageSource ? (
+                <Image
+                  source={{uri: imageSource}}
+                  resizeMode={'cover'}
+                  style={{width: '100%', height: '100%', borderRadius: wp(5)}}
+                />
+              ) : (
+                <Icon
+                  name="camera"
+                  color={colors.LIGHT_GRAY}
+                  size={sizes.navigationIconSize}
+                />
+              )}
             </Surface>
           </TouchableOpacity>
         </ScrollView>

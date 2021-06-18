@@ -16,6 +16,7 @@ const WalletDetails = ({route, navigation}: BottomTabProps) => {
         amount={item.amount}
         marchant={item.marchant}
         type={item.type}
+        image={item.imageUrl}
       />
     ),
     [],

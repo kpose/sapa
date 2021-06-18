@@ -14,6 +14,7 @@ import {ThemeContext} from '~context/ThemeCotext';
 import {setCategory} from '~redux/expenseSlice';
 import {useAppSelector, useAppDispatch} from '~redux/reduxhooks';
 import firestore from '@react-native-firebase/firestore';
+import storage from '@react-native-firebase/storage';
 
 interface Props {
   closeScreen: () => void;
@@ -30,6 +31,7 @@ const AddToWalletHeader = ({closeScreen, walletID}: Props) => {
   const {theme} = useContext(ThemeContext);
   const [amountError, setAmountError] = useState(false);
   const dispatch = useAppDispatch();
+  const [uploading, setUploading] = useState(false);
 
   const {note, marchant, category, image} = useAppSelector(
     state => state.expense,
@@ -39,6 +41,21 @@ const AddToWalletHeader = ({closeScreen, walletID}: Props) => {
   const income = '+' + amount;
 
   const transaction = async () => {
+    setLoading(true);
+    const uploadImage = async (uri: string) => {
+      const filename = uri.substring(uri.lastIndexOf('/') + 1);
+      const imageRef = storage().ref(filename);
+      await imageRef.putFile(uri, {contentType: 'image/jpg'}).catch(error => {
+        console.log(error);
+      });
+      const url = await imageRef.getDownloadURL().catch(error => {
+        console.log(error);
+      });
+      return url;
+    };
+
+    const uploadedUrl = await uploadImage(image);
+
     const newTransaction = {
       note,
       marchant,
@@ -46,8 +63,10 @@ const AddToWalletHeader = ({closeScreen, walletID}: Props) => {
       type: xpense ? 'Expense' : 'Income',
       createdAt: new Date().toISOString(),
       category: category ? category : 'Others',
+      imageUrl: uploadedUrl ? uploadedUrl : null,
     };
     setLoading(true);
+
     firestore()
       .collection('wallets')
       .doc(`${walletID}`)
@@ -61,6 +80,7 @@ const AddToWalletHeader = ({closeScreen, walletID}: Props) => {
       .catch(error => {
         setLoading(false);
       });
+    setLoading(false);
   };
 
   const saveTransaction = () => {
@@ -91,6 +111,7 @@ const AddToWalletHeader = ({closeScreen, walletID}: Props) => {
   return (
     <>
       {loading && <Spinner />}
+      {uploading && <Spinner />}
       <AmountError visible={amountError} dismiss={dismissError} />
       <Portal>
         <Modal
