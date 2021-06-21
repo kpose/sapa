@@ -1,11 +1,18 @@
 import * as React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
-import {Home, AddToWallet, Settings, AddToWalletToo} from '~screens';
+import {
+  Home,
+  AddToWallet,
+  Settings,
+  AddToWalletToo,
+  EditWallet,
+} from '~screens';
 import BottomTabNavigator from './BottomTabNavigator';
 import {WavyHeader, TabHeader} from '~components';
 import SettingsStack from './SettingsStack';
 import {colors, hp} from '~utils';
 import {RouteStackParams} from '~definitions/navigationTypes';
+import Yes from './Yes';
 
 const Stack = createStackNavigator<RouteStackParams>();
 
@@ -56,6 +63,12 @@ function HomeStack() {
         name="AddToWalletToo"
         options={{headerShown: false}}
         component={AddToWalletToo}
+      />
+
+      <Stack.Screen
+        name="EditWallet"
+        options={{headerShown: false}}
+        component={EditWallet}
       />
 
       <Stack.Screen

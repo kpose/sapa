@@ -27,6 +27,8 @@ import ContentHeader from './ContentHeader/ContentHeader';
 import TransactionCategory from './TransactionCategory/TransactionCategory';
 import CategoryIcon from './CategoryIcon/CategoryIcon';
 import AmountError from './AmountError/AmountErrror';
+import EditWalletHeader from './EditWalletHeader/EditWalletHeader';
+import EditWalletBody from './EditWalletBody/EditWalletBody';
 
 export {
   LargeButton,
@@ -58,4 +60,6 @@ export {
   CategoryIcon,
   AmountError,
   NoWalletAnime,
+  EditWalletBody,
+  EditWalletHeader,
 };

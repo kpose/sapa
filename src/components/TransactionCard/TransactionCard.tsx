@@ -1,9 +1,10 @@
 import React from 'react';
-import {View, Image} from 'react-native';
+import {View, Image, TouchableOpacity} from 'react-native';
 import {Text, Surface} from 'react-native-paper';
 import {colors} from '~utils';
 import {fonts} from '~utils/fonts';
 import styles from './styles';
+import {useNavigation} from '@react-navigation/native';
 
 /* utils  */
 import {useAppSelector} from '~redux/reduxhooks';
@@ -31,37 +32,52 @@ const TransactionCard = ({
   let isoDate = date;
   var timestamp = new Date(isoDate);
 
+  const navigation = useNavigation();
+
   const backgroundColor =
     type === 'Expense' ? colors.SECONDARY : colors.PRIMARY;
 
   return (
-    <Surface style={styles.container}>
-      <View style={styles.imageContainer}>
-        {image ? (
-          <Image source={{uri: image}} style={styles.image} />
-        ) : (
-          <Text>Image</Text>
-        )}
-      </View>
-      <View style={styles.detailsContainer}>
-        <Text style={[fonts.smallerCaption]}>
-          {timestamp.toLocaleDateString('en-GB')}
-        </Text>
+    <TouchableOpacity
+      onPress={() =>
+        navigation.navigate('EditWallet', {
+          date,
+          image,
+          marchant,
+          category,
+          amount,
+          type,
+          note,
+        })
+      }>
+      <Surface style={styles.container}>
+        <View style={styles.imageContainer}>
+          {image ? (
+            <Image source={{uri: image}} style={styles.image} />
+          ) : (
+            <Text>Image</Text>
+          )}
+        </View>
+        <View style={styles.detailsContainer}>
+          <Text style={[fonts.smallerCaption]}>
+            {timestamp.toLocaleDateString('en-GB')}
+          </Text>
 
-        {category && (
-          <Surface
-            style={[styles.category, {backgroundColor: backgroundColor}]}>
-            <Text style={[fonts.smallerCaption, {fontWeight: 'bold'}]}>
-              {category}
-            </Text>
-          </Surface>
-        )}
-        <Text style={[fonts.smallerCaption, styles.note]}>{marchant}</Text>
-        <Text style={[fonts.caption, styles.amount]}>
-          {symbol} {amount}
-        </Text>
-      </View>
-    </Surface>
+          {category && (
+            <Surface
+              style={[styles.category, {backgroundColor: backgroundColor}]}>
+              <Text style={[fonts.smallerCaption, {fontWeight: 'bold'}]}>
+                {category}
+              </Text>
+            </Surface>
+          )}
+          <Text style={[fonts.smallerCaption, styles.note]}>{marchant}</Text>
+          <Text style={[fonts.caption, styles.amount]}>
+            {symbol} {amount}
+          </Text>
+        </View>
+      </Surface>
+    </TouchableOpacity>
   );
 };
 

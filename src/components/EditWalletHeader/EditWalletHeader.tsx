@@ -16,15 +16,17 @@ import storage from '@react-native-firebase/storage';
 
 interface Props {
   closeScreen: () => void;
-  walletID: string;
+  walletID?: string;
+  type: string;
+  value: string;
 }
 
-const AddToWalletHeader = ({closeScreen, walletID}: Props) => {
-  const [xpense, setXpense] = useState(true);
+const EditWalletHeader = ({closeScreen, walletID, type, value}: Props) => {
+  const [xpense, setXpense] = useState(type === 'Expense' ? true : false);
   const [loading, setLoading] = useState(false);
   const [showmodal, setShowmodal] = useState(false);
   const [title, setTitle] = useState('');
-  const [amount, setAmount] = useState<number>();
+  const [amount, setAmount] = useState<number | string>();
   const {theme} = useContext(ThemeContext);
   const [amountError, setAmountError] = useState(false);
   const dispatch = useAppDispatch();
@@ -37,7 +39,6 @@ const AddToWalletHeader = ({closeScreen, walletID}: Props) => {
   const expenditure = '-' + amount;
   const income = '+' + amount;
   //dispatch(setImage(''));
-  console.log('logs');
 
   const transaction = async () => {
     setLoading(true);
@@ -144,6 +145,7 @@ const AddToWalletHeader = ({closeScreen, walletID}: Props) => {
               color={colors.WHITE}
             />
           </TouchableOpacity>
+
           <View style={styles.buttonContainer}>
             <TouchableOpacity
               onPress={() => setXpense(true)}
@@ -184,10 +186,9 @@ const AddToWalletHeader = ({closeScreen, walletID}: Props) => {
 
         <View style={styles.bottomRow}>
           <TextInput
-            onChangeText={value => setAmount(value)}
+            onChangeText={x => setAmount(x)}
             style={[styles.input, fonts.bodyText]}
-            //placeholder={xpense ? '- 0.00' : '+ 0.00'}
-            //defaultValue={xpense ? '- ' : '+ '}
+            defaultValue={value}
             underlineColor={xpense ? colors.SECONDARY : colors.PRIMARY}
             autoFocus={true}
             maxLength={20}
@@ -208,4 +209,4 @@ const AddToWalletHeader = ({closeScreen, walletID}: Props) => {
   );
 };
 
-export default AddToWalletHeader;
+export default EditWalletHeader;

@@ -19,7 +19,12 @@ import {setImage, setMarchant, setNote} from '~redux/expenseSlice';
 import {useAppDispatch} from '~redux/reduxhooks';
 
 interface Props {
-  title: string;
+  title?: string;
+  date: string;
+  marchant: string;
+  note: string;
+  image: string;
+  category: string;
 }
 
 interface PhotoProps {
@@ -31,7 +36,14 @@ interface PhotoProps {
   storageOptions: {skipBackup: boolean};
 }
 
-const AddToWalletBody = ({title}: Props) => {
+const EditWalletBody = ({
+  title,
+  date,
+  marchant,
+  note,
+  image,
+  category,
+}: Props) => {
   const elsaped = Date.now();
   const today = new Date(elsaped).toDateString();
   const [visible, setVisible] = useState(false);
@@ -106,7 +118,7 @@ const AddToWalletBody = ({title}: Props) => {
               color={colors.LIGHT_GRAY}
               size={sizes.navigationIconSize}
             />
-            <Text style={[fonts.bodyText, {marginLeft: wp(4)}]}> {today}</Text>
+            <Text style={[fonts.bodyText, {marginLeft: wp(4)}]}> {date}</Text>
           </View>
 
           <View style={styles.itemContainer}>
@@ -118,6 +130,7 @@ const AddToWalletBody = ({title}: Props) => {
 
             <TextInput
               onChangeText={(text: string) => dispatch(setMarchant(text))}
+              defaultValue={marchant}
               placeholder="Merchant"
               underlineColor="transparent"
               style={styles.input}
@@ -133,6 +146,7 @@ const AddToWalletBody = ({title}: Props) => {
             <TextInput
               //value={note}
               onChangeText={(text: string) => dispatch(setNote(text))}
+              defaultValue={note}
               placeholder="Note"
               underlineColor="transparent"
               style={styles.input}
@@ -151,9 +165,9 @@ const AddToWalletBody = ({title}: Props) => {
 
           <TouchableOpacity onPress={showModal}>
             <Surface style={styles.cameraContainer}>
-              {imageSource ? (
+              {image ? (
                 <Image
-                  source={{uri: imageSource}}
+                  source={{uri: image}}
                   resizeMode={'cover'}
                   style={{width: '100%', height: '100%', borderRadius: wp(5)}}
                 />
@@ -166,10 +180,16 @@ const AddToWalletBody = ({title}: Props) => {
               )}
             </Surface>
           </TouchableOpacity>
+
+          <TouchableOpacity style={styles.deleteContainer}>
+            <Text style={[fonts.caption, styles.delete]}>
+              Delete this transaction
+            </Text>
+          </TouchableOpacity>
         </ScrollView>
       </KeyboardAvoidingView>
     </>
   );
 };
 
-export default AddToWalletBody;
+export default EditWalletBody;

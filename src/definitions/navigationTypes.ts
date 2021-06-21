@@ -11,10 +11,10 @@ export type RouteStackParams = {
     BottomTabs: undefined;
     AddToWallet: undefined;
     AddToWalletToo: undefined;
-    SettingsStack: undefined
+    SettingsStack: undefined;
+    EditWallet: {date: string, image: string, marchant: string, category: string, amount: string, type: string, note: string} 
 };
-
-
+ 
 //Settings stack params
 export type SettingsStackParams = {
     Settings: undefined;
@@ -46,6 +46,10 @@ type RouteStackRouteProp = RouteProp<RouteStackParams, 'Home'>
 type HomeTabsRouteProp = RouteProp<BottomTabParams, 'WalletDetails'>
 type SettingsStackRouteProp = RouteProp<SettingsStackParams, 'Settings'>
 
+/* added */
+type EditWalletStackRouteProp = RouteProp<RouteStackParams, 'EditWallet'>
+
+
 
 
 
@@ -65,3 +69,9 @@ export type SettingsStackProps = {
     route : SettingsStackRouteProp
 }
 
+
+/* added */
+export type EditWalletStackProps = {
+    navigation: RouteStackNavigationProp,
+    route : EditWalletStackRouteProp
+}
