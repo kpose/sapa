@@ -12,6 +12,7 @@ import {
   WalletDetails,
   WalletSettings,
 } from '../screens';
+import WalletSettingsStack from './WalletSettingsStack';
 import {colors} from '../utils';
 
 function WalletTabs() {

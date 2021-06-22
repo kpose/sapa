@@ -1,6 +1,7 @@
 import {configureStore} from '@reduxjs/toolkit';
 import userSlice from './userSlice';
 import ExpenseSlice from './expenseSlice';
+import walletSlice from './walletSlice';
 import {useDispatch} from 'react-redux';
 
 import storage from 'redux-persist/lib/storage'
@@ -13,7 +14,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const reducers = combineReducers({
   user: userSlice,
-    expense: ExpenseSlice,
+  expense: ExpenseSlice,
+  wallet: walletSlice
 })
 
 const  persistConfig = {

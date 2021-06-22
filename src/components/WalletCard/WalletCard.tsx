@@ -8,8 +8,9 @@ import {Text, Surface} from 'react-native-paper';
 import {fonts} from '~utils/fonts';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {colors, sizes} from '~utils';
-import {useAppSelector} from '~redux/reduxhooks';
+import {useAppDispatch, useAppSelector} from '~redux/reduxhooks';
 import {color} from 'react-native-reanimated';
+import {setWalletData} from '~redux/walletSlice';
 
 interface Props {
   title: string;
@@ -21,6 +22,7 @@ interface Props {
 const WalletCard = ({title, uid, transactions, refresh}: Props) => {
   const navigation = useNavigation();
   const {symbol} = useAppSelector(state => state.user);
+  const dispatch = useAppDispatch();
 
   const getTotal = () => {
     if (transactions.length === 0) {
@@ -33,21 +35,24 @@ const WalletCard = ({title, uid, transactions, refresh}: Props) => {
   };
   const Total = getTotal();
 
+  const openWallet = () => {
+    navigation.navigate('BottomTabs', {
+      screen: 'WalletDetails',
+      params: {
+        uid,
+        title,
+        transactions,
+        Total,
+        refresh,
+      },
+    });
+
+    dispatch(setWalletData({uid, transactions, title}));
+  };
+
   return (
     <View style={styles.container}>
-      <TouchableOpacity
-        onPress={() =>
-          navigation.navigate('BottomTabs', {
-            screen: 'WalletDetails',
-            params: {
-              uid,
-              title,
-              transactions,
-              Total,
-              refresh,
-            },
-          })
-        }>
+      <TouchableOpacity onPress={openWallet}>
         <Surface style={styles.surface}>
           <View style={[styles.myWallet]}>
             <Text style={[fonts.bodyText, styles.wallet]}>{title}</Text>

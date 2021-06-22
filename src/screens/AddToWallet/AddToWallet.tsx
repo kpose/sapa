@@ -15,7 +15,6 @@ const AddToWallet = ({navigation, route}: RouteStackProps) => {
       <AddToWalletHeader
         closeScreen={() => navigation.goBack()}
         walletID={uid}
-        //refresh={refresh}
       />
       <AddToWalletBody title={title} />
     </View>

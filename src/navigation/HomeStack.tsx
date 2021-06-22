@@ -12,7 +12,6 @@ import {WavyHeader, TabHeader} from '~components';
 import SettingsStack from './SettingsStack';
 import {colors, hp} from '~utils';
 import {RouteStackParams} from '~definitions/navigationTypes';
-import Yes from './Yes';
 
 const Stack = createStackNavigator<RouteStackParams>();
 
@@ -35,7 +34,7 @@ function HomeStack() {
         options={({navigation, route}) => ({
           header: () => (
             <TabHeader
-              onBackPress={() => navigation.goBack()}
+              //onBackPress={() => navigation.goBack()}
               onPlusPress={() =>
                 navigation.navigate('AddToWalletToo', {
                   params: route.params,

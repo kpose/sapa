@@ -24,20 +24,19 @@ const AddToWalletHeader = ({closeScreen, walletID}: Props) => {
   const [loading, setLoading] = useState(false);
   const [showmodal, setShowmodal] = useState(false);
   const [title, setTitle] = useState('');
-  const [amount, setAmount] = useState<number>();
+  const [amount, setAmount] = useState<number | string>();
   const {theme} = useContext(ThemeContext);
   const [amountError, setAmountError] = useState(false);
   const dispatch = useAppDispatch();
-  const [uploading, setUploading] = useState(false);
 
   const {note, marchant, category, image} = useAppSelector(
     state => state.expense,
   );
+  const {symbol} = useAppSelector(state => state.user);
 
   const expenditure = '-' + amount;
   const income = '+' + amount;
   //dispatch(setImage(''));
-  console.log('logs');
 
   const transaction = async () => {
     setLoading(true);
@@ -110,7 +109,6 @@ const AddToWalletHeader = ({closeScreen, walletID}: Props) => {
   return (
     <>
       {loading && <Spinner />}
-      {uploading && <Spinner />}
       <AmountError visible={amountError} dismiss={dismissError} />
       <Portal>
         <Modal
@@ -186,8 +184,7 @@ const AddToWalletHeader = ({closeScreen, walletID}: Props) => {
           <TextInput
             onChangeText={value => setAmount(value)}
             style={[styles.input, fonts.bodyText]}
-            //placeholder={xpense ? '- 0.00' : '+ 0.00'}
-            //defaultValue={xpense ? '- ' : '+ '}
+            //defaultValue={xpense ? `- ${symbol}` : `+ ${symbol}`}
             underlineColor={xpense ? colors.SECONDARY : colors.PRIMARY}
             autoFocus={true}
             maxLength={20}

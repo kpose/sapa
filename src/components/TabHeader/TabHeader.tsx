@@ -6,18 +6,25 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import {Text, Surface} from 'react-native-paper';
 import {fonts} from '~utils/fonts';
-import {useAppSelector} from '~redux/reduxhooks';
+import {useAppSelector, useAppDispatch} from '~redux/reduxhooks';
+import {setWalletData} from '~redux/walletSlice';
 
 type Props = {
-  onBackPress: () => void;
+  //onBackPress: () => void;
   onPlusPress: () => void;
   data?: {[params: string]: any};
   navigation: any;
 };
 
-const TabHeader = ({onBackPress, onPlusPress, data, navigation}: Props) => {
+const TabHeader = ({onPlusPress, data, navigation}: Props) => {
   const {Total} = data?.params;
   const {symbol} = useAppSelector(state => state.user);
+  const dispatch = useAppDispatch();
+
+  const goBack = () => {
+    navigation.goBack();
+    dispatch(setWalletData({uid: '', transactions: [], title: ''}));
+  };
 
   return (
     <View>
@@ -30,7 +37,7 @@ const TabHeader = ({onBackPress, onPlusPress, data, navigation}: Props) => {
       />
       <View style={[styles.titleContainer]}>
         <View style={styles.navigate}>
-          <TouchableOpacity onPress={onBackPress}>
+          <TouchableOpacity onPress={goBack}>
             <MaterialIcons
               name="arrow-back-ios"
               size={sizes.regularIconSize}
