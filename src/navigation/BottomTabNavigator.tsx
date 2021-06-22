@@ -59,7 +59,7 @@ function WalletTabs() {
           ),
         }}
         name="WalletSettings"
-        component={WalletSettings}
+        component={WalletSettingsStack}
       />
     </Tab.Navigator>
   );

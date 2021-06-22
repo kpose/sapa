@@ -31,6 +31,7 @@ export type BottomTabParams = {
      WalletCalender: undefined;
     WalletChart: undefined;
      WalletSettings: undefined 
+     WalletCurrency: undefined
 };
 
 

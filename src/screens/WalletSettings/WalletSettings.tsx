@@ -47,7 +47,8 @@ const WalletSettings = ({navigation}: BottomTabProps) => {
             style={styles.icon}
           />
           <Text style={[fonts.caption]}>{currency}</Text>
-          <TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => navigation.navigate('WalletCurrency')}>
             <Icon
               name="chevron-right"
               size={sizes.navigationIconSize}
