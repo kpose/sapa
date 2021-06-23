@@ -8,7 +8,8 @@ import {EditWalletStackProps} from '~definitions/navigationTypes';
 import {EditWalletHeader, EditWalletBody} from '~components';
 
 const EditWallet = ({navigation, route}: EditWalletStackProps) => {
-  const {date, image, marchant, category, amount, type, note} = route.params;
+  const {date, image, marchant, category, amount, type, note, icon} =
+    route.params;
 
   return (
     <View style={styles.container}>
@@ -16,6 +17,7 @@ const EditWallet = ({navigation, route}: EditWalletStackProps) => {
         closeScreen={() => navigation.goBack()}
         type={type}
         value={amount}
+        icon={icon}
       />
       <EditWalletBody
         date={date}

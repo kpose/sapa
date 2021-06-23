@@ -12,7 +12,7 @@ export type RouteStackParams = {
     AddToWallet: undefined;
     AddToWalletToo: undefined;
     SettingsStack: undefined;
-    EditWallet: {date: string, image: string, marchant: string, category: string, amount: string, type: string, note: string} 
+    EditWallet: {date: string, image: string, marchant: string, category: string, amount: string, type: string, note: string, icon: string} 
 };
  
 //Settings stack params

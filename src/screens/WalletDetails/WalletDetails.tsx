@@ -8,6 +8,7 @@ import styles from './styles';
 const WalletDetails = ({route, navigation}: BottomTabProps) => {
   const {uid, title, transactions, refresh} = route.params;
   const reversedTransactions = [].concat(transactions).reverse();
+  console.log(transactions);
 
   const renderWallets = useCallback(
     ({item}) => (
@@ -18,6 +19,8 @@ const WalletDetails = ({route, navigation}: BottomTabProps) => {
         marchant={item.marchant}
         type={item.type}
         image={item.imageUrl}
+        icon={item.iconTitle}
+        note={item.note}
       />
     ),
     [],

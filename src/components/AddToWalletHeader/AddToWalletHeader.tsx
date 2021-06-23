@@ -9,7 +9,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {colors, sizes} from '~utils';
 import {fonts} from '~utils/fonts';
 import {ThemeContext} from '~context/ThemeCotext';
-import {setCategory, setImage} from '~redux/expenseSlice';
+import {setCategory, setImage, setIconTitle} from '~redux/expenseSlice';
 import {useAppSelector, useAppDispatch} from '~redux/reduxhooks';
 import firestore from '@react-native-firebase/firestore';
 import storage from '@react-native-firebase/storage';
@@ -29,14 +29,13 @@ const AddToWalletHeader = ({closeScreen, walletID}: Props) => {
   const [amountError, setAmountError] = useState(false);
   const dispatch = useAppDispatch();
 
-  const {note, marchant, category, image} = useAppSelector(
+  const {note, marchant, category, image, iconTitle} = useAppSelector(
     state => state.expense,
   );
   const {symbol} = useAppSelector(state => state.user);
 
   const expenditure = '-' + amount;
   const income = '+' + amount;
-  //dispatch(setImage(''));
 
   const transaction = async () => {
     setLoading(true);
@@ -62,6 +61,7 @@ const AddToWalletHeader = ({closeScreen, walletID}: Props) => {
       createdAt: new Date().toISOString(),
       category: category ? category : 'Others',
       imageUrl: uploadedUrl ? uploadedUrl : null,
+      iconTitle: iconTitle ? iconTitle : 'bullseye',
     };
     setLoading(true);
 
@@ -95,6 +95,7 @@ const AddToWalletHeader = ({closeScreen, walletID}: Props) => {
 
   const saveTitle = (title: string) => {
     setTitle(title);
+    dispatch(setIconTitle(title));
   };
 
   const saveCategory = (cate: string) => {
@@ -148,9 +149,7 @@ const AddToWalletHeader = ({closeScreen, walletID}: Props) => {
               style={[
                 styles.expense,
                 {
-                  backgroundColor: xpense
-                    ? colors.SEMI_TRANSPARENT
-                    : 'transparent',
+                  backgroundColor: xpense ? colors.SECONDARY : 'transparent',
                 },
               ]}>
               <Text style={[fonts.caption]}>Expense</Text>
@@ -160,9 +159,7 @@ const AddToWalletHeader = ({closeScreen, walletID}: Props) => {
               style={[
                 styles.expense,
                 {
-                  backgroundColor: xpense
-                    ? 'transparent'
-                    : colors.SEMI_TRANSPARENT,
+                  backgroundColor: xpense ? 'transparent' : colors.PRIMARY,
                 },
               ]}
               onPress={() => setXpense(false)}>

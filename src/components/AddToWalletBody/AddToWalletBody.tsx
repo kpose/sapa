@@ -53,10 +53,16 @@ const AddToWalletBody = ({title}: Props) => {
     };
 
     launchImageLibrary(options, response => {
-      let source: any = response.assets[0].uri;
-      setVisible(false);
-      setImageSource(source);
-      //dispatch(setImage(source));
+      if (response.didCancel) {
+        setVisible(false);
+      } else if (response.errorMessage) {
+        console.log(response.errorMessage);
+      } else {
+        setVisible(false);
+        let source: any = response.assets[0].uri;
+        setImageSource(source);
+        dispatch(setImage(source));
+      }
     });
   }
 
@@ -72,10 +78,16 @@ const AddToWalletBody = ({title}: Props) => {
       },
     };
     launchCamera(options, response => {
-      let source: any = {uri: response.uri};
-      setVisible(false);
-      setImageSource(source);
-      dispatch(setImage(source));
+      if (response.didCancel) {
+        setVisible(false);
+      } else if (response.errorMessage) {
+        console.log(response.errorMessage);
+      } else {
+        let source: any = response.assets[0].uri;
+        setVisible(false);
+        setImageSource(source);
+        dispatch(setImage(source));
+      }
     });
   } */
 

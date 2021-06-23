@@ -5,6 +5,7 @@ import {colors} from '~utils';
 import {fonts} from '~utils/fonts';
 import styles from './styles';
 import {useNavigation} from '@react-navigation/native';
+import moment from 'moment';
 
 /* utils  */
 import {useAppSelector} from '~redux/reduxhooks';
@@ -16,7 +17,8 @@ interface Props {
   amount: number;
   marchant: string;
   type?: string;
-  note?: string;
+  note: string;
+  icon: string;
 }
 
 const TransactionCard = ({
@@ -27,10 +29,10 @@ const TransactionCard = ({
   marchant,
   type,
   note,
+  icon,
 }: Props) => {
   const {symbol} = useAppSelector(state => state.user);
-  let isoDate = date;
-  var timestamp = new Date(isoDate);
+  const timestamp = moment(date).format('MMM Do YYYY');
 
   const navigation = useNavigation();
 
@@ -48,6 +50,7 @@ const TransactionCard = ({
           amount,
           type,
           note,
+          icon,
         })
       }>
       <Surface style={styles.container}>
@@ -59,9 +62,7 @@ const TransactionCard = ({
           )}
         </View>
         <View style={styles.detailsContainer}>
-          <Text style={[fonts.smallerCaption]}>
-            {timestamp.toLocaleDateString('en-GB')}
-          </Text>
+          <Text style={[fonts.smallerCaption]}>{timestamp}</Text>
 
           {category && (
             <Surface

@@ -9,9 +9,10 @@ interface Props {
   visible: boolean;
   onClose: () => void;
   day: string;
+  weekday: string;
 }
 
-const CalenderPopup = ({visible, onClose, day}: Props) => {
+const CalenderPopup = ({visible, onClose, day, weekday}: Props) => {
   return (
     <View>
       <Portal>
@@ -20,7 +21,7 @@ const CalenderPopup = ({visible, onClose, day}: Props) => {
             <View style={styles.dateContainer}>
               <Text style={[fonts.caption, {fontWeight: 'bold'}]}>{day}</Text>
               <Text style={[fonts.caption, {marginTop: hp(0.5)}]}>
-                Wednesday
+                {weekday}
               </Text>
             </View>
             <View style={styles.incomeContainer}>

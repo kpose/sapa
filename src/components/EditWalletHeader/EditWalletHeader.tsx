@@ -19,9 +19,16 @@ interface Props {
   walletID?: string;
   type: string;
   value: string;
+  icon: string;
 }
 
-const EditWalletHeader = ({closeScreen, walletID, type, value}: Props) => {
+const EditWalletHeader = ({
+  closeScreen,
+  walletID,
+  type,
+  value,
+  icon,
+}: Props) => {
   const [xpense, setXpense] = useState(type === 'Expense' ? true : false);
   const [loading, setLoading] = useState(false);
   const [showmodal, setShowmodal] = useState(false);
@@ -152,9 +159,7 @@ const EditWalletHeader = ({closeScreen, walletID, type, value}: Props) => {
               style={[
                 styles.expense,
                 {
-                  backgroundColor: xpense
-                    ? colors.SEMI_TRANSPARENT
-                    : 'transparent',
+                  backgroundColor: xpense ? colors.SECONDARY : 'transparent',
                 },
               ]}>
               <Text style={[fonts.caption]}>Expense</Text>
@@ -164,9 +169,7 @@ const EditWalletHeader = ({closeScreen, walletID, type, value}: Props) => {
               style={[
                 styles.expense,
                 {
-                  backgroundColor: xpense
-                    ? 'transparent'
-                    : colors.SEMI_TRANSPARENT,
+                  backgroundColor: xpense ? 'transparent' : colors.PRIMARY,
                 },
               ]}
               onPress={() => setXpense(false)}>
@@ -198,7 +201,7 @@ const EditWalletHeader = ({closeScreen, walletID, type, value}: Props) => {
             style={styles.icon}
             onPress={() => setShowmodal(true)}>
             <Icon
-              name={title ? title : 'bullseye'}
+              name={icon ? icon : 'bullseye'}
               size={sizes.regularIconSize}
               color={colors.SECONDARY}
             />

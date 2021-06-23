@@ -11,20 +11,19 @@ import {Text, TextInput, Surface, Portal, Modal} from 'react-native-paper';
 /* styles and utils */
 import styles from './styles';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import moment from 'moment';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import {colors, hp, sizes, wp} from '~utils';
 import {CameraModal} from '~modals';
 import {fonts} from '~utils/fonts';
 import {setImage, setMarchant, setNote} from '~redux/expenseSlice';
-import {useAppDispatch} from '~redux/reduxhooks';
+import {useAppDispatch, useAppSelector} from '~redux/reduxhooks';
 
 interface Props {
-  title?: string;
   date: string;
   marchant: string;
   note: string;
   image: string;
-  category: string;
 }
 
 interface PhotoProps {
@@ -36,14 +35,7 @@ interface PhotoProps {
   storageOptions: {skipBackup: boolean};
 }
 
-const EditWalletBody = ({
-  title,
-  date,
-  marchant,
-  note,
-  image,
-  category,
-}: Props) => {
+const EditWalletBody = ({date, marchant, note, image}: Props) => {
   const elsaped = Date.now();
   const today = new Date(elsaped).toDateString();
   const [visible, setVisible] = useState(false);
@@ -51,6 +43,10 @@ const EditWalletBody = ({
   const hideModal = () => setVisible(false);
   const [imageSource, setImageSource] = useState('');
   const dispatch = useAppDispatch();
+  const {data} = useAppSelector(state => state.wallet);
+
+  const wallet = data.title;
+  const timestamp = moment(date).format('MMM Do YYYY');
 
   function selectPhoto() {
     let options: PhotoProps = {
@@ -71,26 +67,6 @@ const EditWalletBody = ({
       //dispatch(setImage(source));
     });
   }
-
-  /* function selectCamera() {
-    let options: PhotoProps = {
-      title: 'You can choose one image',
-      mediaType: 'photo',
-      maxWidth: 256,
-      maxHeight: 256,
-      noData: true,
-      storageOptions: {
-        skipBackup: true,
-      },
-    };
-    launchCamera(options, response => {
-      let source: any = {uri: response.uri};
-      setVisible(false);
-      setImageSource(source);
-      dispatch(setImage(source));
-    });
-  } */
-
   return (
     <>
       <Portal>
@@ -104,11 +80,7 @@ const EditWalletBody = ({
           />
         </Modal>
       </Portal>
-      <KeyboardAvoidingView
-        style={{flex: 1}}
-        behavior="padding"
-        /* keyboardVerticalOffset={hp(20)} */
-      >
+      <KeyboardAvoidingView style={{flex: 1}} behavior="padding">
         <ScrollView
           showsVerticalScrollIndicator={false}
           style={styles.container}>
@@ -118,7 +90,9 @@ const EditWalletBody = ({
               color={colors.LIGHT_GRAY}
               size={sizes.navigationIconSize}
             />
-            <Text style={[fonts.bodyText, {marginLeft: wp(4)}]}> {date}</Text>
+            <Text style={[fonts.bodyText, {marginLeft: wp(4)}]}>
+              {timestamp}
+            </Text>
           </View>
 
           <View style={styles.itemContainer}>
@@ -159,8 +133,7 @@ const EditWalletBody = ({
               color={colors.LIGHT_GRAY}
               size={sizes.navigationIconSize}
             />
-            <Text style={[fonts.bodyText, {marginLeft: wp(4)}]}>Wallet</Text>
-            <Text style={[fonts.caption, styles.wallet]}>{title}</Text>
+            <Text style={[fonts.bodyText, {marginLeft: wp(7)}]}>{wallet}</Text>
           </View>
 
           <TouchableOpacity onPress={showModal}>
@@ -193,3 +166,22 @@ const EditWalletBody = ({
 };
 
 export default EditWalletBody;
+
+/* function selectCamera() {
+    let options: PhotoProps = {
+      title: 'You can choose one image',
+      mediaType: 'photo',
+      maxWidth: 256,
+      maxHeight: 256,
+      noData: true,
+      storageOptions: {
+        skipBackup: true,
+      },
+    };
+    launchCamera(options, response => {
+      let source: any = {uri: response.uri};
+      setVisible(false);
+      setImageSource(source);
+      dispatch(setImage(source));
+    });
+  } */

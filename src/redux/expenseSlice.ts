@@ -7,7 +7,8 @@ interface ExpenseData {
     type: string;
     category: string;
     image: string;
-    loading: boolean
+    loading: boolean;
+    iconTitle: string
 }
 
 const initialState : ExpenseData = {
@@ -17,7 +18,8 @@ const initialState : ExpenseData = {
   type: '',
   category: '',
   image: '',
-  loading: false
+  loading: false,
+  iconTitle: ''
 
 
 }
@@ -48,6 +50,9 @@ const ExpenseSlice = createSlice({
     setLoading(state, action: PayloadAction<boolean>) {
       state.loading = action.payload;
     },
+    setIconTitle(state, action: PayloadAction<string>) {
+      state.iconTitle = action.payload
+    }
   },
 });
 
@@ -59,6 +64,7 @@ export const {
   setMarchant,
   setNote,
   setType,
+  setIconTitle
 } = ExpenseSlice.actions;
 
 export default ExpenseSlice.reducer;

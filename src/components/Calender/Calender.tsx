@@ -5,6 +5,7 @@ import styles from './styles';
 import {Calendar, CalendarList, Agenda} from 'react-native-calendars';
 import {colors} from '~utils';
 import {CalenderPopup} from '~modals';
+import moment from 'moment';
 
 const Calender = () => {
   const [visible, setVisible] = useState(false);
@@ -15,16 +16,23 @@ const Calender = () => {
     setDay(day.dateString);
   };
 
+  const weekday = moment(day).format('dddd');
+  const date = moment(day).format('MMMM Do YYYY');
+
   return (
     <View>
-      <CalenderPopup visible={visible} onClose={onModalClose} day={day} />
+      <CalenderPopup
+        visible={visible}
+        onClose={onModalClose}
+        day={date}
+        weekday={weekday}
+      />
       <Calendar
         enableSwipeMonths={true}
         style={styles.calender}
         onDayPress={day => onDayPress(day)}
         theme={{
           textSectionTitleColor: colors.SECONDARY,
-          //textSectionTitleDisabledColor: '#d9e1e8',
           todayTextColor: colors.PRIMARY,
           monthTextColor: colors.PRIMARY,
           textDayFontWeight: '300',
