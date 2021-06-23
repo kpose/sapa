@@ -29,7 +29,7 @@ const WalletCard = ({title, uid, transactions, refresh}: Props) => {
       return;
     }
     const transact = transactions
-      .map(item => item.amount)
+      .map((item: {amount: any}) => item.amount)
       .reduce((prev, next) => Number(prev) + Number(next));
     return transact;
   };

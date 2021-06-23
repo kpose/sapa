@@ -126,7 +126,6 @@ const Home = ({navigation}: RouteStackProps) => {
             showsVerticalScrollIndicator={false}
             maxToRenderPerBatch={7}
             windowSize={7}
-            //refreshing={isFetching}
           />
         ) : (
           <NoWalletAnime />

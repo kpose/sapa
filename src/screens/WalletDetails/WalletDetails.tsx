@@ -7,6 +7,7 @@ import styles from './styles';
 
 const WalletDetails = ({route, navigation}: BottomTabProps) => {
   const {uid, title, transactions, refresh} = route.params;
+  const reversedTransactions = [].concat(transactions).reverse();
 
   const renderWallets = useCallback(
     ({item}) => (
@@ -28,7 +29,7 @@ const WalletDetails = ({route, navigation}: BottomTabProps) => {
     <View style={styles.container}>
       {transactions && transactions.length ? (
         <FlatList
-          data={transactions}
+          data={reversedTransactions}
           renderItem={renderWallets}
           keyExtractor={keyExtractor}
           showsVerticalScrollIndicator={false}
