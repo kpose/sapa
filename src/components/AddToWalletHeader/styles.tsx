@@ -40,7 +40,10 @@ const styles = StyleSheet.create({
   input: {
     backgroundColor: 'transparent',
     height: hp(5),
+    width: wp(70),
     fontWeight: 'bold',
+    marginLeft: wp(3),
+    color: colors.WHITE,
   },
 
   modal: {

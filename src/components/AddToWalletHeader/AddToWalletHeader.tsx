@@ -1,6 +1,6 @@
 import React, {useState, useContext, useEffect} from 'react';
-import {View, SafeAreaView, TouchableOpacity} from 'react-native';
-import {Text, TextInput, Portal, Modal} from 'react-native-paper';
+import {View, SafeAreaView, TouchableOpacity, TextInput} from 'react-native';
+import {Text, Portal, Modal} from 'react-native-paper';
 import styles from './styles';
 import {Spinner, TransactionCategory, AmountError} from '~components';
 
@@ -13,6 +13,7 @@ import {setCategory, setImage, setIconTitle} from '~redux/expenseSlice';
 import {useAppSelector, useAppDispatch} from '~redux/reduxhooks';
 import firestore from '@react-native-firebase/firestore';
 import storage from '@react-native-firebase/storage';
+import CurrencyInput from 'react-native-currency-input';
 
 interface Props {
   closeScreen: () => void;
@@ -24,7 +25,7 @@ const AddToWalletHeader = ({closeScreen, walletID}: Props) => {
   const [loading, setLoading] = useState(false);
   const [showmodal, setShowmodal] = useState(false);
   const [title, setTitle] = useState('');
-  const [amount, setAmount] = useState<number | string>();
+  const [amount, setAmount] = useState<number>(0);
   const {theme} = useContext(ThemeContext);
   const [amountError, setAmountError] = useState(false);
   const dispatch = useAppDispatch();
@@ -178,14 +179,25 @@ const AddToWalletHeader = ({closeScreen, walletID}: Props) => {
         </SafeAreaView>
 
         <View style={styles.bottomRow}>
-          <TextInput
+          {/* <TextInput
             onChangeText={value => setAmount(value)}
             style={[styles.input, fonts.bodyText]}
-            //defaultValue={xpense ? `- ${symbol}` : `+ ${symbol}`}
-            underlineColor={xpense ? colors.SECONDARY : colors.PRIMARY}
+            selectionColor={xpense ? colors.PRIMARY : colors.SECONDARY}
             autoFocus={true}
             maxLength={20}
             keyboardType="number-pad"
+          /> */}
+          <CurrencyInput
+            value={amount}
+            onChangeValue={(x: number) => setAmount(x)}
+            prefix={xpense ? `- ${symbol}` : `+ ${symbol}`}
+            delimiter=","
+            separator="."
+            precision={2}
+            style={[styles.input, fonts.bodyText]}
+            autoFocus={true}
+            maxLength={20}
+            selectionColor={xpense ? colors.PRIMARY : colors.SECONDARY}
           />
           <TouchableOpacity
             style={styles.icon}

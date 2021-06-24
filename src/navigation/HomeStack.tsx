@@ -12,6 +12,7 @@ import {WavyHeader, TabHeader} from '~components';
 import SettingsStack from './SettingsStack';
 import {colors, hp} from '~utils';
 import {RouteStackParams} from '~definitions/navigationTypes';
+import {BottomNavigator} from './BottomNavigator';
 
 const Stack = createStackNavigator<RouteStackParams>();
 
