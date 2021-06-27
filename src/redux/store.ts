@@ -1,12 +1,12 @@
-import {configureStore} from '@reduxjs/toolkit';
+import {configureStore, getDefaultMiddleware} from '@reduxjs/toolkit';
 import userSlice from './userSlice';
 import ExpenseSlice from './expenseSlice';
 import walletSlice from './walletSlice';
 import {useDispatch} from 'react-redux';
 
-import storage from 'redux-persist/lib/storage'
+
 import { combineReducers } from 'redux';
-import { persistReducer } from 'redux-persist';
+import { persistReducer, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER} from 'redux-persist';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
@@ -20,15 +20,20 @@ const reducers = combineReducers({
 
 const  persistConfig = {
   key: 'root',
-  storage: AsyncStorage
+  storage: AsyncStorage,
 }
 
 const persistedReducer = persistReducer(persistConfig, reducers)
 
 export const store = configureStore({
-  reducer : reducers
+  reducer : persistedReducer,
+  middleware: getDefaultMiddleware({
+    serializableCheck: {
+      ignoredActions: [FLUSH, REGISTER,REHYDRATE, PURGE, PAUSE,PERSIST]
+    }
+  })
 
-});
+}); 
 
 export type RootState = ReturnType<typeof store.getState>;
 

@@ -1,0 +1,72 @@
+import {Dimensions, PixelRatio} from 'react-native';
+
+const currentDate = new Date();
+const currentDateTime = currentDate.getTime();
+const last30DaysDate = new Date(
+  currentDate.setDate(currentDate.getDate() - 30),
+);
+const last30DaysDateTime = last30DaysDate.getTime();
+const last15DaysDate = new Date(currentDate.setDate(currentDate.getDate() - 7));
+const last15DaysDateTime = last15DaysDate.getTime();
+
+/* calculate single wallet total */
+export const walletTotal = transactions => {
+  if (transactions.length === 0) {
+    return;
+  }
+  const transact = transactions
+    .map(item => item.amount)
+    .reduce((prev, next) => Number(prev) + Number(next));
+  return transact;
+};
+
+/* calculate total transactions in last 7 days for single wallet */
+export const last7Days = transactions => {
+  const last7DaysTransaction = transactions
+    .filter(x => {
+      const elementDateTime = new Date(x.createdAt).getTime();
+      if (
+        elementDateTime <= currentDateTime &&
+        elementDateTime > last15DaysDateTime
+      ) {
+        return true;
+      }
+      return false;
+    })
+    .sort((a, b) => {
+      return new Date(b.createdAt) - new Date(a.createdAt);
+    });
+  if (last7DaysTransaction.length === 0) {
+    return;
+  }
+  const total = last7DaysTransaction
+    .map(item => item.amount)
+    .reduce((prev, next) => Number(prev) + Number(next));
+  return total;
+};
+
+/* calculate total transactions in last 30 days for single wallet */
+
+export const last30Days = transactions => {
+  const last30DaysTransaction = transactions
+    .filter(x => {
+      const elementDateTime = new Date(x.createdAt).getTime();
+      if (
+        elementDateTime <= currentDateTime &&
+        elementDateTime > last30DaysDateTime
+      ) {
+        return true;
+      }
+      return false;
+    })
+    .sort((a, b) => {
+      return new Date(b.createdAt) - new Date(a.createdAt);
+    });
+  if (last30DaysTransaction.length === 0) {
+    return;
+  }
+  const total = last30DaysTransaction
+    .map(item => item.amount)
+    .reduce((prev, next) => Number(prev) + Number(next));
+  return total;
+};

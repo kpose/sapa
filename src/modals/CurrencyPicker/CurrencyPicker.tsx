@@ -6,7 +6,7 @@ import styles from './styles';
 /* files and utils */
 import {colors, hp, sizes} from '~utils';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import {useAppSelector, useAppDispatch} from '~redux/reduxhooks';
+import {useAppDispatch} from '~redux/reduxhooks';
 import {fonts} from '~utils/fonts';
 import {setCurrency, setSymbol} from '~redux/userSlice';
 

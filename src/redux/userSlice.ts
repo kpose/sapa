@@ -16,9 +16,9 @@ const initialState : UserData = {
   firstname: '',
   lastname:'',
   avatar: '',
-  symbol: '',
+  symbol: '', 
   token: '',
-  username: '',
+  username: '', 
 }
 
 const userSlice = createSlice({

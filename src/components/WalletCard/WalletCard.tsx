@@ -7,7 +7,7 @@ import {useNavigation} from '@react-navigation/native';
 import {Text, Surface} from 'react-native-paper';
 import {fonts} from '~utils/fonts';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import {colors, sizes} from '~utils';
+import {colors, sizes, last30Days, last7Days, walletTotal} from '~utils';
 import {useAppDispatch, useAppSelector} from '~redux/reduxhooks';
 import {color} from 'react-native-reanimated';
 import {setWalletData} from '~redux/walletSlice';
@@ -23,17 +23,9 @@ const WalletCard = ({title, uid, transactions, refresh}: Props) => {
   const navigation = useNavigation();
   const {symbol} = useAppSelector(state => state.user);
   const dispatch = useAppDispatch();
-
-  const getTotal = () => {
-    if (transactions.length === 0) {
-      return;
-    }
-    const transact = transactions
-      .map((item: {amount: any}) => item.amount)
-      .reduce((prev, next) => Number(prev) + Number(next));
-    return transact;
-  };
-  const Total = getTotal();
+  const Total = walletTotal(transactions);
+  const last30DaysTotal = last30Days(transactions);
+  const last7DaysTotal = last7Days(transactions);
 
   const openWallet = () => {
     navigation.navigate('BottomTabs', {
@@ -68,12 +60,16 @@ const WalletCard = ({title, uid, transactions, refresh}: Props) => {
           <View style={styles.footer}>
             <View style={styles.days}>
               <Text style={[fonts.smallerCaption]}>Last 30 days</Text>
-              <Text style={[fonts.caption]}>{symbol} 0.00</Text>
+              <Text style={[fonts.caption]}>
+                {symbol} {last30DaysTotal}
+              </Text>
             </View>
 
             <View>
               <Text style={[fonts.smallerCaption]}>Last 7 days</Text>
-              <Text style={[fonts.caption]}>{symbol} 0.00</Text>
+              <Text style={[fonts.caption]}>
+                {symbol} {last7DaysTotal}
+              </Text>
             </View>
           </View>
 

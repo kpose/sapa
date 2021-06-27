@@ -1,4 +1,4 @@
-import React, {useContext, useState, useEffect} from 'react';
+import React, {useState, useEffect} from 'react';
 import {store} from './redux/store';
 import Routes from './navigation/routes';
 import {Provider as ReduxProvider} from 'react-redux';
@@ -11,6 +11,8 @@ import {RouteStackParams} from '../src/definitions/navigationTypes';
 import HomeStack from '../src/navigation/HomeStack';
 import auth from '@react-native-firebase/auth';
 import {Spinner} from '../src/components';
+import {PersistGate} from 'redux-persist/integration/react';
+import {persistStore} from 'redux-persist';
 
 const Stack = createStackNavigator<RouteStackParams>();
 
@@ -19,6 +21,9 @@ const App = () => {
   const [user, setUser] = useState();
   const [dark, setDark] = useState(true);
   const theme = dark ? CombinedDarkTheme : CombinedLightTheme;
+
+  let persistor = persistStore(store);
+
   const toggleTheme = () => {
     setDark(!dark);
   };
@@ -56,3 +61,18 @@ const App = () => {
 };
 
 export default App;
+
+{
+  /* <PersistGate loading={<Spinner />} persistor={persistor}>
+  <NavigationContainer theme={theme}>
+    {user ? (
+      <Stack.Navigator
+        screenOptions={{headerShown: false, gestureEnabled: false}}>
+        <Stack.Screen name="Home" component={HomeStack} />
+      </Stack.Navigator>
+    ) : (
+      <Routes />
+    )}
+  </NavigationContainer>
+</PersistGate> */
+}

@@ -7,7 +7,6 @@ import * as yup from 'yup';
 import {Formik} from 'formik';
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
 //UTILS AND FILES
 import LargeButton from '../LargeButton/LargeButton';
@@ -41,7 +40,7 @@ const Email = ({onButtonPress, onBackPress}: Props) => {
   const [offlinestatus, setOfflineStatus] = useState(false);
   const dispatch = useAppDispatch();
   const [servererror, setServerError] = useState<string>();
-  const {username, firstname, email, symbol} = useAppSelector(
+  const {username, firstname, email, symbol, currency} = useAppSelector(
     state => state.user,
   );
 

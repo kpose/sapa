@@ -11,6 +11,17 @@ const EditWallet = ({navigation, route}: EditWalletStackProps) => {
   const {date, image, marchant, category, amount, type, note, icon} =
     route.params;
 
+  const transactionItem = {
+    date,
+    image,
+    category,
+    amount,
+    marchant,
+    type,
+    note,
+    icon,
+  };
+
   return (
     <View style={styles.container}>
       <EditWalletHeader
@@ -24,7 +35,8 @@ const EditWallet = ({navigation, route}: EditWalletStackProps) => {
         marchant={marchant}
         note={note}
         image={image}
-        category={category}
+        transactionItem={transactionItem}
+        //category={category}
       />
     </View>
   );

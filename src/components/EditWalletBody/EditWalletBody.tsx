@@ -7,6 +7,7 @@ import {
   Image,
 } from 'react-native';
 import {Text, TextInput, Surface, Portal, Modal} from 'react-native-paper';
+import firestore from '@react-native-firebase/firestore';
 
 /* styles and utils */
 import styles from './styles';
@@ -24,6 +25,7 @@ interface Props {
   marchant: string;
   note: string;
   image: string;
+  transactionItem: {};
 }
 
 interface PhotoProps {
@@ -35,7 +37,13 @@ interface PhotoProps {
   storageOptions: {skipBackup: boolean};
 }
 
-const EditWalletBody = ({date, marchant, note, image}: Props) => {
+const EditWalletBody = ({
+  date,
+  marchant,
+  note,
+  image,
+  transactionItem,
+}: Props) => {
   const elsaped = Date.now();
   const today = new Date(elsaped).toDateString();
   const [visible, setVisible] = useState(false);
@@ -46,7 +54,25 @@ const EditWalletBody = ({date, marchant, note, image}: Props) => {
   const {data} = useAppSelector(state => state.wallet);
 
   const wallet = data.title;
+  const walletID = data.uid;
   const timestamp = moment(date).format('MMM Do YYYY');
+
+  console.log(transactionItem);
+
+  const deleteTransaction = () => {
+    firestore()
+      .collection('wallets')
+      .doc(`${walletID}`)
+      .update({
+        transactions: firestore.FieldValue.arrayRemove(transactionItem),
+      })
+      .then(response => {
+        console.log(response);
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  };
 
   function selectPhoto() {
     let options: PhotoProps = {
@@ -154,7 +180,9 @@ const EditWalletBody = ({date, marchant, note, image}: Props) => {
             </Surface>
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.deleteContainer}>
+          <TouchableOpacity
+            style={styles.deleteContainer}
+            onPress={deleteTransaction}>
             <Text style={[fonts.caption, styles.delete]}>
               Delete this transaction
             </Text>
