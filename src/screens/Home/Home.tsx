@@ -24,7 +24,6 @@ import {setEmail} from '~redux/userSlice';
 const Home = ({navigation}: RouteStackProps) => {
   const walletModalRef = useRef<Modalize>(null);
   const [showmodal, setShowmodal] = useState(false);
-  const [isFetching, setIsFetching] = useState(false);
   const [loading, setLoading] = useState(true);
   const [wallets, setWallets] = useState([]);
   const {theme} = useContext(ThemeContext);

@@ -11,13 +11,13 @@ import firestore from '@react-native-firebase/firestore';
 
 /* styles and utils */
 import styles from './styles';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import moment from 'moment';
-import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
-import {colors, hp, sizes, wp} from '~utils';
-import {CameraModal} from '~modals';
+import {CameraModal, DatePickerModal} from '~modals';
 import {fonts} from '~utils/fonts';
-import {setImage, setMarchant, setNote} from '~redux/expenseSlice';
+import {colors, hp, sizes, wp} from '~utils';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
+import {setDate, setImage, setMarchant, setNote} from '~redux/expenseSlice';
 import {useAppDispatch, useAppSelector} from '~redux/reduxhooks';
 
 interface Props {
@@ -26,6 +26,7 @@ interface Props {
   note: string;
   image: string;
   transactionItem: {};
+  closeScreen: () => void;
 }
 
 interface PhotoProps {
@@ -43,21 +44,22 @@ const EditWalletBody = ({
   note,
   image,
   transactionItem,
+  closeScreen,
 }: Props) => {
   const elsaped = Date.now();
-  const today = new Date(elsaped).toDateString();
   const [visible, setVisible] = useState(false);
   const showModal = () => setVisible(true);
   const hideModal = () => setVisible(false);
-  const [imageSource, setImageSource] = useState('');
+  const [timestamp, setTimestamp] = useState(
+    moment(date).format('MMM Do YYYY'),
+  );
+  const [showDatePicker, setShowDatePicker] = useState(false);
+  const [imageUri, setImageUri] = useState(image);
   const dispatch = useAppDispatch();
   const {data} = useAppSelector(state => state.wallet);
 
   const wallet = data.title;
   const walletID = data.uid;
-  const timestamp = moment(date).format('MMM Do YYYY');
-
-  console.log(transactionItem);
 
   const deleteTransaction = () => {
     firestore()
@@ -67,7 +69,7 @@ const EditWalletBody = ({
         transactions: firestore.FieldValue.arrayRemove(transactionItem),
       })
       .then(response => {
-        console.log(response);
+        closeScreen();
       })
       .catch(error => {
         console.log(error);
@@ -85,14 +87,20 @@ const EditWalletBody = ({
         skipBackup: true,
       },
     };
-
     launchImageLibrary(options, response => {
       let source: any = response.assets[0].uri;
       setVisible(false);
-      setImageSource(source);
-      //dispatch(setImage(source));
+      setImageUri(source);
+      dispatch(setImage(source));
     });
   }
+
+  const confirmDate = (selectedDate: string) => {
+    setTimestamp(moment(selectedDate).format('MMM Do YYYY'));
+    dispatch(setDate(moment(selectedDate).format('MMM Do YYYY')));
+    setShowDatePicker(false);
+  };
+
   return (
     <>
       <Portal>
@@ -116,9 +124,11 @@ const EditWalletBody = ({
               color={colors.LIGHT_GRAY}
               size={sizes.navigationIconSize}
             />
-            <Text style={[fonts.bodyText, {marginLeft: wp(4)}]}>
-              {timestamp}
-            </Text>
+            <TouchableOpacity onPress={() => setShowDatePicker(true)}>
+              <Text style={[fonts.bodyText, {marginLeft: wp(4)}]}>
+                {timestamp}
+              </Text>
+            </TouchableOpacity>
           </View>
 
           <View style={styles.itemContainer}>
@@ -164,9 +174,9 @@ const EditWalletBody = ({
 
           <TouchableOpacity onPress={showModal}>
             <Surface style={styles.cameraContainer}>
-              {image ? (
+              {imageUri ? (
                 <Image
-                  source={{uri: image}}
+                  source={{uri: imageUri}}
                   resizeMode={'cover'}
                   style={{width: '100%', height: '100%', borderRadius: wp(5)}}
                 />
@@ -188,6 +198,13 @@ const EditWalletBody = ({
             </Text>
           </TouchableOpacity>
         </ScrollView>
+
+        <DatePickerModal
+          visible={showDatePicker}
+          onDismiss={() => setShowDatePicker(false)}
+          date={date}
+          onConfirm={(x: string) => confirmDate(x)}
+        />
       </KeyboardAvoidingView>
     </>
   );

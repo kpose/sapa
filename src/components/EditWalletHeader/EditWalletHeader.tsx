@@ -9,10 +9,11 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {colors, sizes} from '~utils';
 import {fonts} from '~utils/fonts';
 import {ThemeContext} from '~context/ThemeCotext';
-import {setCategory, setImage} from '~redux/expenseSlice';
+import {setCategory, setImage, setAmount} from '~redux/expenseSlice';
 import {useAppSelector, useAppDispatch} from '~redux/reduxhooks';
 import firestore from '@react-native-firebase/firestore';
 import storage from '@react-native-firebase/storage';
+import CurrencyInput from 'react-native-currency-input';
 
 interface Props {
   closeScreen: () => void;
@@ -32,8 +33,8 @@ const EditWalletHeader = ({
   const [xpense, setXpense] = useState(type === 'Expense' ? true : false);
   const [loading, setLoading] = useState(false);
   const [showmodal, setShowmodal] = useState(false);
-  const [title, setTitle] = useState('');
-  const [amount, setAmount] = useState<number | string>();
+  const [transactionAmount, setTransactionAmount] = useState(Number(value));
+  const [iconName, setIconName] = useState(icon);
   const {theme} = useContext(ThemeContext);
   const [amountError, setAmountError] = useState(false);
   const dispatch = useAppDispatch();
@@ -43,9 +44,10 @@ const EditWalletHeader = ({
     state => state.expense,
   );
 
-  const expenditure = '-' + amount;
-  const income = '+' + amount;
-  //dispatch(setImage(''));
+  const {symbol} = useAppSelector(state => state.user);
+
+  const expenditure = '-' + transactionAmount;
+  const income = '+' + transactionAmount;
 
   const transaction = async () => {
     setLoading(true);
@@ -91,7 +93,7 @@ const EditWalletHeader = ({
   };
 
   const saveTransaction = () => {
-    if (amount && amount > 0) {
+    if (transactionAmount && transactionAmount > 0) {
       transaction();
     } else {
       setAmountError(true);
@@ -103,23 +105,26 @@ const EditWalletHeader = ({
   };
 
   const saveTitle = (title: string) => {
-    setTitle(title);
+    setIconName(title);
   };
 
   const saveCategory = (cate: string) => {
-    //dispatch category here
     dispatch(setCategory(cate));
   };
 
-  const dismissError = () => {
-    setAmountError(false);
+  const changeAmount = (amount: number) => {
+    dispatch(setAmount(amount));
+    setTransactionAmount(amount);
   };
 
   return (
     <>
       {loading && <Spinner />}
       {uploading && <Spinner />}
-      <AmountError visible={amountError} dismiss={dismissError} />
+      <AmountError
+        visible={amountError}
+        dismiss={() => setAmountError(false)}
+      />
       <Portal>
         <Modal
           visible={showmodal}
@@ -188,22 +193,24 @@ const EditWalletHeader = ({
         </SafeAreaView>
 
         <View style={styles.bottomRow}>
-          <TextInput
-            onChangeText={x => setAmount(x)}
+          <CurrencyInput
+            value={transactionAmount}
+            onChangeValue={(x: number) => changeAmount(x)}
+            prefix={xpense ? `- ${symbol}` : `+ ${symbol}`}
+            delimiter=","
+            separator="."
+            precision={2}
             style={[styles.input, fonts.bodyText]}
-            defaultValue={value}
-            underlineColor={xpense ? colors.SECONDARY : colors.PRIMARY}
-            autoFocus={true}
             maxLength={20}
-            keyboardType="number-pad"
+            selectionColor={xpense ? colors.PRIMARY : colors.SECONDARY}
           />
           <TouchableOpacity
             style={styles.icon}
             onPress={() => setShowmodal(true)}>
             <Icon
-              name={icon ? icon : 'bullseye'}
+              name={iconName ? iconName : 'bullseye'}
               size={sizes.regularIconSize}
-              color={colors.SECONDARY}
+              color={xpense ? colors.SECONDARY : colors.PRIMARY}
             />
           </TouchableOpacity>
         </View>

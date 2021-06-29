@@ -2,9 +2,9 @@ import {createSlice, PayloadAction} from '@reduxjs/toolkit'
 
 interface WalletData {
     data: {
-        uid: string;
-        title: string;
-        transactions: [];
+    uid: string;
+    title: string;
+    transactions: [];
     }
 }
 
@@ -21,6 +21,7 @@ const walletSlice = createSlice({
     initialState,
 
     reducers: {
+
         setWalletData(state, action: PayloadAction<{uid: string; title: string; transactions: [];  }>) {
             state.data = action.payload
         }

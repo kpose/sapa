@@ -179,14 +179,6 @@ const AddToWalletHeader = ({closeScreen, walletID}: Props) => {
         </SafeAreaView>
 
         <View style={styles.bottomRow}>
-          {/* <TextInput
-            onChangeText={value => setAmount(value)}
-            style={[styles.input, fonts.bodyText]}
-            selectionColor={xpense ? colors.PRIMARY : colors.SECONDARY}
-            autoFocus={true}
-            maxLength={20}
-            keyboardType="number-pad"
-          /> */}
           <CurrencyInput
             value={amount}
             onChangeValue={(x: number) => setAmount(x)}

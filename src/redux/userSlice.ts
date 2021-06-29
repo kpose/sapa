@@ -7,8 +7,10 @@ interface UserData {
   lastname: string;
   avatar: string;
   symbol: string;
-  token: string;
-  username: string
+  username: string;
+  grandTotal: number[];
+  last30days: [];
+  last7days: []
 }
 const initialState : UserData = {
   email: '',
@@ -17,8 +19,10 @@ const initialState : UserData = {
   lastname:'',
   avatar: '',
   symbol: '', 
-  token: '',
   username: '', 
+  grandTotal: [],
+  last30days: [],
+  last7days: []
 }
 
 const userSlice = createSlice({
@@ -41,9 +45,10 @@ const userSlice = createSlice({
     setSymbol(state, action: PayloadAction<string>) {
       state.symbol = action.payload;
     },
-    setToken(state, action: PayloadAction<string>) {
-      state.token = action.payload;
-    },
+    setGrandTotal(state, action: PayloadAction<number>) {
+      //state.grandTotal.push(action.payload)
+    }
+    
   },
 });
 
@@ -53,7 +58,7 @@ export const {
   setFirstName,
   setUsername,
   setSymbol,
-  setToken,
+  setGrandTotal
 } = userSlice.actions;
 
 export default userSlice.reducer;

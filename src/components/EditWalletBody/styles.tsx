@@ -51,6 +51,9 @@ const styles = StyleSheet.create({
     color: colors.WARNING,
     fontWeight: 'bold',
   },
+  datePicker: {
+    marginTop: hp(10),
+  },
 });
 
 export default styles;

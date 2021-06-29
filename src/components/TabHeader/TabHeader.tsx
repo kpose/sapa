@@ -17,7 +17,8 @@ type Props = {
 };
 
 const TabHeader = ({onPlusPress, data, navigation}: Props) => {
-  const {Total} = data?.params;
+  console.log(data);
+  const {Total, last30DaysTotal, last7DaysTotal} = data?.params;
   const {symbol} = useAppSelector(state => state.user);
   const dispatch = useAppDispatch();
 
@@ -62,11 +63,7 @@ const TabHeader = ({onPlusPress, data, navigation}: Props) => {
           <Text style={[fonts.caption, styles.wallet]}>
             {data?.params.title}
           </Text>
-          <Text
-            style={[
-              fonts.caption,
-              {color: Total < -0 ? colors.WARNING : colors.WHITE},
-            ]}>
+          <Text style={[fonts.caption]}>
             {symbol} {Total}
           </Text>
         </View>
@@ -74,26 +71,28 @@ const TabHeader = ({onPlusPress, data, navigation}: Props) => {
         <View style={styles.footer}>
           <View style={styles.days}>
             <Text style={[fonts.smallerCaption]}>Last 30 days</Text>
-            <Text style={[fonts.caption]}>{symbol} 0.00</Text>
+            <Text
+              style={[
+                fonts.caption,
+                {color: last30DaysTotal < -0 ? colors.WARNING : colors.WHITE},
+              ]}>
+              {symbol} {last30DaysTotal}
+            </Text>
           </View>
 
           <View>
             <Text style={[fonts.smallerCaption]}>Last 7 days</Text>
-            <Text style={[fonts.caption]}>{symbol} 0.00</Text>
+            <Text
+              style={[
+                fonts.caption,
+                {color: last7DaysTotal < -0 ? colors.WARNING : colors.WHITE},
+              ]}>
+              {symbol} {last7DaysTotal}
+            </Text>
           </View>
         </View>
 
-        <TouchableOpacity
-          style={styles.button}
-          onPress={onPlusPress}
-          /* onPress={() =>
-            navigation.navigate('AddToWalletToo', {
-              uid: data?.params.uid,
-              title: data?.params.title,
-              refresh: data?.params.refresh,
-            })
-          } */
-        >
+        <TouchableOpacity style={styles.button} onPress={onPlusPress}>
           <Icon
             name="plus"
             size={sizes.navigationIconSize}

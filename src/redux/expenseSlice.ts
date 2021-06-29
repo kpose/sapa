@@ -8,7 +8,8 @@ interface ExpenseData {
     category: string;
     image: string;
     loading: boolean;
-    iconTitle: string
+    iconTitle: string;
+    date: string
 }
 
 const initialState : ExpenseData = {
@@ -19,7 +20,8 @@ const initialState : ExpenseData = {
   category: '',
   image: '',
   loading: false,
-  iconTitle: ''
+  iconTitle: '',
+  date: ''
 
 
 }
@@ -52,6 +54,9 @@ const ExpenseSlice = createSlice({
     },
     setIconTitle(state, action: PayloadAction<string>) {
       state.iconTitle = action.payload
+    },
+    setDate(state, action: PayloadAction<string>){
+      state.date = action.payload
     }
   },
 });
@@ -64,7 +69,8 @@ export const {
   setMarchant,
   setNote,
   setType,
-  setIconTitle
+  setIconTitle,
+  setDate
 } = ExpenseSlice.actions;
 
 export default ExpenseSlice.reducer;
