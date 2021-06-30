@@ -22,7 +22,18 @@ const EditWallet = ({navigation, route}: EditWalletStackProps) => {
     route.params;
   const dispatch = useAppDispatch();
 
-  const transactionItem = {
+  interface Props {
+    amount?: number;
+    category?: string;
+    createdAt?: string;
+    iconTitle?: string;
+    imageUrl?: string;
+    marchant?: string;
+    note?: string;
+    type?: string;
+  }
+
+  const transactionItem: Props = {
     amount,
     category,
     createdAt: date,
@@ -51,6 +62,7 @@ const EditWallet = ({navigation, route}: EditWalletStackProps) => {
         type={type}
         value={amount}
         icon={icon}
+        oldTransaction={transactionItem}
       />
       <EditWalletBody
         date={date}
