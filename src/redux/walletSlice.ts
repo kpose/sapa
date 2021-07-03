@@ -4,7 +4,7 @@ interface WalletData {
     data: {
     uid: string;
     title: string;
-    transactions: [];
+    walletTransactions: [];
     }
 }
 
@@ -12,7 +12,7 @@ const initialState : WalletData = {
     data: {
         uid: '',
         title: '',
-        transactions: [],
+        walletTransactions: [],
     }
 }
 
@@ -22,7 +22,7 @@ const walletSlice = createSlice({
 
     reducers: {
 
-        setWalletData(state, action: PayloadAction<{uid: string; title: string; transactions: [];  }>) {
+        setWalletData(state, action: PayloadAction<{uid: string; title: string; walletTransactions: [];  }>) {
             state.data = action.payload
         }
     }

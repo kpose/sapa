@@ -2,34 +2,43 @@ import React, {useState, useContext} from 'react';
 import {View, SafeAreaView, TouchableOpacity} from 'react-native';
 import {Text, TextInput, Portal, Modal} from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import firestore from '@react-native-firebase/firestore';
-import storage from '@react-native-firebase/storage';
 import CurrencyInput from 'react-native-currency-input';
+import {NetworkErorModal} from '~modals';
+import storage from '@react-native-firebase/storage';
+import firestore from '@react-native-firebase/firestore';
 import styles from './styles';
 
 /* files and utils */
 import {colors, sizes} from '~utils';
 import {fonts} from '~utils/fonts';
 import {ThemeContext} from '~context/ThemeCotext';
-import {Spinner, TransactionCategory, AmountError} from '~components';
+import {NetworkContext} from '~context/NetworkContext';
+import {
+  Spinner,
+  TransactionCategory,
+  AmountError,
+  NetworkError,
+} from '~components';
 import {setCategory, setImage, setAmount} from '~redux/expenseSlice';
 import {useAppSelector, useAppDispatch} from '~redux/reduxhooks';
+import {getImageUrl} from '~utils/getImageUrl';
 
+interface WalletProps {
+  amount?: number;
+  category?: string;
+  createdAt?: string;
+  iconTitle?: string;
+  imageUrl?: string;
+  marchant?: string;
+  note?: string;
+  type?: string;
+}
 interface Props {
   closeScreen: () => void;
   type: string;
   value: string;
   icon: string;
-  oldTransaction: {
-    amount?: number;
-    category?: string;
-    createdAt?: string;
-    iconTitle?: string;
-    imageUrl?: string;
-    marchant?: string;
-    note?: string;
-    type?: string;
-  };
+  oldTransaction: WalletProps;
 }
 
 const EditWalletHeader = ({
@@ -40,13 +49,14 @@ const EditWalletHeader = ({
   oldTransaction,
 }: Props) => {
   const [xpense, setXpense] = useState(type === 'Expense' ? true : false);
-  const [transactionAmount, setTransactionAmount] = useState(Number(value));
+  const [transactionAmount, setTransactionAmount] = useState(value);
   const [uploading, setUploading] = useState(false);
   const [loading, setLoading] = useState(false);
   const [showmodal, setShowmodal] = useState(false);
   const [amountError, setAmountError] = useState(false);
   const [iconName, setIconName] = useState(icon);
   const {theme} = useContext(ThemeContext);
+  const {isConnected} = useContext(NetworkContext);
   const dispatch = useAppDispatch();
 
   const {symbol} = useAppSelector(state => state.user);
@@ -54,29 +64,21 @@ const EditWalletHeader = ({
   const {note, marchant, category, image, amount, date, iconTitle} =
     useAppSelector(state => state.expense);
 
-  const expenditure = '-' + transactionAmount;
+  const expenditure = transactionAmount;
   const income = '+' + transactionAmount;
   const walletID = data.uid;
+  const walletTransactions = data.walletTransactions;
 
   const transaction = async () => {
-    setLoading(true);
+    //setLoading(true);
 
-    //upload image
-    const uploadImage = async (uri: string) => {
-      const filename = uri.substring(uri.lastIndexOf('/') + 1);
-      const imageRef = storage().ref(filename);
-      await imageRef.putFile(uri, {contentType: 'image/jpg'}).catch(error => {
-        console.log(error);
-      });
-      const url = await imageRef.getDownloadURL().catch(error => {
-        console.log(error);
-      });
-      return url;
-    };
-    const uploadedUrl = await uploadImage(image);
+    /* if (!isConnected) {
+      return;
+    } */
 
-    //create new transaction
-    const newTransaction = {
+    const uploadedUrl = await getImageUrl(image);
+
+    const newTransaction: WalletProps = {
       amount: xpense ? expenditure : income,
       category: category ? category : oldTransaction.category,
       createdAt: date ? date : oldTransaction.createdAt,
@@ -87,16 +89,28 @@ const EditWalletHeader = ({
       type: type ? type : oldTransaction.type,
     };
 
+    const oldTransact = JSON.stringify(oldTransaction);
+    const newTransact = JSON.stringify(newTransaction);
+
+    if (oldTransact === newTransact) {
+      closeScreen();
+    }
+
+    await firestore().collection('wallets').doc(`${walletID}`).update({
+      transactions: [],
+    });
+
     //delete old transaction
-    firestore()
+    /* await firestore()
       .collection('wallets')
       .doc(`${walletID}`)
       .update({
         transactions: firestore.FieldValue.arrayRemove(oldTransaction),
-      });
+      }); */
+    //setLoading(false);
 
     //Add new transaction
-    firestore()
+    /* firestore()
       .collection('wallets')
       .doc(`${walletID}`)
       .update({
@@ -108,7 +122,7 @@ const EditWalletHeader = ({
       })
       .catch(error => {
         setLoading(false);
-      });
+      }); */
   };
 
   /* const saveTransaction = () => {
@@ -132,6 +146,7 @@ const EditWalletHeader = ({
     <>
       {loading && <Spinner />}
       {uploading && <Spinner />}
+      {!isConnected && <NetworkErorModal />}
       <AmountError
         visible={amountError}
         dismiss={() => setAmountError(false)}

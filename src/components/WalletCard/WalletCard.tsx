@@ -44,7 +44,7 @@ const WalletCard = ({title, uid, transactions, refresh}: Props) => {
       },
     });
 
-    dispatch(setWalletData({uid, transactions, title}));
+    dispatch(setWalletData({uid, walletTransactions: transactions, title}));
   };
 
   return (

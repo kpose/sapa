@@ -4,6 +4,7 @@ import AddWallet from './AddWallet/AddWallet';
 import CameraModal from './CameraModal/CameraModal';
 import CalenderPopup from './CalenderPopup/CalenderPopup';
 import DatePickerModal from './DatePickerModal/DatePickerModal';
+import NetworkErorModal from './NetworkErrorModal/NetworkErorModal';
 
 export {
   CurrencyPicker,
@@ -12,4 +13,5 @@ export {
   CameraModal,
   CalenderPopup,
   DatePickerModal,
+  NetworkErorModal,
 };
