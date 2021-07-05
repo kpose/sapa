@@ -24,6 +24,7 @@ const App = () => {
   const [isConnected, setIsConnected] = useState(true);
   const [dark, setDark] = useState(true);
   const theme = dark ? CombinedDarkTheme : CombinedLightTheme;
+  let persistor = persistStore(store);
 
   useEffect(() => {
     const removeNetInfoSubscription = NetInfo.addEventListener(state => {
@@ -35,8 +36,6 @@ const App = () => {
     });
     return () => removeNetInfoSubscription();
   }, [isConnected]);
-
-  let persistor = persistStore(store);
 
   const toggleTheme = () => {
     setDark(!dark);
@@ -55,10 +54,10 @@ const App = () => {
   if (initializing) return <Spinner />;
 
   return (
-    <ThemeContext.Provider value={{theme, toggleTheme}}>
-      <NetworkContext.Provider value={{isConnected}}>
-        <PaperProvider theme={theme}>
-          <ReduxProvider store={store}>
+    <ReduxProvider store={store}>
+      <PaperProvider theme={theme}>
+        <NetworkContext.Provider value={{isConnected}}>
+          <ThemeContext.Provider value={{theme, toggleTheme}}>
             <NavigationContainer theme={theme}>
               {user ? (
                 <Stack.Navigator
@@ -69,10 +68,10 @@ const App = () => {
                 <Routes />
               )}
             </NavigationContainer>
-          </ReduxProvider>
-        </PaperProvider>
-      </NetworkContext.Provider>
-    </ThemeContext.Provider>
+          </ThemeContext.Provider>
+        </NetworkContext.Provider>
+      </PaperProvider>
+    </ReduxProvider>
   );
 };
 

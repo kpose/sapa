@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {View, StyleSheet} from 'react-native';
-import {Text, TextInput} from 'react-native-paper';
+import {Text, TextInput, Surface} from 'react-native-paper';
 import {colors, hp, wp} from '~utils';
 import {LargeButton} from '~components';
 import {fonts} from '~utils/fonts';
@@ -15,15 +15,16 @@ interface Props {
 const AddWallet = ({close, getWallets, email}: Props) => {
   const [title, setTitle] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(false);
+  const newWallet = {
+    title,
+    createdAt: new Date().toISOString(),
+    email,
+    transactions: [],
+  };
 
-  const saveWallet = async () => {
+  const saveWallet = () => {
     setLoading(true);
-    const newWallet = {
-      title,
-      createdAt: new Date().toISOString(),
-      email,
-      transactions: [],
-    };
+
     firestore()
       .collection('wallets')
       .add(newWallet)
@@ -38,7 +39,7 @@ const AddWallet = ({close, getWallets, email}: Props) => {
   };
 
   return (
-    <View>
+    <Surface style={styles.container}>
       <Text style={[fonts.modalTitle, styles.add]}>Add Wallet</Text>
       <TextInput
         placeholder="What do we call this wallet?"
@@ -53,14 +54,22 @@ const AddWallet = ({close, getWallets, email}: Props) => {
         title="Save"
         loading={loading ? true : false}
       />
-    </View>
+    </Surface>
   );
 };
 
 export default AddWallet;
 
 const styles = StyleSheet.create({
-  container: {},
+  container: {
+    height: hp(29),
+    width: wp(90),
+    alignSelf: 'center',
+    position: 'absolute',
+    justifyContent: 'flex-start',
+    borderRadius: wp(5),
+    elevation: hp(20),
+  },
   input: {
     borderWidth: 0,
     width: wp(80),

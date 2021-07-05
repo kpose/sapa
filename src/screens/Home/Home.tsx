@@ -7,19 +7,19 @@ import React, {
 } from 'react';
 import {View, FlatList} from 'react-native';
 import {Modalize} from 'react-native-modalize';
-import {Portal, Modal} from 'react-native-paper';
+import {Portal, Modal, Surface} from 'react-native-paper';
 import firestore from '@react-native-firebase/firestore';
 
 /* utils and files */
-import {WalletCard, ContentHeader, NoWalletAnime} from '~components';
-import {AddWalletType, AddWallet} from '~modals';
 import {colors, hp} from '~utils';
-import {ThemeContext} from '~context/ThemeCotext';
 import styles from './styles';
-import {RouteStackProps} from '~definitions/navigationTypes';
-import {useAppDispatch, useAppSelector} from '~redux/reduxhooks';
 import auth from '@react-native-firebase/auth';
 import {setEmail} from '~redux/userSlice';
+import {ThemeContext} from '~context/ThemeCotext';
+import {AddWalletType, AddWallet} from '~modals';
+import {RouteStackProps} from '~definitions/navigationTypes';
+import {useAppDispatch, useAppSelector} from '~redux/reduxhooks';
+import {WalletCard, ContentHeader, NoWalletAnime} from '~components';
 
 const Home = ({navigation}: RouteStackProps) => {
   const walletModalRef = useRef<Modalize>(null);
@@ -38,30 +38,26 @@ const Home = ({navigation}: RouteStackProps) => {
   }, []);
 
   useEffect(() => {
-    setLoading(true);
-    const subscriber = firestore()
-      .collection('wallets')
-      .where('email', '==', email)
-      .orderBy('createdAt', 'desc')
-      .onSnapshot(querySnapshot => {
-        let wallets: any = [];
-        querySnapshot.forEach(doc => {
-          wallets.push({
-            walletId: doc.id,
-            title: doc.data().title,
-            transactions: doc.data().transactions,
-            createdAt: doc.data().createdAt,
-          });
-        });
-        setLoading(false);
-        setWallets(wallets);
-      });
-    return () => subscriber();
-  }, [email]);
+    getWallets();
+    return () => getWallets();
+  }, [wallets]);
 
-  const openModal = () => {
-    walletModalRef.current?.open();
-  };
+  const getWallets = firestore()
+    .collection('wallets')
+    .where('email', '==', email)
+    .orderBy('createdAt', 'desc')
+    .onSnapshot(querySnapshot => {
+      let wallets: any = [];
+      querySnapshot.forEach(doc => {
+        wallets.push({
+          walletId: doc.id,
+          title: doc.data().title,
+          transactions: doc.data().transactions,
+          createdAt: doc.data().createdAt,
+        });
+      });
+      setWallets(wallets);
+    });
 
   const openAddModal = () => {
     setShowmodal(true);
@@ -76,6 +72,7 @@ const Home = ({navigation}: RouteStackProps) => {
         title={item.title}
         uid={item.walletId}
         transactions={item.transactions}
+        //refreshWallets={getWallets}
       />
     ),
     [],
@@ -98,24 +95,13 @@ const Home = ({navigation}: RouteStackProps) => {
         <Modal
           visible={showmodal}
           onDismiss={() => setShowmodal(false)}
-          contentContainerStyle={[
-            styles.modal,
-            {
-              backgroundColor:
-                theme.type === 'dark' ? colors.DARK_GRAY : colors.WHITE,
-            },
-          ]}>
-          <AddWallet
-            close={() => setShowmodal(false)}
-            email={email}
-            //getWallets={getWallets}
-          />
+          contentContainerStyle={styles.modal}>
+          <AddWallet close={() => setShowmodal(false)} email={email} />
         </Modal>
       </Portal>
 
       <View style={styles.container}>
-        <ContentHeader openPress={openModal} />
-        {/* {loading && <Text>loading ......</Text>} */}
+        <ContentHeader openPress={() => walletModalRef.current?.open()} />
 
         {wallets.length ? (
           <FlatList

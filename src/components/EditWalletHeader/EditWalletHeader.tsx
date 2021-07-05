@@ -2,10 +2,10 @@ import React, {useState, useContext} from 'react';
 import {View, SafeAreaView, TouchableOpacity} from 'react-native';
 import {Text, TextInput, Portal, Modal} from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import CurrencyInput from 'react-native-currency-input';
 import {NetworkErorModal} from '~modals';
 import storage from '@react-native-firebase/storage';
 import firestore from '@react-native-firebase/firestore';
+import {TextInputMask} from 'react-native-masked-text';
 import styles from './styles';
 
 /* files and utils */
@@ -24,7 +24,7 @@ import {useAppSelector, useAppDispatch} from '~redux/reduxhooks';
 import {getImageUrl} from '~utils/getImageUrl';
 
 interface WalletProps {
-  amount?: number;
+  amount?: number | string;
   category?: string;
   createdAt?: string;
   iconTitle?: string;
@@ -49,7 +49,7 @@ const EditWalletHeader = ({
   oldTransaction,
 }: Props) => {
   const [xpense, setXpense] = useState(type === 'Expense' ? true : false);
-  const [transactionAmount, setTransactionAmount] = useState(value);
+  const [transactionAmount, setTransactionAmount] = useState<string>(value);
   const [uploading, setUploading] = useState(false);
   const [loading, setLoading] = useState(false);
   const [showmodal, setShowmodal] = useState(false);
@@ -64,10 +64,10 @@ const EditWalletHeader = ({
   const {note, marchant, category, image, amount, date, iconTitle} =
     useAppSelector(state => state.expense);
 
-  const expenditure = transactionAmount;
-  const income = '+' + transactionAmount;
   const walletID = data.uid;
   const walletTransactions = data.walletTransactions;
+
+  console.log(value);
 
   const transaction = async () => {
     //setLoading(true);
@@ -79,7 +79,7 @@ const EditWalletHeader = ({
     const uploadedUrl = await getImageUrl(image);
 
     const newTransaction: WalletProps = {
-      amount: xpense ? expenditure : income,
+      amount: amount ? amount : value,
       category: category ? category : oldTransaction.category,
       createdAt: date ? date : oldTransaction.createdAt,
       iconTitle: iconTitle ? iconTitle : oldTransaction.iconTitle,
@@ -137,7 +137,7 @@ const EditWalletHeader = ({
     transaction();
   };
 
-  const changeAmount = (amount: number) => {
+  const changeAmount = (amount: any) => {
     dispatch(setAmount(amount));
     setTransactionAmount(amount);
   };
@@ -219,17 +219,21 @@ const EditWalletHeader = ({
         </SafeAreaView>
 
         <View style={styles.bottomRow}>
-          <CurrencyInput
+          <TextInputMask
+            type={'money'}
             value={transactionAmount}
-            onChangeValue={(x: number) => changeAmount(x)}
-            prefix={xpense ? `- ${symbol}` : `+ ${symbol}`}
-            delimiter=","
-            separator="."
-            precision={2}
-            style={[styles.input, fonts.bodyText]}
             maxLength={20}
+            options={{
+              precision: 0,
+              //separator: '.',
+              delimiter: ',',
+              unit: xpense ? `- ${symbol}` : `+ ${symbol}`,
+            }}
+            onChangeText={x => changeAmount(x)}
+            style={[styles.input, fonts.bodyText]}
             selectionColor={xpense ? colors.PRIMARY : colors.SECONDARY}
           />
+
           <TouchableOpacity
             style={styles.icon}
             onPress={() => setShowmodal(true)}>

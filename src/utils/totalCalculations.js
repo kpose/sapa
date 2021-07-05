@@ -6,8 +6,8 @@ const last30DaysDate = new Date(
   currentDate.setDate(currentDate.getDate() - 30),
 );
 const last30DaysDateTime = last30DaysDate.getTime();
-const last15DaysDate = new Date(currentDate.setDate(currentDate.getDate() - 7));
-const last15DaysDateTime = last15DaysDate.getTime();
+const last7DaysDate = new Date(currentDate.setDate(currentDate.getDate() - 7));
+const last7DaysDateTime = last7DaysDate.getTime();
 
 /* calculate single wallet total */
 export const walletTotal = transactions => {
@@ -15,7 +15,7 @@ export const walletTotal = transactions => {
     return;
   }
   const transact = transactions
-    .map(item => item.amount)
+    .map(item => item.amount.replace(/[^0-9\-]+/g, ''))
     .reduce((prev, next) => Number(prev) + Number(next));
   return transact;
 };
@@ -27,7 +27,7 @@ export const last7Days = transactions => {
       const elementDateTime = new Date(x.createdAt).getTime();
       if (
         elementDateTime <= currentDateTime &&
-        elementDateTime > last15DaysDateTime
+        elementDateTime > last7DaysDateTime
       ) {
         return true;
       }
@@ -40,13 +40,12 @@ export const last7Days = transactions => {
     return;
   }
   const total = last7DaysTransaction
-    .map(item => item.amount)
+    .map(item => item.amount.replace(/[^0-9\-]+/g, ''))
     .reduce((prev, next) => Number(prev) + Number(next));
   return total;
 };
 
 /* calculate total transactions in last 30 days for single wallet */
-
 export const last30Days = transactions => {
   console.log(transactions);
 
@@ -68,7 +67,7 @@ export const last30Days = transactions => {
     return;
   }
   const total = last30DaysTransaction
-    .map(item => item.amount)
+    .map(item => item.amount.replace(/[^0-9\-]+/g, ''))
     .reduce((prev, next) => Number(prev) + Number(next));
   return total;
 };

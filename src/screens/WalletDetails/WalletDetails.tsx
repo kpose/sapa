@@ -6,7 +6,7 @@ import {EmptyAnime, TransactionCard} from '~components';
 import styles from './styles';
 
 const WalletDetails = ({route, navigation}: BottomTabProps) => {
-  const {uid, title, transactions, refresh} = route.params;
+  const {uid, title, transactions, refreshWallets} = route.params;
   const reversedTransactions = [].concat(transactions).reverse();
 
   const renderWallets = useCallback(
@@ -25,7 +25,7 @@ const WalletDetails = ({route, navigation}: BottomTabProps) => {
     [],
   );
 
-  const keyExtractor = useCallback(item => item.createdAt.toString(), []);
+  const keyExtractor = useCallback(item => item.uuid.toString(), []);
 
   return (
     <View style={styles.container}>

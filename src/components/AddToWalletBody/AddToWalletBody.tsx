@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {
   View,
-  TouchableOpacity,
+  Pressable,
   ScrollView,
   KeyboardAvoidingView,
   Image,
@@ -12,10 +12,11 @@ import {Text, TextInput, Surface, Portal, Modal} from 'react-native-paper';
 import styles from './styles';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
+import moment from 'moment';
 import {colors, hp, sizes, wp} from '~utils';
-import {CameraModal} from '~modals';
+import {CameraModal, DatePickerModal} from '~modals';
 import {fonts} from '~utils/fonts';
-import {setImage, setMarchant, setNote} from '~redux/expenseSlice';
+import {setImage, setMarchant, setNote, setDate} from '~redux/expenseSlice';
 import {useAppDispatch} from '~redux/reduxhooks';
 
 interface Props {
@@ -24,7 +25,7 @@ interface Props {
 
 interface PhotoProps {
   title: string;
-  mediaType: string;
+  mediaType: any;
   maxWidth: number;
   maxHeight: number;
   noData: boolean;
@@ -34,10 +35,16 @@ interface PhotoProps {
 const AddToWalletBody = ({title}: Props) => {
   const elsaped = Date.now();
   const today = new Date(elsaped).toDateString();
+
   const [visible, setVisible] = useState(false);
   const showModal = () => setVisible(true);
   const hideModal = () => setVisible(false);
   const [imageSource, setImageSource] = useState('');
+  const [showDatePicker, setShowDatePicker] = useState(false);
+  const [timestamp, setTimestamp] = useState(
+    moment(today).format('MMM Do, YYYY'),
+  );
+
   const dispatch = useAppDispatch();
 
   function selectPhoto() {
@@ -65,6 +72,12 @@ const AddToWalletBody = ({title}: Props) => {
       }
     });
   }
+
+  const confirmDate = (selectedDate: string) => {
+    setTimestamp(moment(selectedDate).format('MMM Do YYYY'));
+    dispatch(setDate(moment(selectedDate).format()));
+    setShowDatePicker(false);
+  };
 
   /* function selectCamera() {
     let options: PhotoProps = {
@@ -118,7 +131,11 @@ const AddToWalletBody = ({title}: Props) => {
               color={colors.LIGHT_GRAY}
               size={sizes.navigationIconSize}
             />
-            <Text style={[fonts.bodyText, {marginLeft: wp(4)}]}> {today}</Text>
+            <Pressable onPress={() => setShowDatePicker(true)}>
+              <Text style={[fonts.bodyText, {marginLeft: wp(4)}]}>
+                {timestamp}
+              </Text>
+            </Pressable>
           </View>
 
           <View style={styles.itemContainer}>
@@ -161,7 +178,7 @@ const AddToWalletBody = ({title}: Props) => {
             <Text style={[fonts.caption, styles.wallet]}>{title}</Text>
           </View>
 
-          <TouchableOpacity onPress={showModal}>
+          <Pressable onPress={showModal}>
             <Surface style={styles.cameraContainer}>
               {imageSource ? (
                 <Image
@@ -177,8 +194,14 @@ const AddToWalletBody = ({title}: Props) => {
                 />
               )}
             </Surface>
-          </TouchableOpacity>
+          </Pressable>
         </ScrollView>
+        <DatePickerModal
+          visible={showDatePicker}
+          onDismiss={() => setShowDatePicker(false)}
+          date={elsaped}
+          onConfirm={(x: string) => confirmDate(x)}
+        />
       </KeyboardAvoidingView>
     </>
   );

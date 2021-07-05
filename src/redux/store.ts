@@ -6,20 +6,22 @@ import {useDispatch} from 'react-redux';
 
 
 import { combineReducers } from 'redux';
-import { persistReducer, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER} from 'redux-persist';
+import { persistReducer, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER, persistCombineReducers} from 'redux-persist';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 
 
 const reducers = combineReducers({
-  user: userSlice,
+  user: userSlice, 
   expense: ExpenseSlice,
   wallet: walletSlice
 })
 
 const  persistConfig = {
   key: 'root',
+  version: 1,
+ // blacklist: ['expense'],
   storage: AsyncStorage,
 }
 

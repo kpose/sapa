@@ -2,6 +2,7 @@ import React from 'react';
 import {View, StyleSheet, TouchableOpacity} from 'react-native';
 import {colors, hp, sizes, wp} from '../../utils';
 import Wave from './Wave';
+import {TotalValues} from '~components';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import {Text, Surface} from 'react-native-paper';
@@ -17,14 +18,13 @@ type Props = {
 };
 
 const TabHeader = ({onPlusPress, data, navigation}: Props) => {
-  console.log(data);
   const {Total, last30DaysTotal, last7DaysTotal} = data?.params;
   const {symbol} = useAppSelector(state => state.user);
   const dispatch = useAppDispatch();
 
   const goBack = () => {
     navigation.goBack();
-    dispatch(setWalletData({uid: '', transactions: [], title: ''}));
+    dispatch(setWalletData({uid: '', walletTransactions: [], title: ''}));
   };
 
   return (
@@ -63,32 +63,28 @@ const TabHeader = ({onPlusPress, data, navigation}: Props) => {
           <Text style={[fonts.caption, styles.wallet]}>
             {data?.params.title}
           </Text>
-          <Text style={[fonts.caption]}>
-            {symbol} {Total}
-          </Text>
+          <TotalValues value={Total} color={colors.PRIMARY} />
         </View>
 
         <View style={styles.footer}>
           <View style={styles.days}>
-            <Text style={[fonts.smallerCaption]}>Last 30 days</Text>
-            <Text
-              style={[
-                fonts.caption,
-                {color: last30DaysTotal < -0 ? colors.WARNING : colors.WHITE},
-              ]}>
-              {symbol} {last30DaysTotal}
+            <Text style={[fonts.smallerCaption, {color: colors.LIGHT_GRAY}]}>
+              Last 30 days
             </Text>
+            <TotalValues
+              value={last30DaysTotal}
+              color={Total < -0 ? colors.WARNING : colors.PRIMARY}
+            />
           </View>
 
           <View>
-            <Text style={[fonts.smallerCaption]}>Last 7 days</Text>
-            <Text
-              style={[
-                fonts.caption,
-                {color: last7DaysTotal < -0 ? colors.WARNING : colors.WHITE},
-              ]}>
-              {symbol} {last7DaysTotal}
+            <Text style={[fonts.smallerCaption, {color: colors.LIGHT_GRAY}]}>
+              Last 7 days
             </Text>
+            <TotalValues
+              value={last7DaysTotal}
+              color={Total < -0 ? colors.WARNING : colors.PRIMARY}
+            />
           </View>
         </View>
 

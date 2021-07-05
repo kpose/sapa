@@ -1,6 +1,8 @@
 import React, {useState, useContext, useEffect} from 'react';
 import {View, SafeAreaView, TouchableOpacity, TextInput} from 'react-native';
 import {Text, Portal, Modal} from 'react-native-paper';
+import {TextInputMask} from 'react-native-masked-text';
+import {v4 as uuidv4} from 'uuid';
 import styles from './styles';
 import {Spinner, TransactionCategory, AmountError} from '~components';
 
@@ -18,6 +20,7 @@ import CurrencyInput from 'react-native-currency-input';
 interface Props {
   closeScreen: () => void;
   walletID: string;
+  //refreshWallets: () => void;
 }
 
 const AddToWalletHeader = ({closeScreen, walletID}: Props) => {
@@ -25,18 +28,15 @@ const AddToWalletHeader = ({closeScreen, walletID}: Props) => {
   const [loading, setLoading] = useState(false);
   const [showmodal, setShowmodal] = useState(false);
   const [title, setTitle] = useState('');
-  const [amount, setAmount] = useState<number>(0);
+  const [amount, setAmount] = useState('');
   const {theme} = useContext(ThemeContext);
   const [amountError, setAmountError] = useState(false);
   const dispatch = useAppDispatch();
 
-  const {note, marchant, category, image, iconTitle} = useAppSelector(
+  const {note, marchant, category, image, iconTitle, date} = useAppSelector(
     state => state.expense,
   );
   const {symbol} = useAppSelector(state => state.user);
-
-  const expenditure = '-' + amount;
-  const income = '+' + amount;
 
   const transaction = async () => {
     setLoading(true);
@@ -57,14 +57,14 @@ const AddToWalletHeader = ({closeScreen, walletID}: Props) => {
     const newTransaction = {
       note,
       marchant,
-      amount: xpense ? expenditure : income,
+      amount,
+      uuid: uuidv4(),
       type: xpense ? 'Expense' : 'Income',
-      createdAt: new Date().toISOString(),
+      createdAt: date ? date : new Date().toISOString(),
       category: category ? category : 'Others',
       imageUrl: uploadedUrl ? uploadedUrl : null,
       iconTitle: iconTitle ? iconTitle : 'bullseye',
     };
-    setLoading(true);
 
     firestore()
       .collection('wallets')
@@ -83,7 +83,7 @@ const AddToWalletHeader = ({closeScreen, walletID}: Props) => {
   };
 
   const saveTransaction = () => {
-    if (amount && amount > 0) {
+    if (amount) {
       transaction();
     } else {
       setAmountError(true);
@@ -179,17 +179,22 @@ const AddToWalletHeader = ({closeScreen, walletID}: Props) => {
         </SafeAreaView>
 
         <View style={styles.bottomRow}>
-          <CurrencyInput
+          <TextInputMask
+            type={'money'}
             value={amount}
-            onChangeValue={(x: number) => setAmount(x)}
-            prefix={xpense ? `- ${symbol}` : `+ ${symbol}`}
-            delimiter=","
-            separator="."
-            precision={2}
-            style={[styles.input, fonts.bodyText]}
-            autoFocus={true}
+            //autoFocus={true}
             maxLength={20}
-            selectionColor={xpense ? colors.PRIMARY : colors.SECONDARY}
+            placeholder={`${symbol} 0.00`}
+            options={{
+              precision: 0,
+              //separator: '.',
+              delimiter: ',',
+              unit: xpense ? `- ${symbol}` : `+ ${symbol}`,
+            }}
+            onChangeText={text => {
+              setAmount(text);
+            }}
+            style={[styles.input, fonts.bodyText]}
           />
           <TouchableOpacity
             style={styles.icon}

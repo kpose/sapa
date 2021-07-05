@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {
   View,
-  TouchableOpacity,
+  Pressable,
   ScrollView,
   KeyboardAvoidingView,
   Image,
@@ -60,7 +60,6 @@ const EditWalletBody = ({
 
   const wallet = data.title;
   const walletID = data.uid;
-
   const deleteTransaction = () => {
     firestore()
       .collection('wallets')
@@ -75,6 +74,8 @@ const EditWalletBody = ({
         console.log(error);
       });
   };
+
+  console.log(date);
 
   function selectPhoto() {
     let options: PhotoProps = {
@@ -124,11 +125,11 @@ const EditWalletBody = ({
               color={colors.LIGHT_GRAY}
               size={sizes.navigationIconSize}
             />
-            <TouchableOpacity onPress={() => setShowDatePicker(true)}>
+            <Pressable onPress={() => setShowDatePicker(true)}>
               <Text style={[fonts.bodyText, {marginLeft: wp(4)}]}>
                 {timestamp}
               </Text>
-            </TouchableOpacity>
+            </Pressable>
           </View>
 
           <View style={styles.itemContainer}>
@@ -172,7 +173,7 @@ const EditWalletBody = ({
             <Text style={[fonts.bodyText, {marginLeft: wp(7)}]}>{wallet}</Text>
           </View>
 
-          <TouchableOpacity onPress={showModal}>
+          <Pressable onPress={showModal}>
             <Surface style={styles.cameraContainer}>
               {imageUri ? (
                 <Image
@@ -188,15 +189,13 @@ const EditWalletBody = ({
                 />
               )}
             </Surface>
-          </TouchableOpacity>
+          </Pressable>
 
-          <TouchableOpacity
-            style={styles.deleteContainer}
-            onPress={deleteTransaction}>
+          <Pressable style={styles.deleteContainer} onPress={deleteTransaction}>
             <Text style={[fonts.caption, styles.delete]}>
               Delete this transaction
             </Text>
-          </TouchableOpacity>
+          </Pressable>
         </ScrollView>
 
         <DatePickerModal

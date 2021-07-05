@@ -44,7 +44,6 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   category: {
-    width: '110%',
     alignItems: 'center',
     borderRadius: wp(2),
     marginBottom: wp(1),

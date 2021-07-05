@@ -30,6 +30,7 @@ import AmountError from './AmountError/AmountErrror';
 import EditWalletHeader from './EditWalletHeader/EditWalletHeader';
 import EditWalletBody from './EditWalletBody/EditWalletBody';
 import WalletCurrency from './WalletCurrency/WalletCurrency';
+import TotalValues from './TotalValues/TotalValues';
 
 export {
   LargeButton,
@@ -64,4 +65,5 @@ export {
   EditWalletBody,
   EditWalletHeader,
   WalletCurrency,
+  TotalValues,
 };

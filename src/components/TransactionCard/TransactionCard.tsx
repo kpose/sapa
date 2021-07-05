@@ -73,9 +73,7 @@ const TransactionCard = ({
             </Surface>
           )}
           <Text style={[fonts.smallerCaption, styles.note]}>{marchant}</Text>
-          <Text style={[fonts.caption, styles.amount]}>
-            {symbol} {amount}
-          </Text>
+          <Text style={[fonts.caption, styles.amount]}>{amount}</Text>
         </View>
       </Surface>
     </TouchableOpacity>
