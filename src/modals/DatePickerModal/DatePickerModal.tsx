@@ -39,7 +39,7 @@ const DatePickerModal = ({visible, onDismiss, date, onConfirm}: Props) => {
             onChange={onChange}
             style={{backgroundColor: 'black'}}
           />
-          <Divider style={styles.divider} />
+          {/* <Divider style={styles.divider} /> */}
           <View style={styles.footer}>
             <Pressable onPress={onDismiss}>
               <Text style={[fonts.modalAction, styles.cancel]}>Cancel</Text>

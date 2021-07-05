@@ -19,6 +19,7 @@ interface Props {
   type?: string;
   note: string;
   icon: string;
+  transactionUUID: string;
 }
 
 const TransactionCard = ({
@@ -30,9 +31,10 @@ const TransactionCard = ({
   type,
   note,
   icon,
+  transactionUUID,
 }: Props) => {
   const {symbol} = useAppSelector(state => state.user);
-  const timestamp = moment(date).format('MMM Do YYYY');
+  const timestamp = moment(date).format('D MMM, YYYY');
 
   const navigation = useNavigation();
 
@@ -51,6 +53,7 @@ const TransactionCard = ({
           type,
           note,
           icon,
+          transactionUUID,
         })
       }>
       <Surface style={styles.container}>
@@ -62,17 +65,21 @@ const TransactionCard = ({
           )}
         </View>
         <View style={styles.detailsContainer}>
-          <Text style={[fonts.smallerCaption]}>{timestamp}</Text>
+          <Text style={[fonts.smallerCaption, {color: colors.LIGHT_GRAY}]}>
+            {timestamp}
+          </Text>
 
           {category && (
             <Surface
               style={[styles.category, {backgroundColor: backgroundColor}]}>
-              <Text style={[fonts.smallerCaption, {fontWeight: 'bold'}]}>
+              <Text style={[fonts.smallerCaption, styles.categoryText]}>
                 {category}
               </Text>
             </Surface>
           )}
-          <Text style={[fonts.smallerCaption, styles.note]}>{marchant}</Text>
+          {marchant && (
+            <Text style={[fonts.smallerCaption, styles.note]}>{marchant}</Text>
+          )}
           <Text style={[fonts.caption, styles.amount]}>{amount}</Text>
         </View>
       </Surface>

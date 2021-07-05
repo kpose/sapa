@@ -38,19 +38,25 @@ const styles = StyleSheet.create({
   },
   detailsContainer: {
     marginLeft: wp(5),
-    //justifyContent: 'space-evenly',
+    justifyContent: 'space-evenly',
   },
   amount: {
     fontWeight: 'bold',
   },
   category: {
     alignItems: 'center',
+    justifyContent: 'center',
     borderRadius: wp(2),
     marginBottom: wp(1),
     marginTop: wp(1),
   },
   note: {
     marginBottom: wp(1),
+  },
+  categoryText: {
+    fontWeight: 'bold',
+    marginLeft: wp(1),
+    marginRight: wp(1),
   },
 });
 

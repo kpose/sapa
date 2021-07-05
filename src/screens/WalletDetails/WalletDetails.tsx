@@ -20,6 +20,7 @@ const WalletDetails = ({route, navigation}: BottomTabProps) => {
         image={item.imageUrl}
         icon={item.iconTitle}
         note={item.note}
+        transactionUUID={item.uuid}
       />
     ),
     [],

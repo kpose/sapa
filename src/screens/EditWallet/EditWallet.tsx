@@ -18,12 +18,21 @@ import {
 } from '~redux/expenseSlice';
 
 const EditWallet = ({navigation, route}: EditWalletStackProps) => {
-  const {date, image, marchant, category, amount, type, note, icon} =
-    route.params;
+  const {
+    date,
+    image,
+    marchant,
+    category,
+    amount,
+    type,
+    note,
+    icon,
+    transactionUUID,
+  } = route.params;
   const dispatch = useAppDispatch();
 
   interface Props {
-    amount?: number;
+    amount?: string;
     category?: string;
     createdAt?: string;
     iconTitle?: string;
@@ -31,6 +40,7 @@ const EditWallet = ({navigation, route}: EditWalletStackProps) => {
     marchant?: string;
     note?: string;
     type?: string;
+    uuid: string;
   }
 
   const transactionItem: Props = {
@@ -42,6 +52,7 @@ const EditWallet = ({navigation, route}: EditWalletStackProps) => {
     marchant,
     note,
     type,
+    uuid: transactionUUID,
   };
 
   const closeScreen = () => {

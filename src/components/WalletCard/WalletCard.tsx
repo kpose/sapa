@@ -62,7 +62,7 @@ const WalletCard = ({title, uid, transactions}: Props) => {
               </Text>
               <TotalValues
                 value={last30DaysTotal}
-                color={Total < -0 ? colors.WARNING : colors.PRIMARY}
+                color={last30DaysTotal < -0 ? colors.WARNING : colors.PRIMARY}
               />
             </View>
 
@@ -72,7 +72,7 @@ const WalletCard = ({title, uid, transactions}: Props) => {
               </Text>
               <TotalValues
                 value={last7DaysTotal}
-                color={Total < -0 ? colors.WARNING : colors.PRIMARY}
+                color={last7DaysTotal < -0 ? colors.WARNING : colors.PRIMARY}
               />
             </View>
           </View>

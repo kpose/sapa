@@ -15,6 +15,7 @@ import moment from 'moment';
 import {CameraModal, DatePickerModal} from '~modals';
 import {fonts} from '~utils/fonts';
 import {colors, hp, sizes, wp} from '~utils';
+import {Spinner} from '~components';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import {setDate, setImage, setMarchant, setNote} from '~redux/expenseSlice';
@@ -31,7 +32,7 @@ interface Props {
 
 interface PhotoProps {
   title: string;
-  mediaType: string;
+  mediaType: any;
   maxWidth: number;
   maxHeight: number;
   noData: boolean;
@@ -54,28 +55,31 @@ const EditWalletBody = ({
     moment(date).format('MMM Do YYYY'),
   );
   const [showDatePicker, setShowDatePicker] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [imageUri, setImageUri] = useState(image);
   const dispatch = useAppDispatch();
   const {data} = useAppSelector(state => state.wallet);
 
   const wallet = data.title;
   const walletID = data.uid;
-  const deleteTransaction = () => {
-    firestore()
+
+  const deleteTransaction = async () => {
+    setLoading(true);
+    await firestore()
       .collection('wallets')
       .doc(`${walletID}`)
       .update({
         transactions: firestore.FieldValue.arrayRemove(transactionItem),
       })
       .then(response => {
+        setLoading(false);
         closeScreen();
       })
       .catch(error => {
+        setLoading(false);
         console.log(error);
       });
   };
-
-  console.log(date);
 
   function selectPhoto() {
     let options: PhotoProps = {
@@ -116,6 +120,7 @@ const EditWalletBody = ({
         </Modal>
       </Portal>
       <KeyboardAvoidingView style={{flex: 1}} behavior="padding">
+        {loading && <Spinner />}
         <ScrollView
           showsVerticalScrollIndicator={false}
           style={styles.container}>

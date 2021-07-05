@@ -47,8 +47,6 @@ export const last7Days = transactions => {
 
 /* calculate total transactions in last 30 days for single wallet */
 export const last30Days = transactions => {
-  console.log(transactions);
-
   const last30DaysTransaction = transactions
     .filter(x => {
       const elementDateTime = new Date(x.createdAt).getTime();
