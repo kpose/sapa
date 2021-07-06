@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {View, TouchableOpacity} from 'react-native';
+import {View, Pressable} from 'react-native';
 import {Text, Modal, Portal, Surface, Divider} from 'react-native-paper';
 import {hp} from '~utils';
 import {fonts} from '~utils/fonts';
@@ -8,11 +8,12 @@ import styles from './styles';
 interface Props {
   visible: boolean;
   onClose: () => void;
+  onAdd: () => void;
   day: string;
   weekday: string;
 }
 
-const CalenderPopup = ({visible, onClose, day, weekday}: Props) => {
+const CalenderPopup = ({visible, onClose, day, weekday, onAdd}: Props) => {
   return (
     <View>
       <Portal>
@@ -38,12 +39,12 @@ const CalenderPopup = ({visible, onClose, day, weekday}: Props) => {
             </View>
             <Divider style={styles.divide} />
             <View style={styles.closeContainer}>
-              <TouchableOpacity onPress={onClose}>
+              <Pressable onPress={onClose}>
                 <Text style={[fonts.caption, styles.close]}>Close</Text>
-              </TouchableOpacity>
-              <TouchableOpacity>
+              </Pressable>
+              <Pressable onPress={onAdd}>
                 <Text style={[fonts.caption, styles.close]}>Add</Text>
-              </TouchableOpacity>
+              </Pressable>
             </View>
           </Surface>
         </Modal>

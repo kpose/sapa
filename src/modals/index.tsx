@@ -5,6 +5,7 @@ import CameraModal from './CameraModal/CameraModal';
 import CalenderPopup from './CalenderPopup/CalenderPopup';
 import DatePickerModal from './DatePickerModal/DatePickerModal';
 import NetworkErorModal from './NetworkErrorModal/NetworkErorModal';
+import DeleteTransactionModal from './DeleteTransactionModal/DeleteTransactionModal';
 
 export {
   CurrencyPicker,
@@ -14,4 +15,5 @@ export {
   CalenderPopup,
   DatePickerModal,
   NetworkErorModal,
+  DeleteTransactionModal,
 };

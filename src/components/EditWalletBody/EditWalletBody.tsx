@@ -12,7 +12,7 @@ import firestore from '@react-native-firebase/firestore';
 /* styles and utils */
 import styles from './styles';
 import moment from 'moment';
-import {CameraModal, DatePickerModal} from '~modals';
+import {CameraModal, DatePickerModal, DeleteTransactionModal} from '~modals';
 import {fonts} from '~utils/fonts';
 import {colors, hp, sizes, wp} from '~utils';
 import {Spinner} from '~components';
@@ -47,12 +47,13 @@ const EditWalletBody = ({
   transactionItem,
   closeScreen,
 }: Props) => {
-  const elsaped = Date.now();
   const [visible, setVisible] = useState(false);
+  const [isDeleteModal, setIsDeleteModal] = useState(false);
+
   const showModal = () => setVisible(true);
   const hideModal = () => setVisible(false);
   const [timestamp, setTimestamp] = useState(
-    moment(date).format('MMM Do YYYY'),
+    moment(date).format('MMM Do, YYYY'),
   );
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -60,10 +61,11 @@ const EditWalletBody = ({
   const dispatch = useAppDispatch();
   const {data} = useAppSelector(state => state.wallet);
 
-  const wallet = data.title;
+  const walletTitle = data.title;
   const walletID = data.uid;
 
   const deleteTransaction = async () => {
+    setIsDeleteModal(false);
     setLoading(true);
     await firestore()
       .collection('wallets')
@@ -93,10 +95,16 @@ const EditWalletBody = ({
       },
     };
     launchImageLibrary(options, response => {
-      let source: any = response.assets[0].uri;
-      setVisible(false);
-      setImageUri(source);
-      dispatch(setImage(source));
+      if (response.didCancel) {
+        setVisible(false);
+      } else if (response.errorMessage) {
+        console.log(response.errorMessage);
+      } else {
+        let source: any = response.assets[0].uri;
+        setVisible(false);
+        setImageUri(source);
+        dispatch(setImage(source));
+      }
     });
   }
 
@@ -119,6 +127,12 @@ const EditWalletBody = ({
           />
         </Modal>
       </Portal>
+      <DeleteTransactionModal
+        visible={isDeleteModal}
+        onDismiss={() => setIsDeleteModal(false)}
+        onCancel={() => setIsDeleteModal(false)}
+        onDelete={deleteTransaction}
+      />
       <KeyboardAvoidingView style={{flex: 1}} behavior="padding">
         {loading && <Spinner />}
         <ScrollView
@@ -175,7 +189,9 @@ const EditWalletBody = ({
               color={colors.LIGHT_GRAY}
               size={sizes.navigationIconSize}
             />
-            <Text style={[fonts.bodyText, {marginLeft: wp(7)}]}>{wallet}</Text>
+            <Text style={[fonts.bodyText, {marginLeft: wp(7)}]}>
+              {walletTitle}
+            </Text>
           </View>
 
           <Pressable onPress={showModal}>
@@ -196,7 +212,9 @@ const EditWalletBody = ({
             </Surface>
           </Pressable>
 
-          <Pressable style={styles.deleteContainer} onPress={deleteTransaction}>
+          <Pressable
+            style={styles.deleteContainer}
+            onPress={() => setIsDeleteModal(true)}>
             <Text style={[fonts.caption, styles.delete]}>
               Delete this transaction
             </Text>

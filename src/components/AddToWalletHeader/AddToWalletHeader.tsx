@@ -1,5 +1,5 @@
 import React, {useState, useContext, useEffect} from 'react';
-import {View, SafeAreaView, TouchableOpacity, TextInput} from 'react-native';
+import {View, SafeAreaView, Pressable, TextInput} from 'react-native';
 import {Text, Portal, Modal} from 'react-native-paper';
 import {TextInputMask} from 'react-native-masked-text';
 import {v4 as uuidv4} from 'uuid';
@@ -38,7 +38,9 @@ const AddToWalletHeader = ({closeScreen, walletID}: Props) => {
   );
   const {symbol} = useAppSelector(state => state.user);
 
-  const transaction = async () => {
+  console.log(amount);
+
+  const saveTransaction = async () => {
     setLoading(true);
     const uploadImage = async (uri: string) => {
       const filename = uri.substring(uri.lastIndexOf('/') + 1);
@@ -82,9 +84,9 @@ const AddToWalletHeader = ({closeScreen, walletID}: Props) => {
     setLoading(false);
   };
 
-  const saveTransaction = () => {
+  const saveTransact = () => {
     if (amount) {
-      transaction();
+      saveTransaction();
     } else {
       setAmountError(true);
     }
@@ -137,15 +139,15 @@ const AddToWalletHeader = ({closeScreen, walletID}: Props) => {
           {backgroundColor: xpense ? colors.SECONDARY : colors.PRIMARY},
         ]}>
         <SafeAreaView style={styles.headRow}>
-          <TouchableOpacity onPress={closeScreen}>
+          <Pressable onPress={closeScreen}>
             <Icon
               name="close-thick"
               size={sizes.regularIconSize}
               color={colors.WHITE}
             />
-          </TouchableOpacity>
+          </Pressable>
           <View style={styles.buttonContainer}>
-            <TouchableOpacity
+            <Pressable
               onPress={() => setXpense(true)}
               style={[
                 styles.expense,
@@ -154,9 +156,9 @@ const AddToWalletHeader = ({closeScreen, walletID}: Props) => {
                 },
               ]}>
               <Text style={[fonts.caption]}>Expense</Text>
-            </TouchableOpacity>
+            </Pressable>
 
-            <TouchableOpacity
+            <Pressable
               style={[
                 styles.expense,
                 {
@@ -165,17 +167,17 @@ const AddToWalletHeader = ({closeScreen, walletID}: Props) => {
               ]}
               onPress={() => setXpense(false)}>
               <Text style={[fonts.caption]}>Income</Text>
-            </TouchableOpacity>
+            </Pressable>
           </View>
 
           {/* submit new transaction */}
-          <TouchableOpacity onPress={saveTransaction}>
+          <Pressable onPress={saveTransact}>
             <Icon
               name="check-bold"
               size={sizes.regularIconSize}
               color={colors.WHITE}
             />
-          </TouchableOpacity>
+          </Pressable>
         </SafeAreaView>
 
         <View style={styles.bottomRow}>
@@ -196,15 +198,13 @@ const AddToWalletHeader = ({closeScreen, walletID}: Props) => {
             }}
             style={[styles.input, fonts.bodyText]}
           />
-          <TouchableOpacity
-            style={styles.icon}
-            onPress={() => setShowmodal(true)}>
+          <Pressable style={styles.icon} onPress={() => setShowmodal(true)}>
             <Icon
               name={title ? title : 'bullseye'}
               size={sizes.regularIconSize}
               color={colors.SECONDARY}
             />
-          </TouchableOpacity>
+          </Pressable>
         </View>
       </View>
     </>

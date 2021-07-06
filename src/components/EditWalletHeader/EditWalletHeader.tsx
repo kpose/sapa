@@ -32,6 +32,7 @@ interface WalletProps {
   marchant?: string;
   note?: string;
   type?: string;
+  uuid?: string;
 }
 interface Props {
   closeScreen: () => void;
@@ -67,9 +68,7 @@ const EditWalletHeader = ({
   const walletID = data.uid;
   const walletTransactions = data.walletTransactions;
 
-  console.log(value);
-
-  const transaction = async () => {
+  const updateTransaction = async () => {
     //setLoading(true);
 
     /* if (!isConnected) {
@@ -87,6 +86,7 @@ const EditWalletHeader = ({
       marchant: marchant ? marchant : oldTransaction.marchant,
       note: note ? note : oldTransaction.note,
       type: type ? type : oldTransaction.type,
+      uuid: oldTransaction.uuid,
     };
 
     const oldTransact = JSON.stringify(oldTransaction);
@@ -95,10 +95,6 @@ const EditWalletHeader = ({
     if (oldTransact === newTransact) {
       closeScreen();
     }
-
-    await firestore().collection('wallets').doc(`${walletID}`).update({
-      transactions: [],
-    });
 
     //delete old transaction
     /* await firestore()
@@ -134,7 +130,7 @@ const EditWalletHeader = ({
   }; */
 
   const saveTransaction = () => {
-    transaction();
+    updateTransaction();
   };
 
   const changeAmount = (amount: any) => {
