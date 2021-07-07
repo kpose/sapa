@@ -1,10 +1,11 @@
 import React from 'react';
-import {View, Text} from 'react-native';
+import {View, processColor, StyleSheet} from 'react-native';
+import {ExpensePieChart} from '~components';
 
 const WalletChart = () => {
   return (
-    <View>
-      <Text>wallet chart</Text>
+    <View style={{flex: 1}}>
+      <ExpensePieChart />
     </View>
   );
 };

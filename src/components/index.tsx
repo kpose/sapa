@@ -31,6 +31,8 @@ import EditWalletHeader from './EditWalletHeader/EditWalletHeader';
 import EditWalletBody from './EditWalletBody/EditWalletBody';
 import WalletCurrency from './WalletCurrency/WalletCurrency';
 import TotalValues from './TotalValues/TotalValues';
+import ExpensePieChart from './ExpensePieChart/ExpensePieChart';
+import IncomePieChart from './IncomePieChart/IncomePieChart';
 
 export {
   LargeButton,
@@ -66,4 +68,6 @@ export {
   EditWalletHeader,
   WalletCurrency,
   TotalValues,
+  ExpensePieChart,
+  IncomePieChart,
 };
