@@ -14,7 +14,9 @@ import {Spinner} from './components';
 import {PersistGate} from 'redux-persist/integration/react';
 import {persistStore} from 'redux-persist';
 import {NetworkContext} from './context/NetworkContext';
+import TabBarProvider from './context/TabBarProvider';
 import NetInfo from '@react-native-community/netinfo';
+import {Welcome} from '~screens';
 
 const Stack = createStackNavigator<RouteStackParams>();
 
@@ -58,16 +60,19 @@ const App = () => {
       <PaperProvider theme={theme}>
         <NetworkContext.Provider value={{isConnected}}>
           <ThemeContext.Provider value={{theme, toggleTheme}}>
-            <NavigationContainer theme={theme}>
-              {user ? (
-                <Stack.Navigator
-                  screenOptions={{headerShown: false, gestureEnabled: false}}>
-                  <Stack.Screen name="Home" component={HomeStack} />
-                </Stack.Navigator>
-              ) : (
-                <Routes />
-              )}
-            </NavigationContainer>
+            <TabBarProvider>
+              <NavigationContainer theme={theme}>
+                {user ? (
+                  <Stack.Navigator
+                    screenOptions={{headerShown: false, gestureEnabled: false}}>
+                    <Stack.Screen name="Home" component={HomeStack} />
+                    <Stack.Screen name="Welcome" component={Welcome} />
+                  </Stack.Navigator>
+                ) : (
+                  <Routes />
+                )}
+              </NavigationContainer>
+            </TabBarProvider>
           </ThemeContext.Provider>
         </NetworkContext.Provider>
       </PaperProvider>

@@ -1,5 +1,5 @@
-import React, {useState} from 'react';
-import {View, TouchableOpacity} from 'react-native';
+import React, {useState, useEffect, useRef} from 'react';
+import {View, Pressable, Animated} from 'react-native';
 import {Text} from 'react-native-paper';
 import styles from './styles';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -20,9 +20,22 @@ type startedProps = {
 const StartedCurrency = (props: startedProps) => {
   const [showPicker, setShowPicker] = useState(false);
   const currency = useAppSelector(state => state.user.currency);
+  const animation = useRef(new Animated.Value(0)).current;
+
+  useEffect(() => {
+    animateMounting();
+  }, []);
+
+  const animateMounting = () => {
+    Animated.timing(animation, {
+      toValue: 5,
+      duration: 3000,
+      useNativeDriver: true,
+    }).start();
+  };
 
   return (
-    <View style={styles.container}>
+    <Animated.View style={[styles.container, {opacity: animation}]}>
       {showPicker && <CurrencyPicker onClose={() => setShowPicker(false)} />}
 
       <View style={[styles.captionContainer, showPicker && {opacity: 0}]}>
@@ -30,7 +43,7 @@ const StartedCurrency = (props: startedProps) => {
           Choose your currency.
         </Text>
 
-        <TouchableOpacity onPress={() => setShowPicker(true)}>
+        <Pressable onPress={() => setShowPicker(true)}>
           <View style={styles.contain}>
             <View style={styles.currencyContainer}>
               <MaterialCommunityIcons
@@ -49,7 +62,7 @@ const StartedCurrency = (props: startedProps) => {
               size={sizes.regularIconSize}
             />
           </View>
-        </TouchableOpacity>
+        </Pressable>
 
         <View style={styles.divide} />
       </View>
@@ -61,21 +74,14 @@ const StartedCurrency = (props: startedProps) => {
           disabled={showPicker && true}
         />
 
-        <TouchableOpacity
+        <Pressable
           style={styles.loginContainer}
           onPress={props.onBackPress}
           disabled={showPicker && true}>
           <Text style={[sizes.fonts.caption, styles.idtext]}>Go Back</Text>
-        </TouchableOpacity>
+        </Pressable>
       </View>
-
-      {/* <TouchableOpacity
-        style={styles.loginContainer}
-        onPress={props.onBackPress}
-        disabled={showPicker && true}>
-        <Text style={[sizes.fonts.caption, styles.idtext]}>Go Back</Text>
-      </TouchableOpacity> */}
-    </View>
+    </Animated.View>
   );
 };
 

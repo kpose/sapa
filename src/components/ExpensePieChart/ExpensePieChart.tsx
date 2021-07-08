@@ -19,6 +19,7 @@ const ExpensePieChart = () => {
         style={styles.chart}
         logEnabled={true}
         dragDecelerationEnabled={true}
+        //dragDecelerationFrictionCoef={20}
         chartBackgroundColor={
           theme.type === 'dark'
             ? processColor(colors.BLACK)

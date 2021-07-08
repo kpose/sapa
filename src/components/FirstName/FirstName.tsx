@@ -1,5 +1,5 @@
-import React, {useState} from 'react';
-import {View, TouchableOpacity} from 'react-native';
+import React, {useEffect, useRef} from 'react';
+import {View, TouchableOpacity, Animated} from 'react-native';
 import {Text, TextInput, HelperText} from 'react-native-paper';
 import * as yup from 'yup';
 import {Formik} from 'formik';
@@ -25,9 +25,22 @@ const vaidation = yup.object().shape({
 const FirstName = (props: Props) => {
   const dispatch = useAppDispatch();
   const {firstname, username} = useAppSelector(state => state.user);
+  const animation = useRef(new Animated.Value(0)).current;
+
+  useEffect(() => {
+    animateMounting();
+  }, []);
+
+  const animateMounting = () => {
+    Animated.timing(animation, {
+      toValue: 5,
+      duration: 3000,
+      useNativeDriver: true,
+    }).start();
+  };
 
   return (
-    <View style={styles.container}>
+    <Animated.View style={[styles.container, {opacity: animation}]}>
       <View style={styles.captionContainer}>
         <Text style={[sizes.fonts.bodyText, styles.caption]}>
           What should i call you?
@@ -94,7 +107,7 @@ const FirstName = (props: Props) => {
           </>
         )}
       </Formik>
-    </View>
+    </Animated.View>
   );
 };
 

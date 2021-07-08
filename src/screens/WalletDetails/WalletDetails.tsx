@@ -1,7 +1,7 @@
 import React, {useCallback, useEffect} from 'react';
 import {View, FlatList} from 'react-native';
 import {BottomTabProps} from '~definitions/navigationTypes';
-
+import {AnimatedScrollView} from '~components';
 import {EmptyAnime, TransactionCard} from '~components';
 import styles from './styles';
 
@@ -29,7 +29,7 @@ const WalletDetails = ({route, navigation}: BottomTabProps) => {
   const keyExtractor = useCallback(item => item.uuid.toString(), []);
 
   return (
-    <View style={styles.container}>
+    <AnimatedScrollView style={styles.container}>
       {transactions && transactions.length ? (
         <FlatList
           data={reversedTransactions}
@@ -38,11 +38,12 @@ const WalletDetails = ({route, navigation}: BottomTabProps) => {
           showsVerticalScrollIndicator={false}
           maxToRenderPerBatch={7}
           windowSize={7}
+          //nestedScrollEnabled={true}
         />
       ) : (
         <EmptyAnime />
       )}
-    </View>
+    </AnimatedScrollView>
   );
 };
 

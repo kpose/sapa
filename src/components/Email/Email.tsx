@@ -1,5 +1,5 @@
-import React, {useState, useEffect} from 'react';
-import {View, TouchableOpacity} from 'react-native';
+import React, {useState, useEffect, useRef} from 'react';
+import {View, TouchableOpacity, Animated} from 'react-native';
 import {Text, TextInput, HelperText} from 'react-native-paper';
 import styles from './styles';
 import AntDesign from 'react-native-vector-icons/AntDesign';
@@ -50,7 +50,21 @@ const Email = ({onButtonPress, onBackPress}: Props) => {
       setOfflineStatus(offline);
     });
     return () => removeNetInfoSubscription();
-  }, [offlinestatus]);
+  }, []);
+
+  const animation = useRef(new Animated.Value(0)).current;
+
+  useEffect(() => {
+    animateMounting();
+  }, []);
+
+  const animateMounting = () => {
+    Animated.timing(animation, {
+      toValue: 5,
+      duration: 3000,
+      useNativeDriver: true,
+    }).start();
+  };
 
   const handlePress = (values: {email: string; password: string}) => {
     setLoading(true);
@@ -85,7 +99,7 @@ const Email = ({onButtonPress, onBackPress}: Props) => {
   };
 
   return (
-    <View style={styles.container}>
+    <Animated.View style={[styles.container, {opacity: animation}]}>
       {offlinestatus && <NetworkError />}
       {loading && <Spinner />}
       <View style={styles.captionContainer}>
@@ -170,7 +184,7 @@ const Email = ({onButtonPress, onBackPress}: Props) => {
           </>
         )}
       </Formik>
-    </View>
+    </Animated.View>
   );
 };
 

@@ -1,6 +1,7 @@
 import {StackNavigationProp} from '@react-navigation/stack'
 import {MaterialBottomTabNavigationProp} from '@react-navigation/material-bottom-tabs'
 import {RouteProp} from '@react-navigation/native'
+import {MaterialTopTabNavigationProp} from '@react-navigation/material-top-tabs'
 
 /* Define Params */
 
@@ -24,14 +25,24 @@ export type SettingsStackParams = {
     
 };
 
+
+//chart tab params
+export type ChartTopTabsParams = {
+    Expense: undefined;
+    Income: undefined;
+};
+
+type ppp = {
+   icon: string
+}
 //bottom tab params
 export type BottomTabParams = {
     WalletDetails: {uid : string, title: string, transactions: [], refreshWallets: Function};
-    WalletBudget: undefined;
-     WalletCalender: undefined;
-    WalletChart: undefined;
-     WalletSettings: undefined 
-     WalletCurrency: undefined
+    WalletBudget: {initialParams: {icon: string}}
+     WalletCalender: {initialParams: {icon: string}}
+    WalletChart: {initialParams: {icon: string}}
+     WalletSettings: {initialParams: {icon: string}}
+     WalletCurrency: {initialParams: {icon: string}}
 };
 
 
@@ -39,6 +50,7 @@ export type BottomTabParams = {
 type RouteStackNavigationProp = StackNavigationProp<RouteStackParams, 'Home'>
 type HomeTabsNavigationProp = MaterialBottomTabNavigationProp<BottomTabParams, 'WalletDetails'>
 type SettingsStackNavigationProp = StackNavigationProp<SettingsStackParams, 'Settings'>
+type ChartTabNavigationProp = MaterialTopTabNavigationProp<ChartTopTabsParams, 'Expense'>
 
 
 
@@ -46,9 +58,8 @@ type SettingsStackNavigationProp = StackNavigationProp<SettingsStackParams, 'Set
 type RouteStackRouteProp = RouteProp<RouteStackParams, 'Home'>
 type HomeTabsRouteProp = RouteProp<BottomTabParams, 'WalletDetails'>
 type SettingsStackRouteProp = RouteProp<SettingsStackParams, 'Settings'>
-
-/* added */
 type EditWalletStackRouteProp = RouteProp<RouteStackParams, 'EditWallet'>
+type ChartTabRouteProp = RouteProp<ChartTopTabsParams, 'Expense'>
 
 
 
@@ -70,9 +81,12 @@ export type SettingsStackProps = {
     route : SettingsStackRouteProp
 }
 
-
-/* added */
 export type EditWalletStackProps = {
     navigation: RouteStackNavigationProp,
     route : EditWalletStackRouteProp
+}
+
+export type ChartTabProps = {
+    navigation: ChartTabNavigationProp,
+    route : ChartTabRouteProp
 }

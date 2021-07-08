@@ -1,5 +1,5 @@
-import React, {useState, useEffect} from 'react';
-import {View, TouchableOpacity, KeyboardAvoidingView} from 'react-native';
+import React, {useState, useEffect, useRef} from 'react';
+import {View, TouchableOpacity, Animated} from 'react-native';
 import {Text, TextInput, HelperText} from 'react-native-paper';
 import * as yup from 'yup';
 import auth from '@react-native-firebase/auth';
@@ -45,7 +45,21 @@ const Login = (props: Props) => {
       setLoading(false);
     });
     return () => removeNetInfoSubscription();
-  }, [offlinestatus]);
+  }, []);
+
+  const animation = useRef(new Animated.Value(0)).current;
+
+  useEffect(() => {
+    animateMounting();
+  }, []);
+
+  const animateMounting = () => {
+    Animated.timing(animation, {
+      toValue: 5,
+      duration: 3000,
+      useNativeDriver: true,
+    }).start();
+  };
 
   const handlePress = (values: {email: string; password: string}) => {
     setLoading(true);
@@ -70,7 +84,7 @@ const Login = (props: Props) => {
   };
 
   return (
-    <View style={styles.container}>
+    <Animated.View style={[styles.container, {opacity: animation}]}>
       {offlinestatus && <NetworkError />}
       {loading && <Spinner />}
       <View style={styles.captionContainer}></View>
@@ -147,7 +161,7 @@ const Login = (props: Props) => {
           </>
         )}
       </Formik>
-    </View>
+    </Animated.View>
   );
 };
 

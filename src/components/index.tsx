@@ -33,6 +33,8 @@ import WalletCurrency from './WalletCurrency/WalletCurrency';
 import TotalValues from './TotalValues/TotalValues';
 import ExpensePieChart from './ExpensePieChart/ExpensePieChart';
 import IncomePieChart from './IncomePieChart/IncomePieChart';
+import BottomTabBar from './BottomTabBar/BottomTabBar';
+import AnimatedScrollView from './AnimatedScrollView/AnimatedScrollView';
 
 export {
   LargeButton,
@@ -70,4 +72,6 @@ export {
   TotalValues,
   ExpensePieChart,
   IncomePieChart,
+  BottomTabBar,
+  AnimatedScrollView,
 };
