@@ -40,7 +40,7 @@ const Home = ({navigation}: RouteStackProps) => {
   useEffect(() => {
     getWallets();
     return () => getWallets();
-  }, [wallets]);
+  }, []);
 
   const getWallets = firestore()
     .collection('wallets')

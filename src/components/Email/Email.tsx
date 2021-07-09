@@ -74,6 +74,7 @@ const Email = ({onButtonPress, onBackPress}: Props) => {
   };
 
   const handlePress = (values: {email: string; password: string}) => {
+    Keyboard.dismiss();
     setLoading(true);
     auth()
       .createUserWithEmailAndPassword(values.email, values.password)

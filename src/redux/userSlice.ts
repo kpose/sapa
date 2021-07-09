@@ -45,8 +45,8 @@ const userSlice = createSlice({
     setSymbol(state, action: PayloadAction<string>) {
       state.symbol = action.payload;
     },
-    logoutUser() {
-
+    logoutUser(state) {
+        Object.assign(state, initialState)
     },
     setGrandTotal(state, action: PayloadAction<number>) {
       //state.grandTotal.push(action.payload)

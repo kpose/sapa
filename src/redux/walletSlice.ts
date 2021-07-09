@@ -24,10 +24,14 @@ const walletSlice = createSlice({
 
         setWalletData(state, action: PayloadAction<{uid: string; title: string; walletTransactions: [];  }>) {
             state.data = action.payload
+        },
+
+        clearData(state) {
+            Object.assign(state, initialState)
         }
     }
 })
 
-export const { setWalletData} = walletSlice.actions
+export const { setWalletData, clearData} = walletSlice.actions
 
 export default walletSlice.reducer

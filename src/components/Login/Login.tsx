@@ -69,6 +69,7 @@ const Login = (props: Props) => {
   };
 
   const handlePress = (values: {email: string; password: string}) => {
+    Keyboard.dismiss();
     setLoading(true);
     auth()
       .signInWithEmailAndPassword(values.email, values.password)

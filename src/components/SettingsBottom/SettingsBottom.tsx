@@ -11,6 +11,7 @@ import {fonts} from '~utils/fonts';
 import styles from './styles';
 import {useAppDispatch} from '~redux/reduxhooks';
 import {logoutUser} from '~redux/userSlice';
+import {clearData} from '~redux/walletSlice';
 
 const SettingsBottom = () => {
   const [switchon, setSwitchOn] = useState<boolean>(true);
@@ -25,9 +26,8 @@ const SettingsBottom = () => {
 
   const logout = async () => {
     await dispatch(logoutUser());
-    console.log('cleared');
-    auth().signOut();
-
+    await dispatch(clearData());
+    await auth().signOut();
     navigation.navigate('Welcome');
   };
   return (
