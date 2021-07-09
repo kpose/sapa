@@ -7,7 +7,7 @@ export const modifiedExpenseArray = (array: [], symbol: any) => {
     })
     .map((obj: any) => ({
       ...obj,
-      amount: obj.amount.replace(`- ${symbol}`, ''),
+      amount: obj.amount.substring(3),
     }))
     .map(({amount, ...rest}) => ({
       ...rest,
@@ -40,7 +40,7 @@ export const modifiedIncomeArray = (array: [], symbol: any) => {
     })
     .map((obj: any) => ({
       ...obj,
-      amount: obj.amount.replace(`- ${symbol}`, ''),
+      amount: obj.amount.substring(3),
     }))
     .map(({amount, ...rest}) => ({
       ...rest,

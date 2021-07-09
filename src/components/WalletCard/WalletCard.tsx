@@ -30,7 +30,10 @@ const WalletCard = ({title, uid, transactions}: Props) => {
 
   //dispatch(setGrandTotal(Total));
 
-  const openWallet = () => {
+  const openWallet = async () => {
+    await dispatch(
+      setWalletData({uid, walletTransactions: transactions, title}),
+    );
     navigation.navigate('BottomTabs', {
       screen: 'WalletDetails',
       params: {
@@ -43,7 +46,6 @@ const WalletCard = ({title, uid, transactions}: Props) => {
         last7DaysTotal,
       },
     });
-    dispatch(setWalletData({uid, walletTransactions: transactions, title}));
   };
 
   return (

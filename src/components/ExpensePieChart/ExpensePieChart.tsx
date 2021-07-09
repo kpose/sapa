@@ -13,6 +13,10 @@ const ExpensePieChart = () => {
 
   const expenseData = modifiedExpenseArray(walletTransactions, symbol);
 
+  console.log(expenseData);
+  //console.log(walletTransactions);
+  //console.log(walletTransactions);
+
   return (
     <View style={{flex: 1}}>
       <PieChart
@@ -69,10 +73,10 @@ const ExpensePieChart = () => {
           formToTextSpace: 5,
         }}
         highlights={[{x: 2}]}
-        extraOffsets={{left: 5, top: 5, right: 5, bottom: 5}}
+        //extraOffsets={{left: 5, top: 5, right: 5, bottom: 5}}
         entryLabelColor={processColor('green')}
         entryLabelTextSize={10}
-        entryLabelFontFamily={'HelveticaNeue-Medium'}
+        //entryLabelFontFamily={'HelveticaNeue-Medium'}
         drawEntryLabels={true}
         rotationEnabled={true}
         rotationAngle={45}
@@ -80,7 +84,7 @@ const ExpensePieChart = () => {
         styledCenterText={{
           text: 'Expenses',
           color: processColor(colors.SECONDARY),
-          fontFamily: 'HelveticaNeue-Medium',
+          //fontFamily: 'HelveticaNeue-Medium',
           size: 20,
         }}
         centerTextRadiusPercent={100}

@@ -3,7 +3,7 @@ import {View, processColor, StyleSheet} from 'react-native';
 import {PieChart} from 'react-native-charts-wrapper';
 import {ThemeContext} from '~context/ThemeCotext';
 import {useAppSelector} from '~redux/reduxhooks';
-import {colors, hp, modifiedExpenseArray} from '~utils';
+import {colors, hp, modifiedIncomeArray} from '~utils';
 
 const IncomePieChart = () => {
   const {walletTransactions} = useAppSelector(state => state.wallet.data);
@@ -11,7 +11,9 @@ const IncomePieChart = () => {
 
   const {theme} = useContext(ThemeContext);
 
-  const incomeData = modifiedExpenseArray(walletTransactions, symbol);
+  const incomeData = modifiedIncomeArray(walletTransactions, symbol);
+
+  //console.log(incomeData);
 
   return (
     <View style={{flex: 1}}>

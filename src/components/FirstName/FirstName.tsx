@@ -68,7 +68,8 @@ const FirstName = (props: Props) => {
               <>
                 <TextInput
                   testID="usernameID"
-                  defaultValue={username}
+                  //defaultValue={username}
+                  //value={username}
                   style={styles.name}
                   placeholder={errors.username ? errors.username : 'Username'}
                   placeholderTextColor={
@@ -93,7 +94,7 @@ const FirstName = (props: Props) => {
               )} */}
 
                 <TextInput
-                  defaultValue={firstname}
+                  //defaultValue={firstname}
                   style={styles.name}
                   label="First Name (Optional)"
                   onChangeText={handleChange('firstname')}
