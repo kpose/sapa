@@ -1,5 +1,12 @@
 import React, {useState, useEffect, useRef} from 'react';
-import {View, TouchableOpacity, Animated} from 'react-native';
+import {
+  View,
+  TouchableOpacity,
+  Animated,
+  KeyboardAvoidingView,
+  TouchableWithoutFeedback,
+  Keyboard,
+} from 'react-native';
 import {Text, TextInput, HelperText} from 'react-native-paper';
 import * as yup from 'yup';
 import auth from '@react-native-firebase/auth';
@@ -8,7 +15,7 @@ import {Formik} from 'formik';
 //UTILS AND FILES
 import LargeButton from '../LargeButton/LargeButton';
 import Spinner from '../Spinner/Spinner';
-import {sizes} from '~utils';
+import {colors, sizes} from '~utils';
 import NetworkError from '../NetworkError/NetworkError';
 import styles from './styles';
 import {useNavigation} from '@react-navigation/native';
@@ -84,84 +91,98 @@ const Login = (props: Props) => {
   };
 
   return (
-    <Animated.View style={[styles.container, {opacity: animation}]}>
-      {offlinestatus && <NetworkError />}
-      {loading && <Spinner />}
-      <View style={styles.captionContainer}></View>
+    <KeyboardAvoidingView style={{flex: 1}} behavior="position">
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <Animated.View style={[styles.container, {opacity: animation}]}>
+          {offlinestatus && <NetworkError />}
+          {loading && <Spinner />}
+          <View style={styles.captionContainer}></View>
 
-      <Formik
-        validationSchema={vaidation}
-        initialValues={{email: '', password: ''}}
-        onSubmit={values => handlePress(values)}>
-        {({handleChange, handleBlur, handleSubmit, errors}) => (
-          <>
-            <TextInput
-              testID="emailID"
-              style={styles.name}
-              label="Email"
-              onChangeText={handleChange('email')}
-              keyboardType="email-address"
-              clearButtonMode="while-editing"
-              error={errors.email ? true : false}
-            />
-            {errors.email && (
-              <HelperText
-                type="error"
-                visible={true}
-                style={[sizes.fonts.caption, styles.name]}>
-                {errors.email}
-              </HelperText>
+          <Formik
+            validationSchema={vaidation}
+            initialValues={{email: '', password: ''}}
+            onSubmit={values => handlePress(values)}>
+            {({handleChange, handleBlur, handleSubmit, errors}) => (
+              <>
+                <TextInput
+                  testID="emailID"
+                  style={styles.name}
+                  //label="Email"
+                  placeholder={errors.email ? errors.email : 'Enter your email'}
+                  placeholderTextColor={
+                    errors.email ? colors.WARNING : colors.LIGHT_GRAY
+                  }
+                  onChangeText={handleChange('email')}
+                  keyboardType="email-address"
+                  clearButtonMode="while-editing"
+                  error={errors.email ? true : false}
+                />
+                {/* {errors.email && (
+                  <HelperText
+                    type="error"
+                    visible={true}
+                    style={[sizes.fonts.caption, styles.name]}>
+                    {errors.email}
+                  </HelperText>
+                )}
+ */}
+                <TextInput
+                  testID="passwordID"
+                  style={styles.name}
+                  //label="Password"
+                  placeholder={
+                    errors.password ? errors.password : 'Enter your password'
+                  }
+                  placeholderTextColor={
+                    errors.password ? colors.WARNING : colors.LIGHT_GRAY
+                  }
+                  onChangeText={handleChange('password')}
+                  secureTextEntry={true}
+                  clearButtonMode="while-editing"
+                  onSubmitEditing={handleSubmit}
+                  error={errors.password ? true : false}
+                />
+                {/* {errors.password && (
+                  <HelperText
+                    testID="passwordErrorID"
+                    type="error"
+                    visible={true}
+                    style={[sizes.fonts.caption, styles.name]}>
+                    {errors.password}
+                  </HelperText>
+                )} */}
+
+                {servererror && (
+                  <HelperText
+                    type="error"
+                    visible={true}
+                    style={[sizes.fonts.caption, styles.name]}>
+                    {servererror}
+                  </HelperText>
+                )}
+
+                <View style={styles.buttonContainer}>
+                  <LargeButton
+                    title="Log In"
+                    onPress={handleSubmit}
+                    disabled={offlinestatus}
+                    testID="buttonID"
+                  />
+
+                  <TouchableOpacity
+                    style={styles.loginContainer}
+                    onPress={props.onBackPress}>
+                    <Text style={[sizes.fonts.caption, styles.idtext]}>
+                      Get Started
+                    </Text>
+                  </TouchableOpacity>
+                </View>
+              </>
             )}
-
-            <TextInput
-              testID="passwordID"
-              style={styles.name}
-              label="Password"
-              onChangeText={handleChange('password')}
-              secureTextEntry={true}
-              clearButtonMode="while-editing"
-              onSubmitEditing={handleSubmit}
-              error={errors.password ? true : false}
-            />
-            {errors.password && (
-              <HelperText
-                testID="passwordErrorID"
-                type="error"
-                visible={true}
-                style={[sizes.fonts.caption, styles.name]}>
-                {errors.password}
-              </HelperText>
-            )}
-
-            {servererror && (
-              <HelperText
-                type="error"
-                visible={true}
-                style={[sizes.fonts.caption, styles.name]}>
-                {servererror}
-              </HelperText>
-            )}
-
-            <View style={styles.buttonContainer}>
-              <LargeButton
-                title="Log In"
-                onPress={handleSubmit}
-                disabled={offlinestatus}
-                testID="buttonID"
-              />
-
-              <TouchableOpacity
-                style={styles.loginContainer}
-                onPress={props.onBackPress}>
-                <Text style={[sizes.fonts.caption, styles.idtext]}>
-                  Get Started
-                </Text>
-              </TouchableOpacity>
-            </View>
-          </>
-        )}
-      </Formik>
-    </Animated.View>
+          </Formik>
+        </Animated.View>
+      </TouchableWithoutFeedback>
+    </KeyboardAvoidingView>
   );
 };
 

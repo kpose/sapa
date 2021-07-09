@@ -4,7 +4,7 @@ const {height} = Dimensions.get('window');
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    //flex: 1,
   },
 
   captionContainer: {
@@ -25,10 +25,11 @@ const styles = StyleSheet.create({
   },
 
   buttonContainer: {
-    position: 'absolute',
-    bottom: hp(8),
-    right: 0,
-    left: 0,
+    //position: 'absolute',
+    //bottom: hp(8),
+    //right: 0,
+    //left: 0,
+    marginTop: hp(20),
     justifyContent: 'center',
     alignItems: 'center',
   },

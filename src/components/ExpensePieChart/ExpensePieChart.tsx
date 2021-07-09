@@ -62,9 +62,9 @@ const ExpensePieChart = () => {
               : processColor(colors.BLACK),
           textSize: 15,
           form: 'CIRCLE',
-          horizontalAlignment: 'RIGHT',
-          verticalAlignment: 'BOTTOM',
-          orientation: 'HORIZONTAL',
+          horizontalAlignment: 'LEFT',
+          verticalAlignment: 'TOP',
+          orientation: 'VERTICAL',
           wordWrapEnabled: true,
           formToTextSpace: 5,
         }}

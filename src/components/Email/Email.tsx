@@ -1,5 +1,12 @@
 import React, {useState, useEffect, useRef} from 'react';
-import {View, TouchableOpacity, Animated} from 'react-native';
+import {
+  View,
+  TouchableOpacity,
+  Animated,
+  KeyboardAvoidingView,
+  TouchableWithoutFeedback,
+  Keyboard,
+} from 'react-native';
 import {Text, TextInput, HelperText} from 'react-native-paper';
 import styles from './styles';
 import AntDesign from 'react-native-vector-icons/AntDesign';
@@ -99,92 +106,108 @@ const Email = ({onButtonPress, onBackPress}: Props) => {
   };
 
   return (
-    <Animated.View style={[styles.container, {opacity: animation}]}>
-      {offlinestatus && <NetworkError />}
-      {loading && <Spinner />}
-      <View style={styles.captionContainer}>
-        <Text style={[styles.caption, sizes.fonts.bodyText]}>
-          Enter displayed email address on your expense report.
-        </Text>
-      </View>
+    <KeyboardAvoidingView behavior="position" style={{flex: 1}}>
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <Animated.View style={[styles.container, {opacity: animation}]}>
+          {offlinestatus && <NetworkError />}
+          {loading && <Spinner />}
+          <View style={styles.captionContainer}>
+            <Text style={[styles.caption, sizes.fonts.bodyText]}>
+              Enter displayed email address on your expense report.
+            </Text>
+          </View>
 
-      <Formik
-        validationSchema={vaidation}
-        initialValues={{email: '', password: ''}}
-        onSubmit={values => handlePress(values)}>
-        {({handleChange, handleBlur, handleSubmit, values, errors}) => (
-          <>
-            <TextInput
-              defaultValue={email}
-              style={styles.name}
-              label="Email address"
-              onChangeText={handleChange('email')}
-              right={<AntDesign name="home" />}
-              keyboardType="email-address"
-              returnKeyType="go"
-              returnKeyLabel="go"
-              clearButtonMode="while-editing"
-              onSubmitEditing={handleSubmit}
-              testID="emailID"
-            />
-            {errors.email && (
-              <HelperText
-                testID="emailErrorID"
-                type="error"
-                visible={true}
-                style={[sizes.fonts.caption, styles.name]}>
-                {errors.email}
-              </HelperText>
+          <Formik
+            validationSchema={vaidation}
+            initialValues={{email: '', password: ''}}
+            onSubmit={values => handlePress(values)}>
+            {({handleChange, handleBlur, handleSubmit, values, errors}) => (
+              <>
+                <TextInput
+                  defaultValue={email}
+                  style={styles.name}
+                  //label="Email address"
+
+                  placeholder={errors.email ? errors.email : 'email'}
+                  placeholderTextColor={
+                    errors.email ? colors.WARNING : colors.LIGHT_GRAY
+                  }
+                  onChangeText={handleChange('email')}
+                  right={<AntDesign name="home" />}
+                  keyboardType="email-address"
+                  returnKeyType="go"
+                  returnKeyLabel="go"
+                  clearButtonMode="while-editing"
+                  onSubmitEditing={handleSubmit}
+                  testID="emailID"
+                />
+                {/* {errors.email && (
+                <HelperText
+                  testID="emailErrorID"
+                  type="error"
+                  visible={true}
+                  style={[sizes.fonts.caption, styles.name]}>
+                  {errors.email}
+                </HelperText>
+              )} */}
+
+                {servererror && (
+                  <HelperText
+                    type="error"
+                    visible={true}
+                    style={[sizes.fonts.caption, styles.name]}>
+                    {servererror}
+                  </HelperText>
+                )}
+
+                <TextInput
+                  style={styles.name}
+                  //label="Password"
+
+                  placeholder={
+                    errors.password ? errors.password : 'Enter Password'
+                  }
+                  placeholderTextColor={
+                    errors.password ? colors.WARNING : colors.LIGHT_GRAY
+                  }
+                  onChangeText={handleChange('password')}
+                  secureTextEntry={true}
+                  clearButtonMode="while-editing"
+                  onSubmitEditing={handleSubmit}
+                  error={errors.password ? true : false}
+                  testID="passwordID"
+                />
+                {/* {errors.password && (
+                <HelperText
+                  testID="passwordErrorID"
+                  type="error"
+                  visible={true}
+                  style={[sizes.fonts.caption, styles.name]}>
+                  {errors.password}
+                </HelperText>
+              )} */}
+
+                <View style={styles.buttonContainer}>
+                  <LargeButton
+                    title="Done"
+                    onPress={handleSubmit}
+                    disabled={offlinestatus}
+                  />
+
+                  <TouchableOpacity
+                    style={styles.loginContainer}
+                    onPress={onBackPress}>
+                    <Text style={[sizes.fonts.caption, styles.idtext]}>
+                      Go Back
+                    </Text>
+                  </TouchableOpacity>
+                </View>
+              </>
             )}
-
-            {servererror && (
-              <HelperText
-                type="error"
-                visible={true}
-                style={[sizes.fonts.caption, styles.name]}>
-                {servererror}
-              </HelperText>
-            )}
-
-            <TextInput
-              style={styles.name}
-              label="Password"
-              onChangeText={handleChange('password')}
-              secureTextEntry={true}
-              clearButtonMode="while-editing"
-              onSubmitEditing={handleSubmit}
-              error={errors.password ? true : false}
-              testID="passwordID"
-            />
-            {errors.password && (
-              <HelperText
-                testID="passwordErrorID"
-                type="error"
-                visible={true}
-                style={[sizes.fonts.caption, styles.name]}>
-                {errors.password}
-              </HelperText>
-            )}
-
-            <View style={styles.buttonContainer}>
-              <LargeButton
-                title="Done"
-                onPress={handleSubmit}
-                disabled={offlinestatus}
-              />
-
-              <TouchableOpacity
-                style={styles.loginContainer}
-                onPress={onBackPress}>
-                <Text style={[sizes.fonts.caption, styles.idtext]}>
-                  Go Back
-                </Text>
-              </TouchableOpacity>
-            </View>
-          </>
-        )}
-      </Formik>
-    </Animated.View>
+          </Formik>
+        </Animated.View>
+      </TouchableWithoutFeedback>
+    </KeyboardAvoidingView>
   );
 };
 

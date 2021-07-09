@@ -45,6 +45,9 @@ const userSlice = createSlice({
     setSymbol(state, action: PayloadAction<string>) {
       state.symbol = action.payload;
     },
+    logoutUser() {
+
+    },
     setGrandTotal(state, action: PayloadAction<number>) {
       //state.grandTotal.push(action.payload)
     }
@@ -58,7 +61,8 @@ export const {
   setFirstName,
   setUsername,
   setSymbol,
-  setGrandTotal
+  setGrandTotal,
+  logoutUser
 } = userSlice.actions;
 
 export default userSlice.reducer;

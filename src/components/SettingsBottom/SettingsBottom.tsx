@@ -9,15 +9,26 @@ import {ThemeContext} from '~context/ThemeCotext';
 import {colors, hp} from '~utils';
 import {fonts} from '~utils/fonts';
 import styles from './styles';
+import {useAppDispatch} from '~redux/reduxhooks';
+import {logoutUser} from '~redux/userSlice';
 
 const SettingsBottom = () => {
   const [switchon, setSwitchOn] = useState<boolean>(true);
   const {toggleTheme} = useContext(ThemeContext);
   const navigation = useNavigation();
+  const dispatch = useAppDispatch();
 
   const onToggleSwitch = () => {
     toggleTheme();
     setSwitchOn(!switchon);
+  };
+
+  const logout = async () => {
+    await dispatch(logoutUser());
+    console.log('cleared');
+    auth().signOut();
+
+    navigation.navigate('Welcome');
   };
   return (
     <View style={styles.container}>
@@ -39,16 +50,7 @@ const SettingsBottom = () => {
       <TouchableOpacity style={[styles.item]}>
         <Text style={[fonts.caption]}> Privacy Policy</Text>
       </TouchableOpacity>
-      <TouchableOpacity
-        style={[styles.item]}
-        onPress={() =>
-          auth()
-            .signOut()
-            .then(() => {
-              navigation.navigate('Welcome');
-              console.log('User signed out!');
-            })
-        }>
+      <TouchableOpacity style={[styles.item]} onPress={logout}>
         <Text style={[fonts.caption, {color: colors.WARNING}]}> Logout</Text>
       </TouchableOpacity>
       <Divider style={styles.divide} />

@@ -1,5 +1,12 @@
 import React, {useState} from 'react';
-import {View, StatusBar, TouchableOpacity} from 'react-native';
+import {
+  View,
+  StatusBar,
+  TouchableOpacity,
+  KeyboardAvoidingView,
+  TouchableWithoutFeedback,
+  Keyboard,
+} from 'react-native';
 import styles from './styles';
 import Video from 'react-native-video';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -55,69 +62,70 @@ const welcome = ({navigation}: RouteStackProps) => {
     setFirstname(true);
   };
 
+  {
+    /* <StatusBar hidden={true} /> */
+  }
   return (
-    <>
+    <View style={{flex: 1}}>
       <StatusBar hidden={true} />
-      <View style={styles.container}>
-        <Video
-          testID="videoID"
-          source={require('../../assets/videos/pexels-karolina-grabowska-6326863.mp4')}
-          style={[styles.backgroundVideo, blur && {opacity: 0.5}]}
-          muted={true}
-          repeat={true}
-          paused={true}
-          resizeMode={'cover'}
-          rate={1.0}
-          ignoreSilentSwitch={'obey'}
+      <Video
+        testID="videoID"
+        source={require('../../assets/videos/pexels-karolina-grabowska-6326863.mp4')}
+        style={[styles.backgroundVideo, blur && {opacity: 0.5}]}
+        muted={true}
+        repeat={true}
+        paused={true}
+        resizeMode={'cover'}
+        rate={1.0}
+        ignoreSilentSwitch={'obey'}
+      />
+
+      {blur && started && (
+        <Started onStartedPress={openCurrency} onLoginPress={openLogin} />
+      )}
+
+      {blur && startCurrency && (
+        <StartedCurrency
+          onBackPress={closeCurrency}
+          onButtonPress={openFirstname}
         />
+      )}
 
-        {blur && started && (
-          <Started onStartedPress={openCurrency} onLoginPress={openLogin} />
-        )}
+      {blur && firstname && (
+        <FirstName onBackPress={closeFirstName} onButtonPress={openEmail} />
+      )}
 
-        {blur && startCurrency && (
-          <StartedCurrency
-            onBackPress={closeCurrency}
-            onButtonPress={openFirstname}
+      {blur && login && <Login onBackPress={closeLogin} />}
+
+      {blur && email && (
+        <Email
+          onBackPress={closeEmail}
+          //onButtonPress={() => navigation.navigate('Home')}
+        />
+      )}
+
+      {blur ? (
+        <TouchableOpacity
+          style={styles.iconContainer}
+          onPress={() => setBlur(!blur)}>
+          <MaterialCommunityIcons
+            name="play-circle-outline"
+            size={sizes.navigationIconSize}
+            style={styles.icon}
           />
-        )}
-
-        {blur && firstname && (
-          <FirstName onBackPress={closeFirstName} onButtonPress={openEmail} />
-        )}
-
-        {blur && login && <Login onBackPress={closeLogin} />}
-
-        {blur && email && (
-          <Email
-            onBackPress={closeEmail}
-            //onButtonPress={() => navigation.navigate('Home')}
+        </TouchableOpacity>
+      ) : (
+        <TouchableOpacity
+          onPress={() => setBlur(!blur)}
+          style={styles.iconContainer}>
+          <MaterialCommunityIcons
+            name="pause-circle-outline"
+            size={sizes.navigationIconSize}
+            style={styles.icon}
           />
-        )}
-
-        {blur ? (
-          <TouchableOpacity
-            style={styles.iconContainer}
-            onPress={() => setBlur(!blur)}>
-            <MaterialCommunityIcons
-              name="play-circle-outline"
-              size={sizes.navigationIconSize}
-              style={styles.icon}
-            />
-          </TouchableOpacity>
-        ) : (
-          <TouchableOpacity
-            onPress={() => setBlur(!blur)}
-            style={styles.iconContainer}>
-            <MaterialCommunityIcons
-              name="pause-circle-outline"
-              size={sizes.navigationIconSize}
-              style={styles.icon}
-            />
-          </TouchableOpacity>
-        )}
-      </View>
-    </>
+        </TouchableOpacity>
+      )}
+    </View>
   );
 };
 

@@ -15,7 +15,7 @@ interface Props {
 const WavyHeader = ({onSettingsPress}: Props) => {
   const {symbol} = useAppSelector(state => state.user);
   return (
-    <View style={styles.container}>
+    <Surface style={[styles.container]}>
       <Wave
         customStyles={styles.svgCurve}
         customHeight={hp(20)}
@@ -56,14 +56,16 @@ const WavyHeader = ({onSettingsPress}: Props) => {
           </Text>
         </View>
       </Surface>
-    </View>
+    </Surface>
   );
 };
 
 export default WavyHeader;
 
 const styles = StyleSheet.create({
-  container: {},
+  container: {
+    //backgroundColor: 'red',
+  },
   headerContainer: {
     marginTop: 50,
     marginHorizontal: 10,
