@@ -21,6 +21,30 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
   },
 
+  emailError: {
+    position: 'absolute',
+    bottom: hp(36),
+    fontWeight: 'bold',
+    alignSelf: 'center',
+    color: colors.WARNING,
+  },
+
+  passwordError: {
+    position: 'absolute',
+    bottom: hp(27),
+    fontWeight: 'bold',
+    alignSelf: 'center',
+    color: colors.WARNING,
+  },
+
+  serverError: {
+    position: 'absolute',
+    bottom: hp(25),
+    fontWeight: 'bold',
+    alignSelf: 'center',
+    color: colors.WARNING,
+  },
+
   caption: {
     fontWeight: 'bold',
     //alignItems: 'center',
