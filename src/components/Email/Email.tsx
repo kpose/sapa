@@ -47,9 +47,7 @@ const Email = ({onButtonPress, onBackPress}: Props) => {
   const [offlinestatus, setOfflineStatus] = useState(false);
   const dispatch = useAppDispatch();
   const [servererror, setServerError] = useState<string>();
-  const {username, firstname, email, symbol, currency} = useAppSelector(
-    state => state.user,
-  );
+  const {username, firstname, email} = useAppSelector(state => state.user);
 
   useEffect(() => {
     const removeNetInfoSubscription = NetInfo.addEventListener(state => {
@@ -120,73 +118,60 @@ const Email = ({onButtonPress, onBackPress}: Props) => {
 
           <Formik
             validationSchema={vaidation}
-            initialValues={{email: '', password: ''}}
+            initialValues={{email: email, password: ''}}
             onSubmit={values => handlePress(values)}>
             {({handleChange, handleBlur, handleSubmit, values, errors}) => (
               <>
                 <TextInput
                   defaultValue={email}
                   style={styles.name}
-                  //label="Email address"
-
-                  placeholder={errors.email ? errors.email : 'email'}
-                  placeholderTextColor={
-                    errors.email ? colors.WARNING : colors.LIGHT_GRAY
-                  }
+                  label="Email address"
                   onChangeText={handleChange('email')}
                   right={<AntDesign name="home" />}
                   keyboardType="email-address"
-                  returnKeyType="go"
-                  returnKeyLabel="go"
                   clearButtonMode="while-editing"
-                  onSubmitEditing={handleSubmit}
                   testID="emailID"
                 />
-                {/* {errors.email && (
-                <HelperText
-                  testID="emailErrorID"
-                  type="error"
-                  visible={true}
-                  style={[sizes.fonts.caption, styles.name]}>
-                  {errors.email}
-                </HelperText>
-              )} */}
+                {errors.email && (
+                  <HelperText
+                    testID="emailErrorID"
+                    type="error"
+                    visible={true}
+                    style={[sizes.fonts.caption, styles.emailError]}>
+                    {errors.email}
+                  </HelperText>
+                )}
 
                 {servererror && (
                   <HelperText
                     type="error"
                     visible={true}
-                    style={[sizes.fonts.caption, styles.name]}>
+                    style={[sizes.fonts.caption, styles.serverError]}>
                     {servererror}
                   </HelperText>
                 )}
 
                 <TextInput
                   style={styles.name}
-                  //label="Password"
-
-                  placeholder={
-                    errors.password ? errors.password : 'Enter Password'
-                  }
-                  placeholderTextColor={
-                    errors.password ? colors.WARNING : colors.LIGHT_GRAY
-                  }
+                  label="Password"
                   onChangeText={handleChange('password')}
                   secureTextEntry={true}
                   clearButtonMode="while-editing"
                   onSubmitEditing={handleSubmit}
+                  returnKeyType="done"
+                  returnKeyLabel="Send"
                   error={errors.password ? true : false}
                   testID="passwordID"
                 />
-                {/* {errors.password && (
-                <HelperText
-                  testID="passwordErrorID"
-                  type="error"
-                  visible={true}
-                  style={[sizes.fonts.caption, styles.name]}>
-                  {errors.password}
-                </HelperText>
-              )} */}
+                {errors.password && (
+                  <HelperText
+                    testID="passwordErrorID"
+                    type="error"
+                    visible={true}
+                    style={[sizes.fonts.caption, styles.passwordError]}>
+                    {errors.password}
+                  </HelperText>
+                )}
 
                 <View style={styles.buttonContainer}>
                   <LargeButton

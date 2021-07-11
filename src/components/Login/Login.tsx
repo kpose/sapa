@@ -63,7 +63,7 @@ const Login = (props: Props) => {
   const animateMounting = () => {
     Animated.timing(animation, {
       toValue: 5,
-      duration: 3000,
+      duration: 1500,
       useNativeDriver: true,
     }).start();
   };
@@ -108,56 +108,46 @@ const Login = (props: Props) => {
                 <TextInput
                   testID="emailID"
                   style={styles.name}
-                  //label="Email"
-                  placeholder={errors.email ? errors.email : 'Enter your email'}
-                  placeholderTextColor={
-                    errors.email ? colors.WARNING : colors.LIGHT_GRAY
-                  }
+                  label="Email"
                   onChangeText={handleChange('email')}
                   keyboardType="email-address"
                   clearButtonMode="while-editing"
                   error={errors.email ? true : false}
                 />
-                {/* {errors.email && (
+                {errors.email && (
                   <HelperText
                     type="error"
                     visible={true}
-                    style={[sizes.fonts.caption, styles.name]}>
+                    style={[sizes.fonts.caption, styles.emailError]}>
                     {errors.email}
                   </HelperText>
                 )}
- */}
+
                 <TextInput
                   testID="passwordID"
                   style={styles.name}
-                  //label="Password"
-                  placeholder={
-                    errors.password ? errors.password : 'Enter your password'
-                  }
-                  placeholderTextColor={
-                    errors.password ? colors.WARNING : colors.LIGHT_GRAY
-                  }
+                  label="Password"
                   onChangeText={handleChange('password')}
                   secureTextEntry={true}
                   clearButtonMode="while-editing"
                   onSubmitEditing={handleSubmit}
                   error={errors.password ? true : false}
                 />
-                {/* {errors.password && (
+                {errors.password && (
                   <HelperText
                     testID="passwordErrorID"
                     type="error"
                     visible={true}
-                    style={[sizes.fonts.caption, styles.name]}>
+                    style={[sizes.fonts.caption, styles.passwordError]}>
                     {errors.password}
                   </HelperText>
-                )} */}
+                )}
 
                 {servererror && (
                   <HelperText
                     type="error"
                     visible={true}
-                    style={[sizes.fonts.caption, styles.name]}>
+                    style={[sizes.fonts.caption, styles.serverError]}>
                     {servererror}
                   </HelperText>
                 )}

@@ -10,36 +10,12 @@ interface Props {
   navigation: any;
 }
 
-const BottomTabBar = ({state, navigation}: Props) => {
+const TopTabBar = ({state, navigation}: Props) => {
   const {routes} = state;
-  const [selected, setSelected] = useState('WalletDetails');
-
-  const animation = useRef(new Animated.Value(0)).current;
-
-  const {showTabBar} = useTabBar();
-
-  const toggleTabBar = () => {
-    if (showTabBar) {
-      Animated.timing(animation, {
-        toValue: 0,
-        duration: 200,
-        useNativeDriver: true,
-      }).start();
-    } else {
-      Animated.timing(animation, {
-        toValue: 100,
-        duration: 200,
-        useNativeDriver: true,
-      }).start();
-    }
-  };
-
-  useEffect(() => {
-    toggleTabBar();
-  }, [showTabBar]);
+  const [selected, setSelected] = useState('Expense');
 
   const renderColor = (currentTab: string) =>
-    currentTab === selected ? colors.SECONDARY : colors.DARK_GRAY;
+    currentTab === selected ? colors.SECONDARY : colors.SEMI_TRANSPARENT;
 
   const handlePress = (activeTab: string, index: number) => {
     if (state.index !== index) {
@@ -50,30 +26,26 @@ const BottomTabBar = ({state, navigation}: Props) => {
 
   return (
     <View style={styles.wrapper}>
-      <Animated.View
-        style={[styles.container, {transform: [{translateY: animation}]}]}>
+      <Surface style={[styles.container]}>
         {routes.map((route: any, index: number) => (
           <Tab
             tab={route}
             key={route.key}
             color={renderColor(route.name)}
             onPress={() => handlePress(route.name, index)}
-            icon={route.params.icon}
           />
         ))}
-      </Animated.View>
+      </Surface>
     </View>
   );
 };
 
-export default BottomTabBar;
+export default TopTabBar;
 
 const styles = StyleSheet.create({
   wrapper: {
-    position: 'absolute',
-    bottom: hp(4),
     width: wp(100),
-    height: hp(7),
+    height: hp(6),
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -82,17 +54,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     backgroundColor: colors.PRIMARY,
     justifyContent: 'space-between',
-    width: wp(70),
-    height: hp(7),
+    width: wp(50),
+    height: hp(5),
     borderRadius: wp(10),
-    elevation: hp(5),
-
-    shadowColor: colors.SECONDARY,
-    shadowOffset: {
-      width: 0,
-      height: 5,
-    },
-    shadowOpacity: 0.34,
-    shadowRadius: 6.27,
   },
 });

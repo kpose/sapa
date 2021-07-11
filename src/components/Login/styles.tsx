@@ -24,6 +24,30 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
   },
 
+  emailError: {
+    position: 'absolute',
+    bottom: hp(39),
+    fontWeight: 'bold',
+    alignSelf: 'center',
+    color: colors.WARNING,
+  },
+
+  passwordError: {
+    position: 'absolute',
+    bottom: hp(29),
+    fontWeight: 'bold',
+    alignSelf: 'center',
+    color: colors.WARNING,
+  },
+
+  serverError: {
+    position: 'absolute',
+    bottom: hp(25),
+    fontWeight: 'bold',
+    alignSelf: 'center',
+    color: colors.WARNING,
+  },
+
   buttonContainer: {
     //marginTop: heightPercentageToDP(34),
     //position: 'absolute',

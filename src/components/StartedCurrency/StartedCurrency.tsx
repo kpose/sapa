@@ -1,5 +1,10 @@
 import React, {useState, useEffect, useRef} from 'react';
-import {View, Pressable, Animated} from 'react-native';
+import {
+  View,
+  Pressable,
+  Animated,
+  TouchableWithoutFeedback,
+} from 'react-native';
 import {Text} from 'react-native-paper';
 import styles from './styles';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -28,8 +33,8 @@ const StartedCurrency = (props: startedProps) => {
 
   const animateMounting = () => {
     Animated.timing(animation, {
-      toValue: 5,
-      duration: 3000,
+      toValue: 1,
+      duration: 1500,
       useNativeDriver: true,
     }).start();
   };
@@ -38,7 +43,7 @@ const StartedCurrency = (props: startedProps) => {
     <Animated.View style={[styles.container, {opacity: animation}]}>
       {showPicker && <CurrencyPicker onClose={() => setShowPicker(false)} />}
 
-      <View style={[styles.captionContainer, showPicker && {opacity: 0}]}>
+      <Pressable style={[styles.captionContainer, showPicker && {opacity: 0}]}>
         <Text style={[styles.caption, sizes.fonts.bodyText]}>
           Choose your currency.
         </Text>
@@ -65,7 +70,7 @@ const StartedCurrency = (props: startedProps) => {
         </Pressable>
 
         <View style={styles.divide} />
-      </View>
+      </Pressable>
 
       <View style={styles.buttonContainer}>
         <LargeButton

@@ -61,7 +61,8 @@ const styles = StyleSheet.create({
     height: hp(60),
     width: wp(90),
     alignSelf: 'center',
-    top: hp(20),
+    //top: hp(20),
+    top: hp(-5),
     borderRadius: 20,
   },
   iconContainer: {
@@ -72,9 +73,10 @@ const styles = StyleSheet.create({
     marginBottom: hp(2),
   },
   searchBar: {
-    width: wp(70),
+    width: wp(65),
     marginLeft: wp(10),
     height: hp(5),
+    borderRadius: wp(5),
   },
   currencyItem: {
     flexDirection: 'row',

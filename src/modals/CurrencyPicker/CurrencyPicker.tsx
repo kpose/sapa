@@ -1,5 +1,5 @@
-import React, {useState, useEffect, useCallback} from 'react';
-import {View, TouchableOpacity, FlatList} from 'react-native';
+import React, {useState, useEffect, useCallback, useRef} from 'react';
+import {View, TouchableOpacity, FlatList, Animated} from 'react-native';
 import {Text, Divider, Surface, Searchbar} from 'react-native-paper';
 import styles from './styles';
 
@@ -18,6 +18,7 @@ const CurrencyPicker = (props: currencyProps) => {
   const dispatch = useAppDispatch();
   const [currencies, setCurrencies] = useState<[] | any>([]);
   const [filtered, setFiltered] = useState('');
+  const animation = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
     const json = require('../../assets/currencies.json');
@@ -30,6 +31,18 @@ const CurrencyPicker = (props: currencyProps) => {
     }
     setCurrencies(list);
   }, []);
+
+  useEffect(() => {
+    animateMounting();
+  }, []);
+
+  const animateMounting = () => {
+    Animated.timing(animation, {
+      toValue: 200,
+      duration: 500,
+      useNativeDriver: true,
+    }).start();
+  };
 
   const keyExtractor = useCallback(item => item.id.toString(), []);
   const ItemSeperator = () => {
@@ -73,34 +86,36 @@ const CurrencyPicker = (props: currencyProps) => {
     : currencies;
 
   return (
-    <Surface style={styles.container}>
-      <View style={styles.iconContainer}>
-        <TouchableOpacity onPress={props.onClose}>
-          <Icon
-            name="close"
-            size={sizes.regularIconSize}
-            color={colors.LIGHT_GRAY}
+    <Animated.View style={{transform: [{translateY: animation}]}}>
+      <Surface style={styles.container}>
+        <View style={styles.iconContainer}>
+          <TouchableOpacity onPress={props.onClose}>
+            <Icon
+              name="close"
+              size={sizes.navigationIconSize}
+              color={colors.SECONDARY}
+            />
+          </TouchableOpacity>
+          <Searchbar
+            placeholder="Search currency"
+            style={styles.searchBar}
+            inputStyle={sizes.fonts.bodyText}
+            onChangeText={text => setFiltered(text)}
+            value={filtered}
           />
-        </TouchableOpacity>
-        <Searchbar
-          placeholder="Filter"
-          style={styles.searchBar}
-          inputStyle={sizes.fonts.bodyText}
-          onChangeText={text => setFiltered(text)}
-          value={filtered}
+        </View>
+        <FlatList
+          data={filteredArray}
+          renderItem={renderItem}
+          keyExtractor={keyExtractor}
+          ItemSeparatorComponent={ItemSeperator}
+          getItemLayout={getItemLayout}
+          showsVerticalScrollIndicator={false}
+          maxToRenderPerBatch={23}
+          windowSize={30}
         />
-      </View>
-      <FlatList
-        data={filteredArray}
-        renderItem={renderItem}
-        keyExtractor={keyExtractor}
-        ItemSeparatorComponent={ItemSeperator}
-        getItemLayout={getItemLayout}
-        showsVerticalScrollIndicator={false}
-        maxToRenderPerBatch={23}
-        windowSize={30}
-      />
-    </Surface>
+      </Surface>
+    </Animated.View>
   );
 };
 

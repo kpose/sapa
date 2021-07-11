@@ -24,6 +24,14 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
   },
 
+  error: {
+    position: 'absolute',
+    bottom: hp(26),
+    fontWeight: 'bold',
+    alignSelf: 'center',
+    color: colors.WARNING,
+  },
+
   buttonContainer: {
     //position: 'absolute',
     //bottom: hp(8),
@@ -33,6 +41,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+
   loginContainer: {
     flexDirection: 'row',
     marginTop: hp(1.5),

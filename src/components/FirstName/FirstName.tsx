@@ -25,14 +25,16 @@ type Props = {
 const vaidation = yup.object().shape({
   username: yup
     .string()
-    .min(2, ({min}) => `Username should be at least ${2} characters`)
-    .required('Provide your username'),
+    .min(2, ({min}) => `Username should be at least ${2} characters.`)
+    .required('Provide your username !!'),
 });
 
 const FirstName = (props: Props) => {
   const dispatch = useAppDispatch();
   const {firstname, username} = useAppSelector(state => state.user);
   const animation = useRef(new Animated.Value(0)).current;
+
+  console.log(username);
 
   useEffect(() => {
     animateMounting();
@@ -58,7 +60,7 @@ const FirstName = (props: Props) => {
 
           <Formik
             validationSchema={vaidation}
-            initialValues={{firstname: '', username: ''}}
+            initialValues={{firstname: firstname, username: username}}
             onSubmit={values => {
               dispatch(setUsername(values.username));
               dispatch(setFirstName(values.firstname));
@@ -68,14 +70,13 @@ const FirstName = (props: Props) => {
               <>
                 <TextInput
                   testID="usernameID"
-                  //defaultValue={username}
-                  //value={username}
+                  defaultValue={username}
                   style={styles.name}
-                  placeholder={errors.username ? errors.username : 'Username'}
+                  //placeholder={errors.username ? errors.username : 'Username'}
                   placeholderTextColor={
                     errors.username ? colors.WARNING : colors.LIGHT_GRAY
                   }
-                  //label="Username"
+                  label="Username"
                   onChangeText={handleChange('username')}
                   autoCompleteType="off"
                   autoCapitalize="none"
@@ -83,18 +84,18 @@ const FirstName = (props: Props) => {
                   clearButtonMode="while-editing"
                   //onSubmitEditing={handlePress}
                 />
-                {/* {errors.username && (
-                <HelperText
-                  testID="errorID"
-                  type="error"
-                  visible={true}
-                  style={[sizes.fonts.caption, styles.name]}>
-                  {errors.username}
-                </HelperText>
-              )} */}
+                {errors.username && (
+                  <HelperText
+                    testID="errorID"
+                    type="error"
+                    visible={true}
+                    style={[sizes.fonts.caption, styles.error]}>
+                    {errors.username}
+                  </HelperText>
+                )}
 
                 <TextInput
-                  //defaultValue={firstname}
+                  defaultValue={firstname}
                   style={styles.name}
                   label="First Name (Optional)"
                   onChangeText={handleChange('firstname')}
