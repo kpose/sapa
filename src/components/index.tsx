@@ -36,6 +36,7 @@ import IncomePieChart from './IncomePieChart/IncomePieChart';
 import BottomTabBar from './BottomTabBar/BottomTabBar';
 import AnimatedScrollView from './AnimatedScrollView/AnimatedScrollView';
 import TopTabBar from './TopTabBar/TopTabBar';
+import ChartAnime from './LottieAnimations/ChartAnime';
 
 export {
   LargeButton,
@@ -76,4 +77,5 @@ export {
   BottomTabBar,
   AnimatedScrollView,
   TopTabBar,
+  ChartAnime,
 };

@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 import {store} from './redux/store';
 import Routes from './navigation/routes';
 import {Provider as ReduxProvider} from 'react-redux';
+import {enableScreens} from 'react-native-screens';
 import {NavigationContainer} from '@react-navigation/native';
 import {Provider as PaperProvider} from 'react-native-paper';
 import {CombinedDarkTheme, CombinedLightTheme} from './utils/Theme';
@@ -17,6 +18,8 @@ import {NetworkContext} from './context/NetworkContext';
 import TabBarProvider from './context/TabBarProvider';
 import NetInfo from '@react-native-community/netinfo';
 import {Welcome} from '~screens';
+
+enableScreens();
 
 const Stack = createStackNavigator<RouteStackParams>();
 

@@ -14,7 +14,7 @@ import SettingsStack from './SettingsStack';
 import {colors, hp} from '~utils';
 import {RouteStackParams} from '~definitions/navigationTypes';
 
-const Stack = createStackNavigator<RouteStackParams>();
+const Stack = createNativeStackNavigator<RouteStackParams>();
 
 function HomeStack() {
   return (

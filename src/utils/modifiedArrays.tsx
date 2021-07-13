@@ -1,6 +1,9 @@
 import {useAppSelector} from '~redux/reduxhooks';
 
 export const modifiedExpenseArray = (array: [], symbol: any) => {
+  if (!array.length) {
+    return;
+  }
   const expenseArray = array
     .filter((item: any) => {
       return item.type === 'Expense';
@@ -34,6 +37,10 @@ export const modifiedExpenseArray = (array: [], symbol: any) => {
 };
 
 export const modifiedIncomeArray = (array: [], symbol: any) => {
+  if (!array.length) {
+    return;
+  }
+
   const expenseArray = array
     .filter((item: any) => {
       return item.type === 'Income';
