@@ -11,7 +11,6 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {colors, sizes, last30Days, last7Days, walletTotal} from '~utils';
 import {useAppDispatch, useAppSelector} from '~redux/reduxhooks';
 import {setWalletData} from '~redux/walletSlice';
-import {setGrandTotal} from '~redux/userSlice';
 
 interface Props {
   title: string;

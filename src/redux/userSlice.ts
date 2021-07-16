@@ -8,7 +8,7 @@ interface UserData {
   avatar: string;
   symbol: string;
   username: string;
-  grandTotal: number[];
+  allWallets:[];
   last30days: [];
   last7days: []
 }
@@ -20,7 +20,7 @@ const initialState : UserData = {
   avatar: '',
   symbol: '', 
   username: '', 
-  grandTotal: [],
+  allWallets: [],
   last30days: [],
   last7days: []
 }
@@ -48,8 +48,8 @@ const userSlice = createSlice({
     logoutUser(state) {
         Object.assign(state, initialState)
     },
-    setGrandTotal(state, action: PayloadAction<number>) {
-      //state.grandTotal.push(action.payload)
+    setAllWallets(state, action: PayloadAction<[]>) {
+      state.allWallets = action.payload
     }
     
   },
@@ -61,7 +61,7 @@ export const {
   setFirstName,
   setUsername,
   setSymbol,
-  setGrandTotal,
+  setAllWallets,
   logoutUser
 } = userSlice.actions;
 

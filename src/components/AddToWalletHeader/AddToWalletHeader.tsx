@@ -20,7 +20,6 @@ import CurrencyInput from 'react-native-currency-input';
 interface Props {
   closeScreen: () => void;
   walletID: string;
-  //refreshWallets: () => void;
 }
 
 const AddToWalletHeader = ({closeScreen, walletID}: Props) => {
@@ -37,8 +36,6 @@ const AddToWalletHeader = ({closeScreen, walletID}: Props) => {
     state => state.expense,
   );
   const {symbol} = useAppSelector(state => state.user);
-
-  console.log(amount);
 
   const saveTransaction = async () => {
     setLoading(true);
@@ -110,6 +107,11 @@ const AddToWalletHeader = ({closeScreen, walletID}: Props) => {
     setAmountError(false);
   };
 
+  /* const setIncome = () => {
+    setXpense(false);
+    setAmount(`+ ${amount}`);
+  }; */
+
   return (
     <>
       {loading && <Spinner />}
@@ -146,6 +148,7 @@ const AddToWalletHeader = ({closeScreen, walletID}: Props) => {
               color={colors.WHITE}
             />
           </Pressable>
+
           <View style={styles.buttonContainer}>
             <Pressable
               onPress={() => setXpense(true)}
@@ -183,6 +186,7 @@ const AddToWalletHeader = ({closeScreen, walletID}: Props) => {
         <View style={styles.bottomRow}>
           <TextInputMask
             type={'money'}
+            //value={xpense ? `- ${amount}` : `+ ${amount}`}
             value={amount}
             //autoFocus={true}
             maxLength={20}
@@ -193,8 +197,8 @@ const AddToWalletHeader = ({closeScreen, walletID}: Props) => {
               delimiter: ',',
               unit: xpense ? `- ${symbol}` : `+ ${symbol}`,
             }}
-            onChangeText={text => {
-              setAmount(text);
+            onChangeText={x => {
+              setAmount(x);
             }}
             style={[styles.input, fonts.bodyText]}
           />

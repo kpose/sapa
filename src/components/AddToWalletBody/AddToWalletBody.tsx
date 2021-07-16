@@ -42,7 +42,7 @@ const AddToWalletBody = ({title}: Props) => {
   const [imageSource, setImageSource] = useState('');
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [timestamp, setTimestamp] = useState(
-    moment(today).format('MMM Do, YYYY'),
+    moment(elsaped).format('MMM D, YYYY'),
   );
 
   const dispatch = useAppDispatch();
@@ -74,7 +74,8 @@ const AddToWalletBody = ({title}: Props) => {
   }
 
   const confirmDate = (selectedDate: string) => {
-    setTimestamp(moment(selectedDate).format('MMM Do YYYY'));
+    //setTimestamp(moment(selectedDate, 'YYYY, MM, DD').format('MMM D, YYYY'));
+    setTimestamp(moment(selectedDate).format('MMM D, YYYY'));
     dispatch(setDate(moment(selectedDate).format()));
     setShowDatePicker(false);
   };
@@ -199,7 +200,7 @@ const AddToWalletBody = ({title}: Props) => {
         <DatePickerModal
           visible={showDatePicker}
           onDismiss={() => setShowDatePicker(false)}
-          date={elsaped}
+          date={today}
           onConfirm={(x: string) => confirmDate(x)}
         />
       </KeyboardAvoidingView>

@@ -1,19 +1,66 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {View, StyleSheet, Dimensions, TouchableOpacity} from 'react-native';
-
-import {colors, hp, sizes, wp} from '~utils';
+import {TotalValues} from '~components';
 import Wave from './Wave';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {Text, Surface, Divider} from 'react-native-paper';
-
 import {useAppSelector} from '~redux/reduxhooks';
+import firestore from '@react-native-firebase/firestore';
+import {
+  colors,
+  hp,
+  sizes,
+  wp,
+  last30Days,
+  last7Days,
+  walletTotal,
+} from '~utils';
 
 interface Props {
   onSettingsPress: () => void;
 }
 
 const WavyHeader = ({onSettingsPress}: Props) => {
-  const {symbol} = useAppSelector(state => state.user);
+  const [wallets, setWallets] = useState([]);
+  const {symbol, allWallets, email} = useAppSelector(state => state.user);
+
+  useEffect(() => {
+    getWallets();
+    return () => getWallets();
+  }, [wallets]);
+
+  const getWallets = firestore()
+    .collection('wallets')
+    .where('email', '==', email)
+    .orderBy('createdAt', 'desc')
+    .onSnapshot(querySnapshot => {
+      let wallets: any = [];
+      querySnapshot.forEach(doc => {
+        wallets.push({
+          walletId: doc.id,
+          title: doc.data().title,
+          transactions: doc.data().transactions,
+          createdAt: doc.data().createdAt,
+        });
+      });
+      setWallets(wallets);
+    });
+
+  const mergeAllWallets = () => {
+    let allWallets: [] = [];
+    wallets.map(x => {
+      allWallets.push(x.transactions);
+    });
+    const mergedWallets = [].concat.apply([], allWallets);
+    return mergedWallets;
+  };
+
+  const mergedWallets = mergeAllWallets();
+
+  const Total = walletTotal(mergedWallets);
+  const last30DaysTotal = last30Days(mergedWallets);
+  const last7DaysTotal = last7Days(mergedWallets);
+
   return (
     <View style={[styles.container]}>
       <Wave
@@ -36,24 +83,24 @@ const WavyHeader = ({onSettingsPress}: Props) => {
 
       <Surface style={styles.surface}>
         <View style={styles.title}>
-          <Text style={[sizes.fonts.smallerCaption]}>Total</Text>
-          <Text style={[sizes.fonts.smallerCaption, styles.price]}>
-            {symbol} 0
+          <Text style={[sizes.fonts.smallerCaption, styles.titleText]}>
+            Total
           </Text>
+          <TotalValues value={Total} color={colors.WHITE} />
         </View>
         <Divider style={{height: hp(5), width: wp(1)}} />
         <View style={styles.title}>
-          <Text style={[sizes.fonts.smallerCaption]}>Last 30 days</Text>
-          <Text style={[sizes.fonts.smallerCaption, styles.price]}>
-            {symbol} 0
+          <Text style={[sizes.fonts.smallerCaption, styles.titleText]}>
+            Last 30 days
           </Text>
+          <TotalValues value={last30DaysTotal} color={colors.WHITE} />
         </View>
         <Divider style={{height: hp(5), width: wp(1)}} />
         <View style={styles.title}>
-          <Text style={[sizes.fonts.smallerCaption]}>Last 7 days</Text>
-          <Text style={[sizes.fonts.smallerCaption, styles.price]}>
-            {symbol} 0
+          <Text style={[sizes.fonts.smallerCaption, styles.titleText]}>
+            Last 7 days
           </Text>
+          <TotalValues value={last7DaysTotal} color={colors.WHITE} />
         </View>
       </Surface>
     </View>
@@ -91,6 +138,10 @@ const styles = StyleSheet.create({
     right: wp(5),
     flexDirection: 'row',
     justifyContent: 'space-between',
+  },
+  titleText: {
+    marginBottom: hp(0.5),
+    fontWeight: 'bold',
   },
   headerText: {
     fontSize: 30,

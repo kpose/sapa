@@ -7,6 +7,7 @@ import {
 import {last30Days, last7Days, walletTotal} from './totalCalculations';
 import {modifiedExpenseArray} from './modifiedArrays';
 import {modifiedIncomeArray} from './modifiedArrays';
+import {getAllWallets} from './firebase';
 
 export {
   sizes,
@@ -18,4 +19,5 @@ export {
   walletTotal,
   modifiedExpenseArray,
   modifiedIncomeArray,
+  getAllWallets,
 };

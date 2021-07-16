@@ -11,10 +11,17 @@ import {Portal, Modal, Surface} from 'react-native-paper';
 import firestore from '@react-native-firebase/firestore';
 
 /* utils and files */
-import {colors, hp} from '~utils';
+import {
+  colors,
+  hp,
+  last30Days,
+  last7Days,
+  walletTotal,
+  getAllWallets,
+} from '~utils';
 import styles from './styles';
 import auth from '@react-native-firebase/auth';
-import {setEmail} from '~redux/userSlice';
+import {setAllWallets, setEmail} from '~redux/userSlice';
 import {ThemeContext} from '~context/ThemeCotext';
 import {AddWalletType, AddWallet} from '~modals';
 import {RouteStackProps} from '~definitions/navigationTypes';
@@ -40,7 +47,7 @@ const Home = ({navigation}: RouteStackProps) => {
   useEffect(() => {
     getWallets();
     return () => getWallets();
-  }, []);
+  }, [wallets]);
 
   const getWallets = firestore()
     .collection('wallets')
