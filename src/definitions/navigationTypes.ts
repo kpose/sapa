@@ -8,7 +8,7 @@ import {MaterialTopTabNavigationProp} from '@react-navigation/material-top-tabs'
 //home stack params
 export type RouteStackParams = { 
     Welcome: undefined;
-    Home: {uid: string, title: string, refreshWallets: () => void, params? : any } 
+    Home: {uid: string, title: string, refreshWallets: () => void, params? : any }  
     BottomTabs: undefined;
     AddToWallet: undefined;
     AddToWalletToo: undefined;
@@ -37,7 +37,7 @@ type ppp = {
 }
 //bottom tab params
 export type BottomTabParams = {
-    WalletDetails: {uid : string, title: string, transactions: [], refreshWallets: Function};
+    WalletDetails: {data: {uid: string; title: string; transactions: []}}; 
     WalletBudget: {initialParams: {icon: string}}
      WalletCalender: {initialParams: {icon: string}}
     WalletChart: {initialParams: {icon: string}}

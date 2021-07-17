@@ -71,10 +71,8 @@ const IncomePieChart = () => {
             formToTextSpace: 5,
           }}
           highlights={[{x: 2}]}
-          extraOffsets={{left: 5, top: 5, right: 5, bottom: 5}}
           entryLabelColor={processColor('green')}
           entryLabelTextSize={10}
-          entryLabelFontFamily={'HelveticaNeue-Medium'}
           drawEntryLabels={true}
           rotationEnabled={true}
           rotationAngle={45}
@@ -82,7 +80,6 @@ const IncomePieChart = () => {
           styledCenterText={{
             text: 'Expenses',
             color: processColor(colors.SECONDARY),
-            fontFamily: 'HelveticaNeue-Medium',
             size: 20,
           }}
           centerTextRadiusPercent={100}

@@ -35,7 +35,6 @@ function HomeStack() {
         options={({navigation, route}) => ({
           header: () => (
             <TabHeader
-              //onBackPress={() => navigation.goBack()}
               onPlusPress={() =>
                 navigation.navigate('AddToWalletToo', {
                   params: route.params,

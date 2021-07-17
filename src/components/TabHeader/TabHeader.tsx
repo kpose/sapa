@@ -18,13 +18,12 @@ type Props = {
 };
 
 const TabHeader = ({onPlusPress, data, navigation}: Props) => {
-  const {Total, last30DaysTotal, last7DaysTotal} = data?.params;
-  const {symbol} = useAppSelector(state => state.user);
+  const {Total, last30DaysTotal, last7DaysTotal, title} = data?.params;
   const dispatch = useAppDispatch();
 
   const goBack = () => {
-    navigation.goBack();
-    dispatch(setWalletData({uid: '', walletTransactions: [], title: ''}));
+    navigation.navigate('Home');
+    //dispatch(setWalletData({uid: '', walletTransactions: [], title: ''}));
   };
 
   return (
@@ -41,7 +40,7 @@ const TabHeader = ({onPlusPress, data, navigation}: Props) => {
           <TouchableOpacity onPress={goBack}>
             <MaterialIcons
               name="arrow-back-ios"
-              size={sizes.regularIconSize}
+              size={sizes.navigationIconSize}
               style={{color: colors.WHITE}}
             />
           </TouchableOpacity>
@@ -49,20 +48,18 @@ const TabHeader = ({onPlusPress, data, navigation}: Props) => {
             Wallets
           </Text>
         </View>
-        <TouchableOpacity>
+        {/* <TouchableOpacity>
           <Icon
             name="magnify"
             size={sizes.regularIconSize}
             style={{color: colors.WHITE}}
           />
-        </TouchableOpacity>
+        </TouchableOpacity> */}
       </View>
 
       <Surface style={styles.surface}>
         <View style={[styles.myWallet]}>
-          <Text style={[fonts.caption, styles.wallet]}>
-            {data?.params.title}
-          </Text>
+          <Text style={[fonts.caption, styles.wallet]}>{title}</Text>
           <TotalValues value={Total} color={colors.PRIMARY} />
         </View>
 
@@ -105,7 +102,7 @@ export default TabHeader;
 const styles = StyleSheet.create({
   surface: {
     position: 'absolute',
-    top: hp(9),
+    top: hp(9.3),
     left: wp(5),
     right: wp(5),
     height: hp(11.5),
@@ -149,5 +146,6 @@ const styles = StyleSheet.create({
   navigate: {
     flexDirection: 'row',
     alignItems: 'center',
+    //marginBottom: hp(1),
   },
 });

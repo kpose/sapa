@@ -64,5 +64,5 @@ export const fonts = StyleSheet.create({
   },
 });
 
-export const navigationIconSize = RFValue(44, height);
+export const navigationIconSize = RFValue(34, height);
 export const regularIconSize = RFValue(20, height);

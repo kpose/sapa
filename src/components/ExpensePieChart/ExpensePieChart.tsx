@@ -13,8 +13,6 @@ const ExpensePieChart = () => {
 
   const expenseData = modifiedExpenseArray(walletTransactions, symbol);
 
-  console.log(expenseData);
-
   return (
     <View style={{flex: 1}}>
       {expenseData ? (

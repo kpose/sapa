@@ -1,11 +1,11 @@
-import React, {useCallback, useEffect} from 'react';
+import React, {useCallback} from 'react';
 import {View, FlatList} from 'react-native';
 import {BottomTabProps} from '~definitions/navigationTypes';
 import {EmptyAnime, TransactionCard} from '~components';
 import styles from './styles';
 
-const WalletDetails = ({route, navigation}: BottomTabProps) => {
-  const {uid, title, transactions, refreshWallets} = route.params;
+const WalletDetails = ({route}: BottomTabProps) => {
+  const {transactions} = route.params.data;
 
   interface transactionProps {
     createdAt: string;
@@ -18,39 +18,15 @@ const WalletDetails = ({route, navigation}: BottomTabProps) => {
     });
 
   const renderWallets = useCallback(
-    ({item}) => (
-      <TransactionCard
-        date={item.createdAt}
-        category={item.category}
-        amount={item.amount}
-        marchant={item.marchant}
-        type={item.type}
-        image={item.imageUrl}
-        icon={item.iconTitle}
-        note={item.note}
-        transactionUUID={item.uuid}
-      />
-    ),
+    ({item}) => <TransactionCard data={item} />,
     [],
   );
-
-  interface transactionProps {
-    createdAt: string;
-    category: string;
-    amount: number;
-    marchant: string;
-    type: string;
-    imageUrl: string;
-    iconTitle: string;
-    note: string;
-    uuid: string;
-  }
 
   const keyExtractor = useCallback(item => item.uuid.toString(), []);
 
   return (
     <View style={styles.container}>
-      {sortedTransactions && sortedTransactions.length ? (
+      {sortedTransactions.length ? (
         <FlatList
           data={sortedTransactions}
           renderItem={renderWallets}

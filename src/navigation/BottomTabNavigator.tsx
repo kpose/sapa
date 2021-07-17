@@ -14,14 +14,17 @@ import {
 } from '../screens';
 import ChartNavigator from './ChartNavigator';
 import WalletSettingsStack from './WalletSettingsStack';
-import {colors} from '../utils';
+import {colors, sizes} from '../utils';
+import {fonts} from '~utils/fonts';
 
 function BottomTabs() {
   return (
     <Tab.Navigator labeled={false} activeColor={colors.SECONDARY}>
       <Tab.Screen
         options={{
-          tabBarIcon: ({color}) => <Icon name="menu" color={color} size={26} />,
+          tabBarIcon: ({color}) => (
+            <Icon name="menu" color={color} size={sizes.regularIconSize} />
+          ),
         }}
         name="WalletDetails"
         component={WalletDetails}
@@ -29,7 +32,11 @@ function BottomTabs() {
       <Tab.Screen
         options={{
           tabBarIcon: ({color}) => (
-            <Icon name="calendar-today" color={color} size={26} />
+            <Icon
+              name="calendar-today"
+              color={color}
+              size={sizes.regularIconSize}
+            />
           ),
         }}
         name="WalletCalender"
@@ -38,7 +45,11 @@ function BottomTabs() {
       <Tab.Screen
         options={{
           tabBarIcon: ({color}) => (
-            <Icon name="chart-bar-stacked" color={color} size={26} />
+            <Icon
+              name="chart-bar-stacked"
+              color={color}
+              size={sizes.regularIconSize}
+            />
           ),
         }}
         name="WalletChart"
@@ -47,7 +58,9 @@ function BottomTabs() {
 
       <Tab.Screen
         options={{
-          tabBarIcon: ({color}) => <Icon name="cash" color={color} size={26} />,
+          tabBarIcon: ({color}) => (
+            <Icon name="cash" color={color} size={sizes.regularIconSize} />
+          ),
         }}
         name="WalletBudget"
         component={WalletBudget}

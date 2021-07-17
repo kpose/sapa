@@ -73,17 +73,7 @@ const Home = ({navigation}: RouteStackProps) => {
 
   const keyExtractor = useCallback(item => item.walletId.toString(), []);
 
-  const renderWallets = useCallback(
-    ({item}) => (
-      <WalletCard
-        title={item.title}
-        uid={item.walletId}
-        transactions={item.transactions}
-        //refreshWallets={getWallets}
-      />
-    ),
-    [],
-  );
+  const renderWallets = useCallback(({item}) => <WalletCard data={item} />, []);
 
   return (
     <>
