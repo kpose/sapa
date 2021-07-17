@@ -68,6 +68,7 @@ const TabHeader = ({onPlusPress, data, navigation}: Props) => {
             <Text style={[fonts.smallerCaption, {color: colors.LIGHT_GRAY}]}>
               Last 30 days
             </Text>
+
             <TotalValues
               value={last30DaysTotal}
               color={last30DaysTotal < -0 ? colors.WARNING : colors.PRIMARY}

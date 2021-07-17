@@ -1,13 +1,4 @@
-import {Dimensions, PixelRatio} from 'react-native';
-
-const currentDate = new Date();
-const currentDateTime = currentDate.getTime();
-const last30DaysDate = new Date(
-  currentDate.setDate(currentDate.getDate() - 30),
-);
-const last30DaysDateTime = last30DaysDate.getTime();
-const last7DaysDate = new Date(currentDate.setDate(currentDate.getDate() - 7));
-const last7DaysDateTime = last7DaysDate.getTime();
+import React from 'react';
 
 /* calculate single wallet total */
 export const walletTotal = transactions => {
@@ -22,6 +13,13 @@ export const walletTotal = transactions => {
 
 /* calculate total transactions in last 7 days for single wallet */
 export const last7Days = transactions => {
+  const currentDate = new Date();
+  const currentDateTime = currentDate.getTime();
+  const last7DaysDate = new Date(
+    currentDate.setDate(currentDate.getDate() - 7),
+  );
+  const last7DaysDateTime = last7DaysDate.getTime();
+
   const last7DaysTransaction = transactions
     .filter(x => {
       const elementDateTime = new Date(x.createdAt).getTime();
@@ -47,6 +45,13 @@ export const last7Days = transactions => {
 
 /* calculate total transactions in last 30 days for single wallet */
 export const last30Days = transactions => {
+  const currentDate = new Date();
+  const currentDateTime = currentDate.getTime();
+  const last30DaysDate = new Date(
+    currentDate.setDate(currentDate.getDate() - 30),
+  );
+  const last30DaysDateTime = last30DaysDate.getTime();
+
   const last30DaysTransaction = transactions
     .filter(x => {
       const elementDateTime = new Date(x.createdAt).getTime();

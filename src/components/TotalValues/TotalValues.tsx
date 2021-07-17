@@ -14,10 +14,10 @@ const TotalValues = ({value, color}: Props) => {
   return (
     <TextInputMask
       type={'money'}
-      value={value ? value : '0.00'}
+      value={value ? value : 0}
       editable={false}
       options={{
-        precision: 2,
+        precision: 0,
         separator: '.',
         delimiter: ',',
         unit: value < 0 ? `- ${symbol}` : `${symbol}`,
