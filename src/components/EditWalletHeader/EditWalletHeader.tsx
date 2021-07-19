@@ -9,7 +9,7 @@ import {TextInputMask} from 'react-native-masked-text';
 import styles from './styles';
 
 /* files and utils */
-import {colors, sizes} from '~utils';
+import {colors, sizes, uploadedImage} from '~utils';
 import {fonts} from '~utils/fonts';
 import {ThemeContext} from '~context/ThemeCotext';
 import {NetworkContext} from '~context/NetworkContext';
@@ -21,7 +21,6 @@ import {
 } from '~components';
 import {setCategory, setImage, setAmount} from '~redux/expenseSlice';
 import {useAppSelector, useAppDispatch} from '~redux/reduxhooks';
-import {getImageUrl} from '~utils/getImageUrl';
 
 interface WalletProps {
   amount?: number | string;
@@ -61,21 +60,20 @@ const EditWalletHeader = ({
   const dispatch = useAppDispatch();
 
   const {symbol} = useAppSelector(state => state.user);
-  const {data} = useAppSelector(state => state.wallet);
+  const {walletId, walletTransactions} = useAppSelector(
+    state => state.wallet.data,
+  );
   const {note, marchant, category, image, amount, date, iconTitle} =
     useAppSelector(state => state.expense);
 
-  const walletID = data.uid;
-  const walletTransactions = data.walletTransactions;
-
   const updateTransaction = async () => {
+    console.log('lll');
     //setLoading(true);
 
     /* if (!isConnected) {
       return;
     } */
-
-    const uploadedUrl = await getImageUrl(image);
+    const uploadedUrl = await uploadedImage(image);
 
     const newTransaction: WalletProps = {
       amount: amount ? amount : value,
@@ -119,18 +117,6 @@ const EditWalletHeader = ({
       .catch(error => {
         setLoading(false);
       }); */
-  };
-
-  /* const saveTransaction = () => {
-    if (transactionAmount && transactionAmount > 0) {
-      transaction();
-    } else {
-      setAmountError(true);
-    }
-  }; */
-
-  const saveTransaction = () => {
-    updateTransaction();
   };
 
   const changeAmount = (amount: any) => {
@@ -205,7 +191,7 @@ const EditWalletHeader = ({
           </View>
 
           {/* submit new transaction */}
-          <TouchableOpacity onPress={saveTransaction}>
+          <TouchableOpacity onPress={updateTransaction}>
             <Icon
               name="check-bold"
               size={sizes.regularIconSize}
@@ -246,13 +232,3 @@ const EditWalletHeader = ({
 };
 
 export default EditWalletHeader;
-
-/* const newTransaction = {
-  note,
-  marchant,
-  amount: xpense ? expenditure : income,
-  type: xpense ? 'Expense' : 'Income',
-  createdAt: new Date().toISOString(),
-  category: category ? category : 'Others',
-  imageUrl: uploadedUrl ? uploadedUrl : null,
-} */

@@ -1,4 +1,5 @@
 import firestore from '@react-native-firebase/firestore';
+import storage from '@react-native-firebase/storage';
 
 export const getAllWallets = (email: string) => {
   firestore()
@@ -17,4 +18,19 @@ export const getAllWallets = (email: string) => {
       });
     });
   return;
+};
+
+export const uploadedImage = async (imageUri: string) => {
+  if (!imageUri) {
+    return;
+  }
+  const filename = imageUri.substring(imageUri.lastIndexOf('/') + 1);
+  const imageRef = storage().ref(filename);
+  await imageRef.putFile(imageUri, {contentType: 'image/jpg'}).catch(error => {
+    console.log(error);
+  });
+  const imageUrl = await imageRef.getDownloadURL().catch(error => {
+    console.log(error);
+  });
+  return imageUrl;
 };

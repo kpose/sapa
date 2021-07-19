@@ -8,12 +8,12 @@ import {MaterialTopTabNavigationProp} from '@react-navigation/material-top-tabs'
 //home stack params
 export type RouteStackParams = { 
     Welcome: undefined;
-    Home: {uid: string, title: string, refreshWallets: () => void, params? : any }  
+    Home: {walletId: string, title: string, refreshWallets: () => void, params? : any }  
     BottomTabs: undefined;
     AddToWallet: undefined;
     AddToWalletToo: undefined;
     SettingsStack: undefined;
-    EditWallet: {date: string, image: string, marchant: string, category: string, amount: string, type: string, note: string, icon: string, transactionUUID: string} 
+    EditWallet: {createdAt: string, imageUrl: string, marchant: string, category: string, amount: string, type: string, note: string, iconTitle: string, uuid: string} 
 };
  
 //Settings stack params

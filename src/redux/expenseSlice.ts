@@ -23,7 +23,7 @@ const initialState : ExpenseData = {
   iconTitle: '',
   date: ''
 
-
+ 
 }
 
 const ExpenseSlice = createSlice({
@@ -57,7 +57,10 @@ const ExpenseSlice = createSlice({
     },
     setDate(state, action: PayloadAction<string>){
       state.date = action.payload
-    }
+    },
+    clearExpense(state) {
+        Object.assign(state, initialState)
+    },
   },
 });
 
@@ -70,7 +73,8 @@ export const {
   setNote,
   setType,
   setIconTitle,
-  setDate
+  setDate,
+  clearExpense
 } = ExpenseSlice.actions;
 
 export default ExpenseSlice.reducer;

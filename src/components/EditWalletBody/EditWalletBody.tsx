@@ -47,22 +47,21 @@ const EditWalletBody = ({
   transactionItem,
   closeScreen,
 }: Props) => {
-  const [visible, setVisible] = useState(false);
+  const [cameraVisible, setCameraVisible] = useState(false);
   const [isDeleteModal, setIsDeleteModal] = useState(false);
-
-  const showModal = () => setVisible(true);
-  const hideModal = () => setVisible(false);
-  const [timestamp, setTimestamp] = useState(
-    moment(date).format('MMM Do, YYYY'),
-  );
+  const showModal = () => setCameraVisible(true);
+  const hideModal = () => setCameraVisible(false);
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [loading, setLoading] = useState(false);
   const [imageUri, setImageUri] = useState(image);
   const dispatch = useAppDispatch();
   const {data} = useAppSelector(state => state.wallet);
+  const [timestamp, setTimestamp] = useState(
+    moment(date).format('MMM Do, YYYY'),
+  );
 
   const walletTitle = data.title;
-  const walletID = data.uid;
+  const walletID = data.walletId;
 
   const deleteTransaction = async () => {
     setIsDeleteModal(false);
@@ -96,12 +95,12 @@ const EditWalletBody = ({
     };
     launchImageLibrary(options, response => {
       if (response.didCancel) {
-        setVisible(false);
+        setCameraVisible(false);
       } else if (response.errorMessage) {
         console.log(response.errorMessage);
       } else {
         let source: any = response.assets[0].uri;
-        setVisible(false);
+        setCameraVisible(false);
         setImageUri(source);
         dispatch(setImage(source));
       }
@@ -118,7 +117,7 @@ const EditWalletBody = ({
     <>
       <Portal>
         <Modal
-          visible={visible}
+          visible={cameraVisible}
           onDismiss={hideModal}
           contentContainerStyle={styles.modalStyle}>
           <CameraModal

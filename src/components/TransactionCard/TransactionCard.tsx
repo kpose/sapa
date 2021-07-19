@@ -13,14 +13,14 @@ import {useAppSelector} from '~redux/reduxhooks';
 interface Props {
   data: {
     createdAt: string;
-    image: string;
+    imageUrl: string;
     category: string;
     amount: number;
     marchant: string;
     type?: string;
     note: string;
-    icon: string;
-    transactionUUID: string;
+    iconTitle: string;
+    uuid: string;
   };
 }
 
@@ -28,14 +28,14 @@ const TransactionCard = ({data}: Props) => {
   const {symbol} = useAppSelector(state => state.user);
   const {
     createdAt,
-    image,
+    imageUrl,
     category,
     amount,
     marchant,
     type,
     note,
-    icon,
-    transactionUUID,
+    iconTitle,
+    uuid,
   } = data;
   const timestamp = moment(createdAt).format('D MMM, YYYY');
 
@@ -49,20 +49,20 @@ const TransactionCard = ({data}: Props) => {
       onPress={() =>
         navigation.navigate('EditWallet', {
           createdAt,
-          image,
+          imageUrl,
           marchant,
           category,
           amount,
           type,
           note,
-          icon,
-          transactionUUID,
+          iconTitle,
+          uuid,
         })
       }>
       <Surface style={styles.container}>
         <View style={styles.imageContainer}>
-          {image ? (
-            <Image source={{uri: image}} style={styles.image} />
+          {imageUrl ? (
+            <Image source={{uri: imageUrl}} style={styles.image} />
           ) : (
             <Text>Image</Text>
           )}

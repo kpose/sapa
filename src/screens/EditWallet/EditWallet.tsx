@@ -15,20 +15,22 @@ import {
   setImage,
   setMarchant,
   setNote,
+  clearExpense,
 } from '~redux/expenseSlice';
 
 const EditWallet = ({navigation, route}: EditWalletStackProps) => {
   const {
-    date,
-    image,
+    createdAt,
+    imageUrl,
     marchant,
     category,
     amount,
     type,
     note,
-    icon,
-    transactionUUID,
+    iconTitle,
+    uuid,
   } = route.params;
+
   const dispatch = useAppDispatch();
 
   interface Props {
@@ -46,24 +48,18 @@ const EditWallet = ({navigation, route}: EditWalletStackProps) => {
   const transactionItem: Props = {
     amount,
     category,
-    createdAt: date,
-    iconTitle: icon,
-    imageUrl: image,
+    createdAt,
+    iconTitle,
+    imageUrl,
     marchant,
     note,
     type,
-    uuid: transactionUUID,
+    uuid,
   };
 
   const closeScreen = () => {
     navigation.goBack();
-    dispatch(setImage(''));
-    dispatch(setAmount(0));
-    dispatch(setCategory(''));
-    dispatch(setDate(''));
-    dispatch(setNote(''));
-    dispatch(setMarchant(''));
-    dispatch(setIconTitle(''));
+    dispatch(clearExpense());
   };
 
   return (
@@ -72,14 +68,14 @@ const EditWallet = ({navigation, route}: EditWalletStackProps) => {
         closeScreen={closeScreen}
         type={type}
         value={amount}
-        icon={icon}
+        icon={iconTitle}
         oldTransaction={transactionItem}
       />
       <EditWalletBody
-        date={date}
+        date={createdAt}
         marchant={marchant}
         note={note}
-        image={image}
+        image={imageUrl}
         transactionItem={transactionItem}
         closeScreen={closeScreen}
       />

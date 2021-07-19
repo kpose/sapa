@@ -8,13 +8,13 @@ import {Spinner, TransactionCategory, AmountError} from '~components';
 
 /* files and utils */
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import {colors, sizes} from '~utils';
+import {colors, sizes, uploadedImage} from '~utils';
 import {fonts} from '~utils/fonts';
 import {ThemeContext} from '~context/ThemeCotext';
 import {setCategory, setImage, setIconTitle} from '~redux/expenseSlice';
 import {useAppSelector, useAppDispatch} from '~redux/reduxhooks';
 import firestore from '@react-native-firebase/firestore';
-import storage from '@react-native-firebase/storage';
+
 import CurrencyInput from 'react-native-currency-input';
 
 interface Props {
@@ -38,20 +38,13 @@ const AddToWalletHeader = ({closeScreen, walletID}: Props) => {
   const {symbol} = useAppSelector(state => state.user);
 
   const saveTransaction = async () => {
-    setLoading(true);
-    const uploadImage = async (uri: string) => {
-      const filename = uri.substring(uri.lastIndexOf('/') + 1);
-      const imageRef = storage().ref(filename);
-      await imageRef.putFile(uri, {contentType: 'image/jpg'}).catch(error => {
-        console.log(error);
-      });
-      const url = await imageRef.getDownloadURL().catch(error => {
-        console.log(error);
-      });
-      return url;
-    };
+    if (!amount) {
+      setAmountError(true);
+      return;
+    }
 
-    const uploadedUrl = await uploadImage(image);
+    setLoading(true);
+    const uploadedUrl = await uploadedImage(image);
 
     const newTransaction = {
       note,
@@ -77,16 +70,9 @@ const AddToWalletHeader = ({closeScreen, walletID}: Props) => {
       })
       .catch(error => {
         setLoading(false);
+        console.log(error);
       });
-    setLoading(false);
-  };
-
-  const saveTransact = () => {
-    if (amount) {
-      saveTransaction();
-    } else {
-      setAmountError(true);
-    }
+    //setLoading(false);
   };
 
   const closeModal = () => {
@@ -174,7 +160,7 @@ const AddToWalletHeader = ({closeScreen, walletID}: Props) => {
           </View>
 
           {/* submit new transaction */}
-          <Pressable onPress={saveTransact}>
+          <Pressable onPress={saveTransaction}>
             <Icon
               name="check-bold"
               size={sizes.regularIconSize}

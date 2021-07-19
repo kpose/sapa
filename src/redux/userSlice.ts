@@ -32,7 +32,7 @@ const userSlice = createSlice({
   reducers: {
     setCurrency(state, action: PayloadAction<string>) {
       state.currency = action.payload;
-    },
+    }, 
     setUsername(state, action: PayloadAction<string>) {
       state.username = action.payload;
     },

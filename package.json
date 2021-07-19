@@ -42,6 +42,7 @@
     "react-native-charts-wrapper": "^0.5.7",
     "react-native-currency-input": "^1.0.1",
     "react-native-gesture-handler": "^1.10.3",
+    "react-native-get-random-values": "^1.7.0",
     "react-native-image-picker": "^4.0.3",
     "react-native-looped-carousel": "^0.1.13",
     "react-native-masked-text": "^1.13.0",
