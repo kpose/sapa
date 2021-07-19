@@ -15,13 +15,13 @@ import {setWalletData} from '~redux/walletSlice';
 interface Props {
   data: {
     title: string;
-    uid: string;
+    walletId: string;
     transactions: [];
   };
 }
 
 const WalletCard = ({data}: Props) => {
-  const {title, uid, transactions} = data;
+  const {title, walletId, transactions} = data;
   const navigation = useNavigation();
   const dispatch = useAppDispatch();
 
@@ -40,7 +40,9 @@ const WalletCard = ({data}: Props) => {
         last7DaysTotal,
       },
     });
-    dispatch(setWalletData({uid, walletTransactions: transactions, title}));
+    dispatch(
+      setWalletData({walletId, walletTransactions: transactions, title}),
+    );
   };
 
   return (
@@ -78,7 +80,7 @@ const WalletCard = ({data}: Props) => {
             style={styles.button}
             onPress={() =>
               navigation.navigate('AddToWallet', {
-                uid,
+                walletId,
                 title,
               })
             }>
