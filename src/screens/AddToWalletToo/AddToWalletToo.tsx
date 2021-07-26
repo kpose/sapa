@@ -10,7 +10,7 @@ import {clearExpense} from '~redux/expenseSlice';
 
 const AddToWalletToo = ({navigation, route}: RouteStackProps) => {
   const data = route.params.params;
-  const {walletId, title, refreshWallets} = data.params.data;
+  const {walletId, title} = data.params.data;
   const dispatch = useAppDispatch();
 
   const closeScreen = () => {
@@ -20,11 +20,7 @@ const AddToWalletToo = ({navigation, route}: RouteStackProps) => {
 
   return (
     <View style={styles.container}>
-      <AddToWalletHeader
-        closeScreen={closeScreen}
-        walletID={walletId}
-        //refreshWallets={refreshWallets}
-      />
+      <AddToWalletHeader closeScreen={closeScreen} walletID={walletId} />
       <AddToWalletBody title={title} />
     </View>
   );

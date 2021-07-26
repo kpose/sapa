@@ -3,9 +3,13 @@ import {View, FlatList} from 'react-native';
 import {BottomTabProps} from '~definitions/navigationTypes';
 import {EmptyAnime, TransactionCard} from '~components';
 import styles from './styles';
+import {useAppSelector} from '~redux/reduxhooks';
 
 const WalletDetails = ({route}: BottomTabProps) => {
   const {transactions} = route.params.data;
+  //const {needed2} = useAppSelector(state => state.wallet);
+
+  //console.log(needed2);
 
   interface transactionProps {
     createdAt: string;

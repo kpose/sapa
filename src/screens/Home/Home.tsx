@@ -11,14 +11,7 @@ import {Portal, Modal, Surface} from 'react-native-paper';
 import firestore from '@react-native-firebase/firestore';
 
 /* utils and files */
-import {
-  colors,
-  hp,
-  last30Days,
-  last7Days,
-  walletTotal,
-  getAllWallets,
-} from '~utils';
+import {colors, hp} from '~utils';
 import styles from './styles';
 import auth from '@react-native-firebase/auth';
 import {setAllWallets, setEmail} from '~redux/userSlice';
@@ -27,6 +20,7 @@ import {AddWalletType, AddWallet} from '~modals';
 import {RouteStackProps} from '~definitions/navigationTypes';
 import {useAppDispatch, useAppSelector} from '~redux/reduxhooks';
 import {WalletCard, ContentHeader, NoWalletAnime} from '~components';
+import {setNeeded} from '~redux/walletSlice';
 
 const Home = ({navigation}: RouteStackProps) => {
   const walletModalRef = useRef<Modalize>(null);
@@ -36,6 +30,7 @@ const Home = ({navigation}: RouteStackProps) => {
   const {theme} = useContext(ThemeContext);
   const {email} = useAppSelector(state => state.user);
   const dispatch = useAppDispatch();
+  //const {needed} = useAppSelector(state => state.wallet);
 
   useEffect(() => {
     const user: any = auth().currentUser;
@@ -64,6 +59,7 @@ const Home = ({navigation}: RouteStackProps) => {
         });
       });
       setWallets(wallets);
+      //dispatch(setNeeded(wallets));
     });
 
   const openAddModal = () => {

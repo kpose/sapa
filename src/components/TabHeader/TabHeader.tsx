@@ -8,7 +8,7 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import {Text, Surface} from 'react-native-paper';
 import {fonts} from '~utils/fonts';
 import {useAppSelector, useAppDispatch} from '~redux/reduxhooks';
-import {setWalletData} from '~redux/walletSlice';
+import {setNeeded, setWalletData} from '~redux/walletSlice';
 
 type Props = {
   //onBackPress: () => void;
@@ -23,6 +23,7 @@ const TabHeader = ({onPlusPress, data, navigation}: Props) => {
 
   const goBack = () => {
     navigation.navigate('Home');
+    //dispatch(setNeeded([]));
     //dispatch(setWalletData({uid: '', walletTransactions: [], title: ''}));
   };
 
@@ -48,13 +49,6 @@ const TabHeader = ({onPlusPress, data, navigation}: Props) => {
             Wallets
           </Text>
         </View>
-        {/* <TouchableOpacity>
-          <Icon
-            name="magnify"
-            size={sizes.regularIconSize}
-            style={{color: colors.WHITE}}
-          />
-        </TouchableOpacity> */}
       </View>
 
       <Surface style={styles.surface}>

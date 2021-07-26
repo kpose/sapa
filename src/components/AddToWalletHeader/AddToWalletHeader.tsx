@@ -72,7 +72,6 @@ const AddToWalletHeader = ({closeScreen, walletID}: Props) => {
         setLoading(false);
         console.log(error);
       });
-    //setLoading(false);
   };
 
   const closeModal = () => {
