@@ -87,7 +87,7 @@ const ExpensePieChart = () => {
           styledCenterText={{
             text: 'Expenses',
             color: processColor(colors.SECONDARY),
-            size: 10,
+            size: 17,
           }}
           centerTextRadiusPercent={100}
           holeRadius={30}

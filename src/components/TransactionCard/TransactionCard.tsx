@@ -64,7 +64,10 @@ const TransactionCard = ({data}: Props) => {
           {imageUrl ? (
             <Image source={{uri: imageUrl}} style={styles.image} />
           ) : (
-            <Text>Image</Text>
+            <Image
+              source={require('~assets/images/noImg.jpg')}
+              style={styles.noImage}
+            />
           )}
         </View>
         <View style={styles.detailsContainer}>

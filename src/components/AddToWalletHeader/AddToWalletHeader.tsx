@@ -191,7 +191,7 @@ const AddToWalletHeader = ({closeScreen, walletID}: Props) => {
             <Icon
               name={title ? title : 'bullseye'}
               size={sizes.regularIconSize}
-              color={colors.SECONDARY}
+              color={xpense ? colors.SECONDARY : colors.PRIMARY}
             />
           </Pressable>
         </View>

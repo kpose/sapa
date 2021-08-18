@@ -12,7 +12,7 @@ const Calender = () => {
   const [visible, setVisible] = useState(false);
   const [day, setDay] = useState<string>('');
   const navigation = useNavigation();
-  const {uid, title} = useAppSelector(state => state.wallet.data);
+  const {walletId, title} = useAppSelector(state => state.wallet.data);
 
   const weekday = moment(day).format('dddd');
   const date = moment(day).format('MMMM Do YYYY');
@@ -26,7 +26,7 @@ const Calender = () => {
   const addtoDay = () => {
     setVisible(false);
     navigation.navigate('AddToWallet', {
-      uid,
+      walletId,
       title,
     });
   };

@@ -107,6 +107,31 @@ const EditWalletBody = ({
     });
   }
 
+  function selectCamera() {
+    let options: PhotoProps = {
+      title: 'You can choose one image',
+      mediaType: 'photo',
+      maxWidth: 256,
+      maxHeight: 256,
+      noData: true,
+      storageOptions: {
+        skipBackup: true,
+      },
+    };
+    launchCamera(options, response => {
+      if (response.didCancel) {
+        setCameraVisible(false);
+      } else if (response.errorMessage) {
+        console.log(response.errorMessage);
+      } else {
+        let source: any = response.assets[0].uri;
+        setCameraVisible(false);
+        setImageUri(source);
+        dispatch(setImage(source));
+      }
+    });
+  }
+
   const confirmDate = (selectedDate: string) => {
     setTimestamp(moment(selectedDate).format('MMM Do YYYY'));
     dispatch(setDate(moment(selectedDate).format('MMM Do YYYY')));
@@ -120,10 +145,7 @@ const EditWalletBody = ({
           visible={cameraVisible}
           onDismiss={hideModal}
           contentContainerStyle={styles.modalStyle}>
-          <CameraModal
-            photoPress={selectPhoto}
-            cameraPress={() => console.log('camera not fixed')}
-          />
+          <CameraModal photoPress={selectPhoto} cameraPress={selectCamera} />
         </Modal>
       </Portal>
       <DeleteTransactionModal
@@ -144,9 +166,7 @@ const EditWalletBody = ({
               size={sizes.navigationIconSize}
             />
             <Pressable onPress={() => setShowDatePicker(true)}>
-              <Text style={[fonts.bodyText, {marginLeft: wp(4)}]}>
-                {timestamp}
-              </Text>
+              <Text style={[fonts.body, {marginLeft: wp(4)}]}>{timestamp}</Text>
             </Pressable>
           </View>
 
@@ -162,7 +182,7 @@ const EditWalletBody = ({
               defaultValue={marchant}
               placeholder="Merchant"
               underlineColor="transparent"
-              style={styles.input}
+              style={[styles.input, fonts.body]}
             />
           </View>
 
@@ -178,7 +198,7 @@ const EditWalletBody = ({
               defaultValue={note}
               placeholder="Note"
               underlineColor="transparent"
-              style={styles.input}
+              style={[styles.input, fonts.body]}
             />
           </View>
 
@@ -188,9 +208,7 @@ const EditWalletBody = ({
               color={colors.LIGHT_GRAY}
               size={sizes.navigationIconSize}
             />
-            <Text style={[fonts.bodyText, {marginLeft: wp(7)}]}>
-              {walletTitle}
-            </Text>
+            <Text style={[fonts.body, {marginLeft: wp(7)}]}>{walletTitle}</Text>
           </View>
 
           <Pressable onPress={showModal}>

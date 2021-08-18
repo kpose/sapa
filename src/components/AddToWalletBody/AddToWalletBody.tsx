@@ -174,7 +174,7 @@ const AddToWalletBody = ({title}: Props) => {
               size={sizes.navigationIconSize}
             />
             <Text style={[fonts.body, {marginLeft: wp(4)}]}>Wallet</Text>
-            <Text style={[fonts.caption, styles.wallet]}>{title}</Text>
+            <Text style={[fonts.body, styles.wallet]}>{title}</Text>
           </View>
 
           <Pressable onPress={showModal}>

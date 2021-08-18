@@ -83,9 +83,9 @@ const IncomePieChart = () => {
           rotationAngle={45}
           usePercentValues={true}
           styledCenterText={{
-            text: 'Expenses',
-            color: processColor(colors.SECONDARY),
-            size: 20,
+            text: 'Income',
+            color: processColor(colors.PRIMARY),
+            size: 17,
           }}
           centerTextRadiusPercent={100}
           holeRadius={30}

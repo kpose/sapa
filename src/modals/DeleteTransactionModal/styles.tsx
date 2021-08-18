@@ -1,18 +1,20 @@
 import {StyleSheet} from 'react-native';
-import {hp, wp} from '~utils';
+import {colors, hp, wp} from '~utils';
 
 const styles = StyleSheet.create({
   container: {
-    width: wp(75),
-    height: hp(17),
+    width: wp(80),
+    //height: hp(17),
     alignSelf: 'center',
     borderRadius: wp(5),
-    marginTop: hp(10),
+    //marginTop: hp(10),
+    paddingBottom: hp(1),
   },
   text: {
     textAlign: 'center',
     alignSelf: 'center',
     marginTop: hp(2),
+    color: colors.WARNING,
   },
   divider: {
     marginTop: hp(2),

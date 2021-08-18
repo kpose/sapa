@@ -25,23 +25,23 @@ const DeleteTransactionModal = ({
         onDismiss={onDismiss}
         contentContainerStyle={styles.container}>
         <Surface style={styles.container}>
-          <Text style={[fonts.modalInput, styles.text]}>
-            Are you sure? Pressing yes will parmenently delete it and it will
+          <Text style={[fonts.modalTextInput, styles.text]}>
+            Are you sure? Pressing yes will parmenently delete it, and it will
             not be recoverable.
           </Text>
           <Divider style={styles.divider} />
 
           <View style={styles.bottomRow}>
             <Pressable onPress={onCancel}>
-              <Text style={[fonts.modalAction, {color: colors.PRIMARY}]}>
+              <Text style={[fonts.modalButton, {color: colors.PRIMARY}]}>
                 Cancel
               </Text>
             </Pressable>
 
             <Divider style={{height: '100%', width: wp(1)}} />
             <Pressable onPress={onDelete}>
-              <Text style={[fonts.modalAction, {color: colors.PRIMARY}]}>
-                Yes!
+              <Text style={[fonts.modalButton, {color: colors.PRIMARY}]}>
+                Yes
               </Text>
             </Pressable>
           </View>

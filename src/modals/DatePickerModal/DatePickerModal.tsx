@@ -29,7 +29,7 @@ const DatePickerModal = ({visible, onDismiss, date, onConfirm}: Props) => {
         onDismiss={onDismiss}
         contentContainerStyle={styles.modal}>
         <Surface style={styles.container}>
-          <Text style={[styles.header, fonts.heading]}>Pick a date</Text>
+          <Text style={[styles.header, fonts.itemTitle]}>Pick a date</Text>
           <Divider style={styles.divider} />
 
           <DateTimePicker
@@ -41,11 +41,11 @@ const DatePickerModal = ({visible, onDismiss, date, onConfirm}: Props) => {
           />
           <View style={styles.footer}>
             <Pressable onPress={onDismiss}>
-              <Text style={[fonts.modalAction, styles.cancel]}>Cancel</Text>
+              <Text style={[fonts.modalButton, styles.cancel]}>Cancel</Text>
             </Pressable>
 
             <Pressable onPress={() => onConfirm(pickerDate)}>
-              <Text style={[fonts.modalAction, styles.cancel]}>Confirm</Text>
+              <Text style={[fonts.modalButton, styles.cancel]}>Confirm</Text>
             </Pressable>
           </View>
         </Surface>

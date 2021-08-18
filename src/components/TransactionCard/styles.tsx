@@ -44,19 +44,26 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   category: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: wp(2),
-    marginBottom: wp(1),
-    marginTop: wp(1),
+    flexDirection: 'row',
+    alignSelf: 'flex-start',
+    padding: wp(0.7),
+    borderRadius: 10,
+    marginTop: hp(0.5),
+    marginBottom: hp(0.5),
   },
   note: {
     marginBottom: wp(1),
   },
   categoryText: {
-    fontWeight: 'bold',
+    //fontWeight: 'bold',
     marginLeft: wp(1),
     marginRight: wp(1),
+  },
+  noImage: {
+    width: wp(20),
+    height: hp(10),
+    borderRadius: wp(2),
+    resizeMode: 'cover',
   },
 });
 

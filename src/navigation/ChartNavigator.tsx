@@ -9,7 +9,6 @@ function ChartNavigator() {
   return (
     <Tab.Navigator tabBar={props => <TopTabBar {...props} />}>
       <Tab.Screen name="Expense" component={ExpensePieChart} />
-
       <Tab.Screen name="Income" component={IncomePieChart} />
     </Tab.Navigator>
   );

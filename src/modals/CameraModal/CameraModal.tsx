@@ -14,13 +14,13 @@ const CameraModal = ({cameraPress, photoPress}: Props) => {
     <Surface style={styles.container}>
       <TouchableOpacity onPress={photoPress}>
         <Surface style={styles.card}>
-          <Text style={[fonts.caption, styles.text]}>Select from gallery</Text>
+          <Text style={[fonts.body, styles.text]}>Select from gallery</Text>
         </Surface>
       </TouchableOpacity>
 
       <TouchableOpacity onPress={cameraPress}>
         <Surface style={styles.card}>
-          <Text style={[fonts.caption, styles.text]}>Take new photo</Text>
+          <Text style={[fonts.body, styles.text]}>Take new photo</Text>
         </Surface>
       </TouchableOpacity>
     </Surface>
