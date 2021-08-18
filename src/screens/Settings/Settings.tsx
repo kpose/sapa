@@ -14,7 +14,7 @@ const Settings = ({navigation}: SettingsStackProps) => {
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <Surface style={styles.surface}>
-        <Text style={[fonts.smallerCaption, styles.username]}>Email:</Text>
+        <Text style={[fonts.itemTitle, styles.username]}>Email:</Text>
         <Text style={[fonts.caption, styles.user]}>{email.toLowerCase()}</Text>
       </Surface>
       <SettingsItem

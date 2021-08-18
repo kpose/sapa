@@ -9,8 +9,8 @@ import {TotalValues} from '~components';
 import {fonts} from '~utils/fonts';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {colors, sizes, last30Days, last7Days, walletTotal} from '~utils';
-import {useAppDispatch} from '~redux/reduxhooks';
-import {setNeeded, setNeeded2, setWalletData} from '~redux/walletSlice';
+import {useAppDispatch, useAppSelector} from '~redux/reduxhooks';
+import {setNeeded2, setWalletData} from '~redux/walletSlice';
 
 interface Props {
   data: {
@@ -31,6 +31,10 @@ const WalletCard = ({data}: Props) => {
 
   //dispatch(setNeeded2(data.transactions));
 
+  /*  useEffect(() => {
+    dispatch(setNeeded2(data));
+  }, [data]); */
+
   const openWallet = () => {
     navigation.navigate('BottomTabs', {
       screen: 'WalletDetails',
@@ -45,6 +49,7 @@ const WalletCard = ({data}: Props) => {
     dispatch(
       setWalletData({walletId, walletTransactions: transactions, title}),
     );
+    //dispatch(setNeeded2(data));
   };
 
   return (
@@ -52,13 +57,13 @@ const WalletCard = ({data}: Props) => {
       <TouchableOpacity onPress={openWallet}>
         <Surface style={styles.surface}>
           <View style={[styles.myWallet]}>
-            <Text style={[fonts.bodyText, styles.wallet]}>{title}</Text>
+            <Text style={[fonts.itemTitle, styles.wallet]}>{title}</Text>
             <TotalValues value={Total} color={colors.PRIMARY} />
           </View>
 
           <View style={styles.footer}>
             <View style={styles.days}>
-              <Text style={[fonts.smallerCaption, {color: colors.LIGHT_GRAY}]}>
+              <Text style={[fonts.caption, {color: colors.LIGHT_GRAY}]}>
                 Last 30 days
               </Text>
               <TotalValues
@@ -68,7 +73,7 @@ const WalletCard = ({data}: Props) => {
             </View>
 
             <View>
-              <Text style={[fonts.smallerCaption, {color: colors.LIGHT_GRAY}]}>
+              <Text style={[fonts.caption, {color: colors.LIGHT_GRAY}]}>
                 Last 7 days
               </Text>
               <TotalValues

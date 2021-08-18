@@ -14,7 +14,7 @@ const styles = StyleSheet.create({
     width: wp(80),
     height: hp(6),
     alignSelf: 'center',
-    borderRadius: 40,
+    borderRadius: 15,
   },
 });
 

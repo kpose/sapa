@@ -8,7 +8,7 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import {Text, Surface} from 'react-native-paper';
 import {fonts} from '~utils/fonts';
 import {useAppSelector, useAppDispatch} from '~redux/reduxhooks';
-import {setNeeded, setWalletData} from '~redux/walletSlice';
+import {setWalletData} from '~redux/walletSlice';
 
 type Props = {
   //onBackPress: () => void;
@@ -23,8 +23,6 @@ const TabHeader = ({onPlusPress, data, navigation}: Props) => {
 
   const goBack = () => {
     navigation.navigate('Home');
-    //dispatch(setNeeded([]));
-    //dispatch(setWalletData({uid: '', walletTransactions: [], title: ''}));
   };
 
   return (
@@ -41,25 +39,23 @@ const TabHeader = ({onPlusPress, data, navigation}: Props) => {
           <TouchableOpacity onPress={goBack}>
             <MaterialIcons
               name="arrow-back-ios"
-              size={sizes.navigationIconSize}
+              size={sizes.regularIconSize}
               style={{color: colors.WHITE}}
             />
           </TouchableOpacity>
-          <Text style={[sizes.fonts.heading, {marginLeft: wp(1)}]}>
-            Wallets
-          </Text>
+          <Text style={[sizes.fonts.title, {marginLeft: wp(1)}]}>Wallets</Text>
         </View>
       </View>
 
       <Surface style={styles.surface}>
         <View style={[styles.myWallet]}>
-          <Text style={[fonts.caption, styles.wallet]}>{title}</Text>
+          <Text style={[fonts.itemTitle, styles.wallet]}>{title}</Text>
           <TotalValues value={Total} color={colors.PRIMARY} />
         </View>
 
         <View style={styles.footer}>
           <View style={styles.days}>
-            <Text style={[fonts.smallerCaption, {color: colors.LIGHT_GRAY}]}>
+            <Text style={[fonts.caption, {color: colors.LIGHT_GRAY}]}>
               Last 30 days
             </Text>
 
@@ -70,7 +66,7 @@ const TabHeader = ({onPlusPress, data, navigation}: Props) => {
           </View>
 
           <View>
-            <Text style={[fonts.smallerCaption, {color: colors.LIGHT_GRAY}]}>
+            <Text style={[fonts.caption, {color: colors.LIGHT_GRAY}]}>
               Last 7 days
             </Text>
             <TotalValues

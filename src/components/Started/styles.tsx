@@ -32,6 +32,7 @@ const styles = StyleSheet.create({
   idtext: {
     marginRight: wp(2),
     fontWeight: 'bold',
+    color: colors.SECONDARY,
   },
 
   iconContainer: {

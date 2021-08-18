@@ -44,7 +44,7 @@ const StartedCurrency = (props: startedProps) => {
       {showPicker && <CurrencyPicker onClose={() => setShowPicker(false)} />}
 
       <Pressable style={[styles.captionContainer, showPicker && {opacity: 0}]}>
-        <Text style={[styles.caption, sizes.fonts.bodyText]}>
+        <Text style={[styles.caption, sizes.fonts.body]}>
           Choose your currency.
         </Text>
 

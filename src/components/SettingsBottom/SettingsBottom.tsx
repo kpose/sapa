@@ -56,10 +56,7 @@ const SettingsBottom = () => {
       <Divider style={styles.divide} />
       <TouchableOpacity style={[styles.item, {marginTop: hp(1)}]}>
         <Text
-          style={[
-            fonts.smallerCaption,
-            {color: colors.PRIMARY, fontWeight: 'bold'},
-          ]}>
+          style={[fonts.caption, {color: colors.PRIMARY, fontWeight: 'bold'}]}>
           {' '}
           Version 1.0.0
         </Text>

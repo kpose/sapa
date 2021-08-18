@@ -111,7 +111,7 @@ const Email = ({onButtonPress, onBackPress}: Props) => {
           {offlinestatus && <NetworkError />}
           {loading && <Spinner />}
           <View style={styles.captionContainer}>
-            <Text style={[styles.caption, sizes.fonts.bodyText]}>
+            <Text style={[styles.caption, sizes.fonts.itemTitle]}>
               Enter displayed email address on your expense report.
             </Text>
           </View>

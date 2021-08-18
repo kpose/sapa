@@ -1,68 +1,78 @@
 import {StyleSheet, Dimensions} from 'react-native';
-import {RFPercentage, RFValue} from 'react-native-responsive-fontsize';
-
-const height = Dimensions.get('screen').height;
+import {scale} from 'react-native-size-matters';
 
 export const fonts = StyleSheet.create({
-  title: {
-    fontSize: RFValue(45, height),
-    fontWeight: 'bold',
-  },
-  heading: {
-    fontSize: RFValue(23, height),
+  headerTitle: {
+    fontSize: scale(24),
     fontWeight: 'bold',
     letterSpacing: 0.41,
   },
+  title: {
+    fontSize: scale(17),
+    fontWeight: 'bold',
+    letterSpacing: 0.41,
+  },
+  itemTitle: {
+    fontSize: scale(17),
+    fontWeight: '500',
+    letterSpacing: 0.41,
+  },
   subheading: {
-    fontSize: RFValue(23, height),
-  },
-  textInput: {
-    fontSize: RFValue(23, height),
-  },
-  bodyText: {
-    fontSize: RFValue(23, height),
-    letterSpacing: -0.41,
-  },
-  secondaryText: {
-    fontSize: RFValue(20, height),
+    fontSize: scale(15),
+    fontWeight: 'normal',
     letterSpacing: -0.24,
   },
-  modalAction: {
-    fontWeight: '500',
-    fontSize: RFValue(23, height),
+  textInput: {
+    fontSize: scale(17),
+    fontWeight: 'normal',
   },
-  modalRegular: {
-    fontSize: RFValue(23, height),
-  },
-  modalTitle: {
-    fontSize: RFValue(22, height),
-    fontWeight: '500',
-  },
-  modalInput: {
-    fontSize: RFValue(18, height),
-  },
-  modalItem: {
-    fontSize: RFValue(23, height),
-  },
-  caption: {
-    fontSize: RFValue(18, height),
-    letterSpacing: -0.08,
-  },
-  smallerCaption: {
-    fontSize: RFValue(13, height),
-    letterSpacing: -0.08,
-  },
-  buttonText: {
-    fontSize: RFValue(17, height),
-    fontWeight: 'bold',
+  bigButtonText: {
+    fontSize: scale(17),
+    fontWeight: '700',
   },
   smallButtonText: {
-    fontSize: RFValue(13, height),
+    fontSize: scale(13),
+    fontWeight: '400',
   },
-  listHeader: {
-    fontSize: RFValue(17, height),
+  caption: {
+    fontSize: scale(12),
+    fontWeight: 'normal',
+    letterSpacing: -0.08,
+  },
+  modalTitle: {
+    fontSize: scale(17),
+    fontWeight: '700',
+  },
+  tabBar: {
+    fontSize: scale(11),
+  },
+  navigationLink: {
+    fontSize: scale(17),
+    fontWeight: 'normal',
+  },
+  body: {
+    fontSize: scale(15),
+    fontWeight: 'normal',
+    letterSpacing: -0.41,
+  },
+  searchBarText: {
+    fontSize: scale(17),
+    fontWeight: 'normal',
+  },
+
+  modalTitleDescription: {
+    fontSize: scale(13),
+    fontWeight: 'normal',
+  },
+  modalTextInput: {
+    fontSize: scale(13),
+    fontWeight: 'normal',
+  },
+  modalButton: {
+    fontSize: scale(17),
+    fontWeight: '700',
   },
 });
 
-export const navigationIconSize = RFValue(34, height);
-export const regularIconSize = RFValue(20, height);
+export const navigationIconSize = scale(30);
+export const regularIconSize = scale(17);

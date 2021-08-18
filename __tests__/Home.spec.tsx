@@ -1,11 +1,14 @@
 import * as React from 'react';
-import {render} from '@testing-library/react-native';
+import {render, fireEvent} from '@testing-library/react-native';
 import {Home} from '../src/screens';
 
 describe('Testing the home screen', () => {
-  it('whateever hap', () => {
+  it('opens wallet modal when `add wallet` button is clicked', () => {
     const {getByText} = render(<Home />);
+    const addWalletButton = getByText('Add wallet');
+    const walletModal = getByText('Create a new wallet');
 
-    const addWallet = getByText('Add wallet');
+    fireEvent.press(addWalletButton);
+    expect(walletModal).toBeDefined();
   });
 });

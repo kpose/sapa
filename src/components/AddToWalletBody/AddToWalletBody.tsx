@@ -133,9 +133,7 @@ const AddToWalletBody = ({title}: Props) => {
               size={sizes.navigationIconSize}
             />
             <Pressable onPress={() => setShowDatePicker(true)}>
-              <Text style={[fonts.bodyText, {marginLeft: wp(4)}]}>
-                {timestamp}
-              </Text>
+              <Text style={[fonts.body, {marginLeft: wp(4)}]}>{timestamp}</Text>
             </Pressable>
           </View>
 
@@ -150,7 +148,7 @@ const AddToWalletBody = ({title}: Props) => {
               onChangeText={(text: string) => dispatch(setMarchant(text))}
               placeholder="Merchant"
               underlineColor="transparent"
-              style={styles.input}
+              style={[styles.input, fonts.body]}
             />
           </View>
 
@@ -165,7 +163,7 @@ const AddToWalletBody = ({title}: Props) => {
               onChangeText={(text: string) => dispatch(setNote(text))}
               placeholder="Note"
               underlineColor="transparent"
-              style={styles.input}
+              style={[styles.input, fonts.body]}
             />
           </View>
 
@@ -175,7 +173,7 @@ const AddToWalletBody = ({title}: Props) => {
               color={colors.LIGHT_GRAY}
               size={sizes.navigationIconSize}
             />
-            <Text style={[fonts.bodyText, {marginLeft: wp(4)}]}>Wallet</Text>
+            <Text style={[fonts.body, {marginLeft: wp(4)}]}>Wallet</Text>
             <Text style={[fonts.caption, styles.wallet]}>{title}</Text>
           </View>
 

@@ -68,21 +68,21 @@ const TransactionCard = ({data}: Props) => {
           )}
         </View>
         <View style={styles.detailsContainer}>
-          <Text style={[fonts.smallerCaption, {color: colors.LIGHT_GRAY}]}>
+          <Text style={[fonts.caption, {color: colors.LIGHT_GRAY}]}>
             {timestamp}
           </Text>
 
           {category && (
             <Surface
               style={[styles.category, {backgroundColor: backgroundColor}]}>
-              <Text style={[fonts.smallerCaption, styles.categoryText]}>
+              <Text style={[fonts.caption, styles.categoryText]}>
                 {category}
               </Text>
             </Surface>
           )}
 
           {marchant ? (
-            <Text style={[fonts.smallerCaption, styles.note]}>{marchant}</Text>
+            <Text style={[fonts.caption, styles.note]}>{marchant}</Text>
           ) : null}
           <Text style={[fonts.caption, styles.amount]}>{amount}</Text>
         </View>

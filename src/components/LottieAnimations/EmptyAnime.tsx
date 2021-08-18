@@ -14,8 +14,8 @@ const EmptyAnime = () => {
         loop
         style={styles.animation}
       />
-      <Text style={[fonts.bodyText, styles.empty]}>It's empty here!</Text>
-      <Text style={[fonts.smallerCaption]}>
+      <Text style={[fonts.itemTitle, styles.empty]}>It's empty here!</Text>
+      <Text style={[fonts.caption]}>
         Tap on the + button to add your expense.
       </Text>
     </View>

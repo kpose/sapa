@@ -19,13 +19,7 @@ const CategoryIcon = ({icon, title, color, onPress}: Props) => {
       <View style={[styles.iconContainer, {backgroundColor: color}]}>
         <MaterialCommunityIcons name={icon} size={wp(7)} color={colors.WHITE} />
       </View>
-      <Text
-        style={[
-          fonts.smallerCaption,
-          {fontWeight: 'bold', color: colors.LIGHT_GRAY},
-        ]}>
-        {title}
-      </Text>
+      <Text style={[fonts.caption, {color: colors.LIGHT_GRAY}]}>{title}</Text>
     </TouchableOpacity>
   );
 };

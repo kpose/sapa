@@ -13,8 +13,8 @@ const styles = StyleSheet.create({
     marginTop: hp(1),
   },
   iconContainer: {
-    height: hp(5),
-    width: wp(11),
+    height: 40,
+    width: 40,
     borderRadius: 100,
     justifyContent: 'center',
     alignItems: 'center',

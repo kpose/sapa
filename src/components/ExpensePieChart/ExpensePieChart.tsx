@@ -1,21 +1,29 @@
-import React, {useContext, useEffect} from 'react';
-import {View, processColor, StyleSheet, Text} from 'react-native';
+import React, {useContext, useEffect, useMemo} from 'react';
+import {View, processColor, StyleSheet} from 'react-native';
 import {PieChart} from 'react-native-charts-wrapper';
 import {ThemeContext} from '~context/ThemeCotext';
 import {useAppSelector} from '~redux/reduxhooks';
 import {colors, hp, modifiedExpenseArray} from '~utils';
 import {ChartAnime} from '~components';
+import {Text} from 'react-native-paper';
+import {EmptyAnime} from '~components';
 
 const ExpensePieChart = () => {
   const {walletTransactions} = useAppSelector(state => state.wallet.data);
   const {symbol} = useAppSelector(state => state.user);
   const {theme} = useContext(ThemeContext);
 
-  const expenseData = modifiedExpenseArray(walletTransactions, symbol);
+  /* const expenseData = modifiedExpenseArray(walletTransactions, symbol);
+  console.log(expenseData); */
+
+  const expense = useMemo(() => {
+    const expenseData = modifiedExpenseArray(walletTransactions, symbol);
+    return expenseData;
+  }, [walletTransactions]);
 
   return (
     <View style={{flex: 1}}>
-      {expenseData ? (
+      {walletTransactions.length ? (
         <PieChart
           style={styles.chart}
           logEnabled={true}
@@ -34,7 +42,7 @@ const ExpensePieChart = () => {
           data={{
             dataSets: [
               {
-                values: expenseData,
+                values: expense,
                 label: '',
                 config: {
                   colors: [

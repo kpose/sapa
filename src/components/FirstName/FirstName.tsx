@@ -34,8 +34,6 @@ const FirstName = (props: Props) => {
   const {firstname, username} = useAppSelector(state => state.user);
   const animation = useRef(new Animated.Value(0)).current;
 
-  console.log(username);
-
   useEffect(() => {
     animateMounting();
   }, []);
@@ -53,7 +51,7 @@ const FirstName = (props: Props) => {
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <Animated.View style={[styles.container, {opacity: animation}]}>
           <View style={styles.captionContainer}>
-            <Text style={[sizes.fonts.bodyText, styles.caption]}>
+            <Text style={[sizes.fonts.itemTitle, styles.caption]}>
               What should i call you?
             </Text>
           </View>
@@ -72,7 +70,6 @@ const FirstName = (props: Props) => {
                   testID="usernameID"
                   defaultValue={username}
                   style={styles.name}
-                  //placeholder={errors.username ? errors.username : 'Username'}
                   placeholderTextColor={
                     errors.username ? colors.WARNING : colors.LIGHT_GRAY
                   }

@@ -14,14 +14,17 @@ const AddWalletModal = ({onPressManual}: Props) => {
   return (
     <View style={styles.container}>
       <TouchableOpacity style={styles.button} onPress={onPressManual}>
-        <Text style={[styles.title, fonts.bodyText]}> Create a new wallet</Text>
+        <Text style={[styles.title, fonts.itemTitle]}>
+          {' '}
+          Create a new wallet
+        </Text>
         <Text style={[styles.description, fonts.caption]}>
           Add your expenses manually
         </Text>
       </TouchableOpacity>
 
       <TouchableOpacity style={styles.button2} disabled={true}>
-        <Text style={[fonts.bodyText, {fontWeight: 'bold'}]}>
+        <Text style={[fonts.itemTitle, {fontWeight: 'bold'}]}>
           Connect your bank account
         </Text>
         <Text style={[fonts.caption, {marginTop: hp(0.5)}]}>

@@ -40,7 +40,7 @@ const AddWallet = ({close, getWallets, email}: Props) => {
 
   return (
     <Surface style={styles.container}>
-      <Text style={[fonts.modalTitle, styles.add]}>Add Wallet</Text>
+      <Text style={[fonts.itemTitle, styles.add]}>Add Wallet</Text>
       <TextInput
         placeholder="What do we call this wallet?"
         onChangeText={(text: string) => setTitle(text)}

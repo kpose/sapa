@@ -9,14 +9,14 @@ const ChartAnime = () => {
   return (
     <View style={styles.container}>
       <LottieView
-        source={require('../../assets/lottieanimation/financeempty.json')}
+        source={require('../../assets/lottieanimation/empty1.json')}
         autoPlay
         loop
         style={styles.animation}
       />
-      <Text style={[fonts.bodyText, styles.empty]}>This wallet is empty!</Text>
-      <Text style={[fonts.smallerCaption]}>
-        We are waiting for transactions to be added.
+      <Text style={[fonts.itemTitle, styles.empty]}>It's empty here!</Text>
+      <Text style={[fonts.caption]}>
+        Tap on the + button to add your expense.
       </Text>
     </View>
   );

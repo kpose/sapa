@@ -22,7 +22,7 @@ const TotalValues = ({value, color}: Props) => {
         delimiter: ',',
         unit: value < 0 ? `- ${symbol}` : `${symbol}`,
       }}
-      style={[fonts.smallerCaption, {color: color}]}
+      style={[fonts.caption, {color: color}]}
     />
   );
 };

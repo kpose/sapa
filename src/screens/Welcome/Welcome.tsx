@@ -1,12 +1,5 @@
 import React, {useState} from 'react';
-import {
-  View,
-  StatusBar,
-  TouchableOpacity,
-  KeyboardAvoidingView,
-  TouchableWithoutFeedback,
-  Keyboard,
-} from 'react-native';
+import {View, StatusBar, TouchableOpacity} from 'react-native';
 import styles from './styles';
 import Video from 'react-native-video';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';

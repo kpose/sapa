@@ -6,7 +6,7 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
 //UTILS AND FILES
 import LargeButton from '../LargeButton/LargeButton';
-import {sizes} from '~utils';
+import {colors, sizes} from '~utils';
 
 type startedProps = {
   onStartedPress: any;
@@ -17,7 +17,7 @@ const Started = (props: startedProps) => {
   return (
     <View style={styles.container}>
       <View style={styles.captionContainer}>
-        <Text style={[styles.caption, sizes.fonts.bodyText]}>
+        <Text style={[styles.caption, sizes.fonts.title]}>
           Keep track of your expenses for FREE.
         </Text>
         <FontAwesome
@@ -35,7 +35,11 @@ const Started = (props: startedProps) => {
             Have a user ID?
           </Text>
           <TouchableOpacity onPress={props.onLoginPress}>
-            <Text style={[sizes.fonts.caption, {fontWeight: 'bold'}]}>
+            <Text
+              style={[
+                sizes.fonts.caption,
+                {fontWeight: 'bold', color: colors.SECONDARY},
+              ]}>
               Log In
             </Text>
           </TouchableOpacity>

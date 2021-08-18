@@ -72,7 +72,7 @@ const CurrencyPicker = (props: currencyProps) => {
             {' '}
             {item.id} ({item.symbol.grapheme})
           </Text>
-          <Text style={[fonts.smallerCaption, styles.name]}>{item.name}</Text>
+          <Text style={[fonts.caption, styles.name]}>{item.name}</Text>
         </View>
       </TouchableOpacity>
     ),
@@ -93,13 +93,13 @@ const CurrencyPicker = (props: currencyProps) => {
             <Icon
               name="close"
               size={sizes.navigationIconSize}
-              color={colors.SECONDARY}
+              color={colors.PRIMARY}
             />
           </TouchableOpacity>
           <Searchbar
             placeholder="Search currency"
             style={styles.searchBar}
-            inputStyle={sizes.fonts.bodyText}
+            inputStyle={sizes.fonts.textInput}
             onChangeText={text => setFiltered(text)}
             value={filtered}
           />

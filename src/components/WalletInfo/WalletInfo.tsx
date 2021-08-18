@@ -16,7 +16,7 @@ type Props = {
 const WalletInfo = ({title, icon, description}: Props) => {
   return (
     <View>
-      <Text style={[fonts.smallerCaption, styles.title]}>{title}</Text>
+      <Text style={[fonts.itemTitle, styles.title]}>{title}</Text>
       <View style={styles.details}>
         <Icon
           name={icon}
@@ -24,7 +24,7 @@ const WalletInfo = ({title, icon, description}: Props) => {
           color={colors.DARK_GRAY}
           style={styles.icon}
         />
-        <Text style={[fonts.caption]}>{description}</Text>
+        <Text style={[fonts.body]}>{description}</Text>
       </View>
     </View>
   );

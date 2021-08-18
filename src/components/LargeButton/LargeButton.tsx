@@ -23,7 +23,7 @@ const LargeButton = (props: ButtonProps) => {
       disabled={props.disabled}
       style={styles.button}
       dark={true}
-      labelStyle={[sizes.fonts.buttonText]}>
+      labelStyle={[sizes.fonts.bigButtonText]}>
       {props.loading ? (
         <ActivityIndicator animating={true} color={colors.WHITE} />
       ) : (

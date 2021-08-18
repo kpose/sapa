@@ -10,7 +10,7 @@ import {useAppDispatch} from '~redux/reduxhooks';
 import {clearExpense} from '~redux/expenseSlice';
 
 const AddToWallet = ({navigation, route}: RouteStackProps) => {
-  const {walletId, title, refreshWallets} = route.params;
+  const {walletId, title} = route.params;
   const dispatch = useAppDispatch();
 
   const closeScreen = () => {

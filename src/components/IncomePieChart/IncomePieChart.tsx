@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React, {useContext, useMemo} from 'react';
 import {View, processColor, StyleSheet, Text} from 'react-native';
 import {PieChart} from 'react-native-charts-wrapper';
 import {ThemeContext} from '~context/ThemeCotext';
@@ -13,6 +13,11 @@ const IncomePieChart = () => {
   const {theme} = useContext(ThemeContext);
 
   const incomeData = modifiedIncomeArray(walletTransactions, symbol);
+
+  const income = useMemo(() => {
+    const incomeData = modifiedIncomeArray(walletTransactions, symbol);
+    return incomeData;
+  }, [walletTransactions]);
 
   return (
     <View style={{flex: 1}}>
@@ -35,7 +40,7 @@ const IncomePieChart = () => {
           data={{
             dataSets: [
               {
-                values: incomeData,
+                values: income,
                 label: '',
                 config: {
                   colors: [

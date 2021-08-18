@@ -20,9 +20,8 @@ import {AddWalletType, AddWallet} from '~modals';
 import {RouteStackProps} from '~definitions/navigationTypes';
 import {useAppDispatch, useAppSelector} from '~redux/reduxhooks';
 import {WalletCard, ContentHeader, NoWalletAnime} from '~components';
-import {setNeeded} from '~redux/walletSlice';
 
-const Home = ({navigation}: RouteStackProps) => {
+const Home = () => {
   const walletModalRef = useRef<Modalize>(null);
   const [showmodal, setShowmodal] = useState(false);
   const [loading, setLoading] = useState(true);
@@ -59,7 +58,6 @@ const Home = ({navigation}: RouteStackProps) => {
         });
       });
       setWallets(wallets);
-      //dispatch(setNeeded(wallets));
     });
 
   const openAddModal = () => {

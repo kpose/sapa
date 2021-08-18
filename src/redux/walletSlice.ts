@@ -6,7 +6,6 @@ interface WalletData {
     title: string;
     walletTransactions: [];
     };
-    needed: [];
     needed2: []
 }
 
@@ -16,7 +15,6 @@ const initialState : WalletData = {
         title: '',
         walletTransactions: [],
     },
-    needed: [],
     needed2: []
 }
 
@@ -29,10 +27,7 @@ const walletSlice = createSlice({
         setWalletData(state, action: PayloadAction<{walletId: string; title: string; walletTransactions: [];  }>) {
             state.data = action.payload
         },
-        setNeeded(state, action: PayloadAction<[]>) {
-            state.needed = action.payload
-        },
-        setNeeded2(state, action: PayloadAction<[]>) {
+        setNeeded2(state, action: PayloadAction<any>) {
             state.needed2 = action.payload
         },
 
@@ -42,6 +37,6 @@ const walletSlice = createSlice({
     }
 })
 
-export const { setWalletData, clearData, setNeeded, setNeeded2} = walletSlice.actions
+export const { setWalletData, clearData, setNeeded2} = walletSlice.actions
 
 export default walletSlice.reducer

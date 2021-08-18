@@ -19,7 +19,7 @@ const WalletSettings = ({navigation}: BottomTabProps) => {
 
   const deleteWallet = () => {
     setLoading(true);
-    const document = firestore().collection('wallets').doc(`${data.uid}`);
+    const document = firestore().collection('wallets').doc(`${data.walletId}`);
     document
       .delete()
       .then(() => {
@@ -38,7 +38,7 @@ const WalletSettings = ({navigation}: BottomTabProps) => {
 
       {/* currency row */}
       <View>
-        <Text style={[fonts.smallerCaption, styles.title]}>Currency</Text>
+        <Text style={[fonts.itemTitle, styles.title]}>Currency</Text>
         <View style={styles.details}>
           <Icon
             name="currency-usd"
@@ -46,7 +46,7 @@ const WalletSettings = ({navigation}: BottomTabProps) => {
             color={colors.DARK_GRAY}
             style={styles.icon}
           />
-          <Text style={[fonts.caption]}>{currency}</Text>
+          <Text style={[fonts.body]}>{currency}</Text>
           <TouchableOpacity
             onPress={() => navigation.navigate('WalletCurrency')}>
             <Icon

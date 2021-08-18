@@ -185,7 +185,7 @@ const AddToWalletHeader = ({closeScreen, walletID}: Props) => {
             onChangeText={x => {
               setAmount(x);
             }}
-            style={[styles.input, fonts.bodyText]}
+            style={[fonts.caption, styles.input]}
           />
           <Pressable style={styles.icon} onPress={() => setShowmodal(true)}>
             <Icon

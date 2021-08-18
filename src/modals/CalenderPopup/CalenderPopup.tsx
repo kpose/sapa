@@ -26,15 +26,11 @@ const CalenderPopup = ({visible, onClose, day, weekday, onAdd}: Props) => {
               </Text>
             </View>
             <View style={styles.incomeContainer}>
-              <Text style={[fonts.smallerCaption, styles.income]}>
-                Total Income
-              </Text>
+              <Text style={[fonts.caption, styles.income]}>Total Income</Text>
               <Text>0.00</Text>
             </View>
             <View style={styles.incomeContainer}>
-              <Text style={[fonts.smallerCaption, styles.income]}>
-                Total Expense
-              </Text>
+              <Text style={[fonts.caption, styles.income]}>Total Expense</Text>
               <Text>0.00</Text>
             </View>
             <Divider style={styles.divide} />

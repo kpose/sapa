@@ -27,12 +27,10 @@ const SettingsItem = ({leftIcon, rightIcon, title, onPress, value}: Props) => {
             style={styles.icon}
             size={sizes.regularIconSize}
           />
-          <Text style={[fonts.caption]}>{title}</Text>
+          <Text style={[fonts.body]}>{title}</Text>
         </View>
         <View style={styles.iconContainer}>
-          <Text style={[fonts.caption, {color: colors.LIGHT_GRAY}]}>
-            {value}
-          </Text>
+          <Text style={[fonts.body, {color: colors.PRIMARY}]}>{value}</Text>
           <Icon
             name={rightIcon}
             color={colors.LIGHT_GRAY}

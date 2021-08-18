@@ -7,9 +7,7 @@ import {useAppSelector} from '~redux/reduxhooks';
 
 const WalletDetails = ({route}: BottomTabProps) => {
   const {transactions} = route.params.data;
-  //const {needed2} = useAppSelector(state => state.wallet);
-
-  //console.log(needed2);
+  const {needed2} = useAppSelector(state => state.wallet);
 
   interface transactionProps {
     createdAt: string;

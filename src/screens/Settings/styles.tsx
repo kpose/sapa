@@ -1,5 +1,5 @@
 import {StyleSheet} from 'react-native';
-import {hp, wp} from '../../utils';
+import {colors, hp, wp} from '../../utils';
 
 const styles = StyleSheet.create({
   container: {
@@ -15,6 +15,7 @@ const styles = StyleSheet.create({
   },
   user: {
     marginLeft: wp(3),
+    color: colors.PRIMARY,
   },
   divide: {
     height: hp(4),

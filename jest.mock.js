@@ -23,3 +23,10 @@ jest.mock('@react-navigation/stack', () => ({
   createStackNavigator: jest.fn(),
 }));
 jest.mock('@react-native-community/masked-view', () => ({}));
+
+/* jest.mock('@react-native-firebase/firestore', () => ({}));
+
+jest.mock('@react-native-firebase/storage', () => ({}));
+
+jest.mock('@react-native-firebase/auth', () => ({}));
+ */

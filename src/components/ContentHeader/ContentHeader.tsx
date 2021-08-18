@@ -17,7 +17,7 @@ const ContentHeader = ({openPress}: Props) => {
         mode="contained"
         uppercase={false}
         style={styles.addWallet}
-        labelStyle={[fonts.buttonText]}>
+        labelStyle={[fonts.caption]}>
         Add wallet
       </Button>
       <Text style={[styles.edit, fonts.caption]}>Edit</Text>

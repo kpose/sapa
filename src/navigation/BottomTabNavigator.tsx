@@ -14,6 +14,7 @@ import {
 } from '../screens';
 import ChartNavigator from './ChartNavigator';
 import WalletSettingsStack from './WalletSettingsStack';
+import {ExpensePieChart, IncomePieChart, TopTabBar} from '~components';
 import {colors, sizes} from '../utils';
 import {fonts} from '~utils/fonts';
 

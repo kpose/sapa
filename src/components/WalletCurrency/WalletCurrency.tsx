@@ -36,8 +36,8 @@ const WalletCurrency = ({navigation}: SettingsStackProps) => {
     ({item}) => (
       <TouchableOpacity onPress={() => selectCurrency(item)}>
         <View style={styles.currency}>
-          <Text style={[styles.id, fonts.caption]}> {item.id}</Text>
-          <Text style={[styles.name, fonts.smallerCaption]}>({item.name})</Text>
+          <Text style={[styles.id, fonts.itemTitle]}> {item.id}</Text>
+          <Text style={[styles.name, fonts.caption]}>({item.name})</Text>
         </View>
       </TouchableOpacity>
     ),

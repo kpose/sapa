@@ -2,7 +2,6 @@ import * as React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 import {WalletCurrency} from '~components';
 import {WalletSettings} from '~screens';
-import Yes from './Yes';
 import {colors, hp} from '~utils';
 
 const Stack = createStackNavigator();
@@ -19,7 +18,7 @@ function WalletSettingsStack() {
       <Stack.Screen
         name="WalletCurrency"
         options={{
-          headerTitle: '',
+          headerTitle: 'Select Currency',
           headerBackTitleVisible: false,
         }}
         component={WalletCurrency}

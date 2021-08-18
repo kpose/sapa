@@ -71,7 +71,7 @@ const WavyHeader = ({onSettingsPress}: Props) => {
         customWavePattern="M0,96L48,112C96,128,192,160,288,186.7C384,213,480,235,576,213.3C672,192,768,128,864,128C960,128,1056,192,1152,208C1248,224,1344,192,1392,176L1440,160L1440,0L1392,0C1344,0,1248,0,1152,0C1056,0,960,0,864,0C768,0,672,0,576,0C480,0,384,0,288,0C192,0,96,0,48,0L0,0Z"
       />
       <View style={[styles.titleContainer]}>
-        <Text style={[sizes.fonts.heading]}>Wallets</Text>
+        <Text style={[sizes.fonts.title]}>Wallets</Text>
         <TouchableOpacity onPress={onSettingsPress}>
           <Icon
             name="cog-outline"
@@ -83,21 +83,19 @@ const WavyHeader = ({onSettingsPress}: Props) => {
 
       <Surface style={styles.surface}>
         <View style={styles.title}>
-          <Text style={[sizes.fonts.smallerCaption, styles.titleText]}>
-            Total
-          </Text>
+          <Text style={[sizes.fonts.caption, styles.titleText]}>Total</Text>
           <TotalValues value={Total} color={colors.WHITE} />
         </View>
         <Divider style={{height: hp(5), width: wp(1)}} />
         <View style={styles.title}>
-          <Text style={[sizes.fonts.smallerCaption, styles.titleText]}>
+          <Text style={[sizes.fonts.caption, styles.titleText]}>
             Last 30 days
           </Text>
           <TotalValues value={last30DaysTotal} color={colors.WHITE} />
         </View>
         <Divider style={{height: hp(5), width: wp(1)}} />
         <View style={styles.title}>
-          <Text style={[sizes.fonts.smallerCaption, styles.titleText]}>
+          <Text style={[sizes.fonts.caption, styles.titleText]}>
             Last 7 days
           </Text>
           <TotalValues value={last7DaysTotal} color={colors.WHITE} />
