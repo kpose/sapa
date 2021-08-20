@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {createMaterialBottomTabNavigator} from '@react-navigation/material-bottom-tabs';
 import {BottomTabParams} from '~definitions/navigationTypes';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 const Tab = createMaterialBottomTabNavigator<BottomTabParams>();
 
@@ -21,7 +21,9 @@ function BottomTabs() {
     <Tab.Navigator labeled={false} activeColor={colors.SECONDARY}>
       <Tab.Screen
         options={{
-          tabBarIcon: ({color}) => <Icon name="menu" color={color} size={24} />,
+          tabBarIcon: ({color}) => (
+            <Icon name="navicon" color={color} size={19} />
+          ),
         }}
         name="WalletDetails"
         component={WalletDetails}
@@ -29,7 +31,7 @@ function BottomTabs() {
       <Tab.Screen
         options={{
           tabBarIcon: ({color}) => (
-            <Icon name="calendar-today" color={color} size={24} />
+            <Icon name="calendar" color={color} size={19} />
           ),
         }}
         name="WalletCalender"
@@ -38,7 +40,7 @@ function BottomTabs() {
       <Tab.Screen
         options={{
           tabBarIcon: ({color}) => (
-            <Icon name="chart-bar-stacked" color={color} size={24} />
+            <Icon name="bar-chart" color={color} size={19} />
           ),
         }}
         name="WalletChart"
@@ -47,7 +49,9 @@ function BottomTabs() {
 
       <Tab.Screen
         options={{
-          tabBarIcon: ({color}) => <Icon name="cash" color={color} size={24} />,
+          tabBarIcon: ({color}) => (
+            <Icon name="money" color={color} size={19} />
+          ),
         }}
         name="WalletBudget"
         component={WalletBudget}
@@ -55,9 +59,7 @@ function BottomTabs() {
 
       <Tab.Screen
         options={{
-          tabBarIcon: ({color}) => (
-            <Icon name="cog-outline" color={color} size={26} />
-          ),
+          tabBarIcon: ({color}) => <Icon name="gear" color={color} size={20} />,
         }}
         name="WalletSettings"
         component={WalletSettingsStack}

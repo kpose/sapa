@@ -9,8 +9,8 @@ import {TotalValues} from '~components';
 import {fonts} from '~utils/fonts';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {colors, sizes, last30Days, last7Days, walletTotal} from '~utils';
-import {useAppDispatch, useAppSelector} from '~redux/reduxhooks';
-import {setNeeded2, setWalletData} from '~redux/walletSlice';
+import {useAppDispatch} from '~redux/reduxhooks';
+import {setWalletData} from '~redux/walletSlice';
 
 interface Props {
   data: {
@@ -29,12 +29,6 @@ const WalletCard = ({data}: Props) => {
   const last30DaysTotal = last30Days(transactions);
   const last7DaysTotal = last7Days(transactions);
 
-  //dispatch(setNeeded2(data.transactions));
-
-  /*  useEffect(() => {
-    dispatch(setNeeded2(data));
-  }, [data]); */
-
   const openWallet = () => {
     navigation.navigate('BottomTabs', {
       screen: 'WalletDetails',
@@ -49,7 +43,6 @@ const WalletCard = ({data}: Props) => {
     dispatch(
       setWalletData({walletId, walletTransactions: transactions, title}),
     );
-    //dispatch(setNeeded2(data));
   };
 
   return (

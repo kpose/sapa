@@ -5,7 +5,7 @@ import {useNavigation} from '@react-navigation/native';
 
 /* utils and files */
 import {Text, Divider, Switch} from 'react-native-paper';
-import {ThemeContext} from '~context/ThemeCotext';
+import {useThemeContext} from '~context/ThemeCotext';
 import {colors, hp} from '~utils';
 import {fonts} from '~utils/fonts';
 import styles from './styles';
@@ -14,14 +14,14 @@ import {logoutUser} from '~redux/userSlice';
 import {clearData} from '~redux/walletSlice';
 
 const SettingsBottom = () => {
-  const [switchon, setSwitchOn] = useState<boolean>(true);
-  const {toggleTheme} = useContext(ThemeContext);
+  const [isSwitchon, setIsSwitchOn] = useState<boolean>(false);
+  const {toggleTheme} = useThemeContext();
   const navigation = useNavigation();
   const dispatch = useAppDispatch();
 
   const onToggleSwitch = () => {
     toggleTheme();
-    setSwitchOn(!switchon);
+    setIsSwitchOn(!isSwitchon);
   };
 
   const logout = async () => {
@@ -30,12 +30,13 @@ const SettingsBottom = () => {
     await auth().signOut();
     navigation.navigate('Welcome');
   };
+
   return (
     <View style={styles.container}>
       <View style={styles.themeContainer}>
         <Text style={[fonts.caption]}>Switch Theme</Text>
         <Switch
-          value={switchon}
+          value={isSwitchon}
           onValueChange={onToggleSwitch}
           style={styles.toggle}
           color={colors.PRIMARY}

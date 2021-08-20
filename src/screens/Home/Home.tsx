@@ -14,10 +14,9 @@ import firestore from '@react-native-firebase/firestore';
 import {colors, hp} from '~utils';
 import styles from './styles';
 import auth from '@react-native-firebase/auth';
-import {setAllWallets, setEmail} from '~redux/userSlice';
+import {setUserWallets, setEmail} from '~redux/userSlice';
 import {ThemeContext} from '~context/ThemeCotext';
 import {AddWalletType, AddWallet} from '~modals';
-import {RouteStackProps} from '~definitions/navigationTypes';
 import {useAppDispatch, useAppSelector} from '~redux/reduxhooks';
 import {WalletCard, ContentHeader, NoWalletAnime} from '~components';
 
@@ -25,11 +24,10 @@ const Home = () => {
   const walletModalRef = useRef<Modalize>(null);
   const [showmodal, setShowmodal] = useState(false);
   const [loading, setLoading] = useState(true);
-  const [wallets, setWallets] = useState([]);
   const {theme} = useContext(ThemeContext);
   const {email} = useAppSelector(state => state.user);
   const dispatch = useAppDispatch();
-  //const {needed} = useAppSelector(state => state.wallet);
+  const {userWallets} = useAppSelector(state => state.user);
 
   useEffect(() => {
     const user: any = auth().currentUser;
@@ -41,7 +39,7 @@ const Home = () => {
   useEffect(() => {
     getWallets();
     return () => getWallets();
-  }, [wallets]);
+  }, [userWallets]);
 
   const getWallets = firestore()
     .collection('wallets')
@@ -57,7 +55,7 @@ const Home = () => {
           createdAt: doc.data().createdAt,
         });
       });
-      setWallets(wallets);
+      dispatch(setUserWallets(wallets));
     });
 
   const openAddModal = () => {
@@ -94,9 +92,9 @@ const Home = () => {
       <View style={styles.container}>
         <ContentHeader openPress={() => walletModalRef.current?.open()} />
 
-        {wallets.length ? (
+        {userWallets.length ? (
           <FlatList
-            data={wallets}
+            data={userWallets}
             renderItem={renderWallets}
             keyExtractor={keyExtractor}
             showsVerticalScrollIndicator={false}

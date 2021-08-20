@@ -2,11 +2,11 @@ import {createSlice, PayloadAction} from '@reduxjs/toolkit'
 
 interface WalletData {
     data: {
-    walletId: string;
-    title: string;
-    walletTransactions: [];
+        walletId: string;
+        title: string;
+        walletTransactions: [];
     };
-    needed2: []
+   
 }
 
 const initialState : WalletData = {
@@ -15,28 +15,19 @@ const initialState : WalletData = {
         title: '',
         walletTransactions: [],
     },
-    needed2: []
 }
 
-const walletSlice = createSlice({
-    name: 'walletSlice',
+const walletDataSlice = createSlice({
+    name: 'walletDataSlice',
     initialState,
 
     reducers: {
-
         setWalletData(state, action: PayloadAction<{walletId: string; title: string; walletTransactions: [];  }>) {
             state.data = action.payload
         },
-        setNeeded2(state, action: PayloadAction<any>) {
-            state.needed2 = action.payload
-        },
-
-        clearData(state) {
-            Object.assign(state, initialState)
-        }
     }
 })
 
-export const { setWalletData, clearData, setNeeded2} = walletSlice.actions
+export const { setWalletData} = walletDataSlice.actions
 
-export default walletSlice.reducer
+export default walletDataSlice.reducer

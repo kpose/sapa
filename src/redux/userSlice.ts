@@ -8,7 +8,7 @@ interface UserData {
   avatar: string;
   symbol: string;
   username: string;
-  allWallets:[];
+  userWallets:[];
   last30days: [];
   last7days: []
 }
@@ -20,7 +20,7 @@ const initialState : UserData = {
   avatar: '',
   symbol: '', 
   username: '', 
-  allWallets: [],
+  userWallets: [],
   last30days: [],
   last7days: []
 }
@@ -45,13 +45,12 @@ const userSlice = createSlice({
     setSymbol(state, action: PayloadAction<string>) {
       state.symbol = action.payload;
     },
+    setUserWallets(state, action: PayloadAction<[]>) {
+      state.userWallets = action.payload
+    },
     logoutUser(state) {
         Object.assign(state, initialState)
-    },
-    setAllWallets(state, action: PayloadAction<[]>) {
-      state.allWallets = action.payload
     }
-    
   },
 });
 
@@ -61,7 +60,7 @@ export const {
   setFirstName,
   setUsername,
   setSymbol,
-  setAllWallets,
+  setUserWallets,
   logoutUser
 } = userSlice.actions;
 

@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {View, StyleSheet, Dimensions, TouchableOpacity} from 'react-native';
 import {TotalValues} from '~components';
 import Wave from './Wave';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import Icon from 'react-native-vector-icons/Feather';
 import {Text, Surface, Divider} from 'react-native-paper';
 import {useAppSelector} from '~redux/reduxhooks';
 import firestore from '@react-native-firebase/firestore';
@@ -74,7 +74,7 @@ const WavyHeader = ({onSettingsPress}: Props) => {
         <Text style={[sizes.fonts.title]}>Wallets</Text>
         <TouchableOpacity onPress={onSettingsPress}>
           <Icon
-            name="cog-outline"
+            name="settings"
             size={sizes.regularIconSize}
             style={{color: colors.WHITE}}
           />

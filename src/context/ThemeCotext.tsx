@@ -1,10 +1,13 @@
-import React, {createContext} from 'react';
+import React, {createContext, useContext} from 'react';
 
-interface Props {
-  type: string;
+export interface Props {
+  theme: {};
+  toggleTheme: () => void;
 }
 
-export const ThemeContext = createContext({
+export const ThemeContext = createContext<Props>({
   theme: {},
   toggleTheme: () => {},
 });
+
+export const useThemeContext = () => useContext(ThemeContext);
