@@ -6,7 +6,7 @@ interface WalletData {
         title: string;
         walletTransactions: [];
     };
-   
+    
 }
 
 const initialState : WalletData = {

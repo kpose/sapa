@@ -13,7 +13,7 @@ import {BottomTabProps} from '~definitions/navigationTypes';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const WalletSettings = ({navigation}: BottomTabProps) => {
-  const {data} = useAppSelector(state => state.wallet);
+  const {data} = useAppSelector(state => state.walletData);
   const {currency} = useAppSelector(state => state.user);
   const [loading, setLoading] = useState(false);
 

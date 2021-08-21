@@ -27,7 +27,7 @@ const initialState : UserData = {
 
 const userSlice = createSlice({
   name: 'user',
-  initialState,
+  initialState, 
 
   reducers: {
     setCurrency(state, action: PayloadAction<string>) {

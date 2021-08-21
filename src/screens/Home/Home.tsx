@@ -25,9 +25,8 @@ const Home = () => {
   const [showmodal, setShowmodal] = useState(false);
   const [loading, setLoading] = useState(true);
   const {theme} = useContext(ThemeContext);
-  const {email} = useAppSelector(state => state.user);
+  const {email, userWallets} = useAppSelector(state => state.user);
   const dispatch = useAppDispatch();
-  const {userWallets} = useAppSelector(state => state.user);
 
   useEffect(() => {
     const user: any = auth().currentUser;

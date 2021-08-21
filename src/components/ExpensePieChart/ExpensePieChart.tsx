@@ -5,11 +5,9 @@ import {ThemeContext} from '~context/ThemeCotext';
 import {useAppSelector} from '~redux/reduxhooks';
 import {colors, hp, modifiedExpenseArray} from '~utils';
 import {ChartAnime} from '~components';
-import {Text} from 'react-native-paper';
-import {EmptyAnime} from '~components';
 
 const ExpensePieChart = () => {
-  const {walletTransactions} = useAppSelector(state => state.wallet.data);
+  const {walletTransactions} = useAppSelector(state => state.walletData.data);
   const {symbol} = useAppSelector(state => state.user);
   const {theme} = useContext(ThemeContext);
 

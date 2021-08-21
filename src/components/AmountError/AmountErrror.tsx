@@ -16,8 +16,8 @@ const AmountErrror = ({visible, dismiss}: Props) => {
         visible={visible}
         onDismiss={dismiss}
         contentContainerStyle={styles.container}>
-        <Text style={[styles.text, fonts.caption]}>
-          Enter a valid amount !!
+        <Text style={[styles.text, fonts.body]}>
+          Please, enter a valid amount.
         </Text>
       </Modal>
     </Portal>
@@ -35,12 +35,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: colors.WARNING,
     height: hp(6),
+    borderRadius: wp(2),
     marginLeft: wp(5),
     marginRight: wp(5),
   },
   text: {
     textAlign: 'center',
     fontWeight: 'bold',
-    marginBottom: hp(1),
+    color: colors.WHITE,
   },
 });

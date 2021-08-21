@@ -1,13 +1,6 @@
 import * as React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
-import {createNativeStackNavigator} from 'react-native-screens/native-stack';
-import {
-  Home,
-  AddToWallet,
-  Settings,
-  AddToWalletToo,
-  EditWallet,
-} from '~screens';
+import {Home, AddToWallet, AddToWalletToo, EditWallet} from '~screens';
 import BottomTabNavigator from './BottomTabNavigator';
 import {WavyHeader, TabHeader} from '~components';
 import SettingsStack from './SettingsStack';

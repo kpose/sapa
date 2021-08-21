@@ -7,7 +7,7 @@ import {colors, hp, modifiedIncomeArray} from '~utils';
 import {ChartAnime} from '~components';
 
 const IncomePieChart = () => {
-  const {walletTransactions} = useAppSelector(state => state.wallet.data);
+  const {walletTransactions} = useAppSelector(state => state.walletData.data);
   const {symbol} = useAppSelector(state => state.user);
 
   const {theme} = useContext(ThemeContext);

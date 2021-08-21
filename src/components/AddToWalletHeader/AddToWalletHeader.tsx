@@ -38,10 +38,12 @@ const AddToWalletHeader = ({closeScreen, walletID}: Props) => {
   const {symbol} = useAppSelector(state => state.user);
 
   const saveTransaction = async () => {
-    if (!amount) {
+    if (Number(amount) < 1) {
       setAmountError(true);
       return;
     }
+
+    console.log(amount);
 
     setLoading(true);
     const uploadedUrl = await uploadedImage(image);
@@ -185,7 +187,7 @@ const AddToWalletHeader = ({closeScreen, walletID}: Props) => {
             onChangeText={x => {
               setAmount(x);
             }}
-            style={[fonts.caption, styles.input]}
+            style={[fonts.body, styles.input]}
           />
           <Pressable style={styles.icon} onPress={() => setShowmodal(true)}>
             <Icon
